@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const Logo = () => {
   return (
-    <div>Logo</div>
-  )
-}
+    <div>
+      <h3 className="text-lg lg:text-2xl font-black text-black">AccraBeautySupply</h3>
+    </div>
+  );
+};
 
-export default Logo
+export default Logo;

@@ -25,7 +25,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`max-w-full sticky top-0 py-4 px-8 ${classes.header} ${isScrolled ? classes.scrolled : ""}`}>
+    <header className={`max-w-full sticky top-0 py-4 px-4 ${classes.header} ${isScrolled ? classes.scrolled : ""}`}>
       <nav className="max-w-7xl flex justify-between items-center mx-auto">
         <Logo />
         <Navmenu />
