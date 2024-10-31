@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { id: 2, name: "Human hair", path: "#testimonials" },
   { id: 3, name: "Artificial hair", path: "#faq" },
   { id: 4, name: "Fabrics", path: "#materials" },
-  { id: 4, name: "Fashion", path: "#team" }
+  { id: 5, name: "Fashion", path: "#team" }
 ];
 
 const Navmenu = () => {

@@ -1,5 +1,5 @@
 .header {
-    background-color: rgba(255, 255, 255, 0.3); /* Slightly transparent white */
+    background-color: #ffffff79; /* Slightly transparent white */
     transition: border-bottom 0.3s ease, background-color 0.3s ease;
     z-index: 999;
     backdrop-filter: blur(10px); /* Adds a blur effect */
