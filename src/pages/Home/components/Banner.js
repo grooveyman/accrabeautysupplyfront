@@ -1,5 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
+import image1 from '../../../assets/images/artificialhair.jpg'
+import image2 from '../../../assets/images/hair2.jpg'
 
 const Banner = () => {
   const settings = {
@@ -16,18 +18,12 @@ const Banner = () => {
     <section className="max-w-full py-4 px-4">
       <div className="max-w-7xl">
       <Slider {...settings}>
-        {/* <div>
-          <img src={baseUrl + "/abstract01.jpg"} />
+        <div>
+          <img src={image1} alt="arthair" />
         </div>
         <div>
-          <img src={baseUrl + "/abstract02.jpg"} />
+          <img src={image2} alt="hair2"/>
         </div>
-        <div>
-          <img src={baseUrl + "/abstract03.jpg"} />
-        </div>
-        <div>
-          <img src={baseUrl + "/abstract04.jpg"} />
-        </div> */}
       </Slider>
       </div>
     </section>
