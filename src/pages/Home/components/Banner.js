@@ -13,7 +13,7 @@ const Banner = () => {
     slidesToScroll: 1,
     waitForAnimate: false,
     autoplay: true,
-    // accessibility: false
+    arrows: false
   };
 
   const images = [
@@ -27,7 +27,7 @@ const Banner = () => {
         <Slider {...settings}>
           {images.map((image, index) => (
             <div key={index}>
-              <img src={image.src} alt={image.alt} style={{width: "100%", height: "600px", objectFit: "cover"}} />
+              <img src={image.src} alt={image.alt} style={{width: "100%", height: "650px", objectFit: "cover"}} />
             </div>
           ))}
         </Slider>
