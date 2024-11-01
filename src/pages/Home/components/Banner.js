@@ -26,8 +26,8 @@ const Banner = () => {
       <div className="max-w-7xl mx-auto">
         <Slider {...settings}>
           {images.map((image, index) => (
-            <div key={index}>
-              <img src={image.src} alt={image.alt} style={{width: "100%", height: "650px", objectFit: "cover"}} />
+            <div key={index} style={{width: "100%", height: "500px", overflow: "hidden"}}>
+              <img src={image.src} alt={image.alt} style={{width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top"}} />
             </div>
           ))}
         </Slider>
