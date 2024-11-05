@@ -68,7 +68,7 @@ const Menu = () => {
         <ul>
           <li>
             <NavLink to={"#"} className="text-base/7 text-gray-600">
-              Terms and Conditions
+              Terms of Use
             </NavLink>
           </li>
           <li>

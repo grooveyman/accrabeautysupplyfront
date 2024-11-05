@@ -3,11 +3,11 @@ import classes from "../Header.module.css";
 import { NavLink } from "react-router-dom";
 
 const NAV_ITEMS = [
-  { id: 1, name: "Cosmetics", path: "#features" },
-  { id: 2, name: "Human hair", path: "#testimonials" },
-  { id: 3, name: "Artificial hair", path: "#faq" },
-  { id: 4, name: "Fabrics", path: "#materials" },
-  { id: 5, name: "Fashion", path: "#team" }
+  { id: 1, name: "Cosmetics", path: "/cosmetics" },
+  { id: 2, name: "Human hair", path: "/humanhair" },
+  { id: 3, name: "Artificial hair", path: "/artificialhair" },
+  { id: 4, name: "Fabrics", path: "/fabrics" },
+  { id: 5, name: "Fashion", path: "/fashion" }
 ];
 
 const Navmenu = () => {

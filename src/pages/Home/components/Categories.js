@@ -12,26 +12,31 @@ const categories = [
     image: image1,
     title: "Cosmetics",
     description: "Find Your Perfect Shade and Make Every Day Glamorous!",
+    path: "/cosmetics"
   },
   {
     image: image2,
     title: "Human Hair",
     description: "Elevate Your Style with Luxurious, Natural Human Hair!",
+    path: "/humanhair"
   },
   {
     image: image3,
     title: "Artificial Hair",
     description: "Change Up Your Style with Premium Wigs and Extensions!",
+    path: "/artificialhair"
   },
   {
     image: image4,
     title: "Fabrics",
     description: "Wrap Yourself in Elegance with Our Fine Fabrics!",
+    path: "/fabrics"
   },
   {
     image: image5,
     title: "Fashion",
     description: "Express Yourself with Our Latest Fashion Finds!",
+    path: "/fashion"
   },
 ];
 
@@ -48,12 +53,12 @@ const Categories = () => {
           {categories.map((category, index) => (
             <div key={index} className="categorycontainer my-4">
               <div className="catImageContainer rounded">
-                <NavLink to={"#"}>
+                <NavLink to={category.path}>
                   <img src={category.image} alt={category.title} className="rounded-lg shadow-lg filter hover:grayscale grayscale-0 hover:shadow-2xl" />
                 </NavLink>
               </div>
               <div className="mt-3">
-                <NavLink to={"#"}>
+                <NavLink to={category.path}>
                   <h3 className="text-base/7 font-semibold tracking-tight text-gray-900">
                     {category.title}
                   </h3>

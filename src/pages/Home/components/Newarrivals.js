@@ -88,8 +88,8 @@ const Newarrivals = () => {
                   <div className="newarrival">
                     <img src={product.image} alt={product.name} className="shadow-lg hover:shadow-2xl hover:opacity-70" />
                   </div>
-                  <div className="text-center mt-3">{product.name}</div>
-                  <div className="text-center">{product.price}</div>
+                  <div className="text-center mt-3 text-base/7 font-semibold tracking-tight text-gray-900">{product.name}</div>
+                  <div className="text-center text-base/7 text-gray-600">{product.price}</div>
                 </div>
               </NavLink>
             ))}
