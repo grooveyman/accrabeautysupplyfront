@@ -54,7 +54,7 @@ const Categories = () => {
             <div key={index} className="categorycontainer my-4">
               <div className="catImageContainer rounded">
                 <NavLink to={category.path}>
-                  <img src={category.image} alt={category.title} className="rounded-lg shadow-lg filter hover:grayscale grayscale-0 hover:shadow-2xl" />
+                  <img src={category.image} alt={category.title} loading="lazy" className="rounded-lg shadow-lg filter hover:grayscale grayscale-0 hover:shadow-2xl" />
                 </NavLink>
               </div>
               <div className="mt-3">

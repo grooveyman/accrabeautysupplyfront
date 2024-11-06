@@ -46,6 +46,7 @@ const Banner = () => {
               <img
                 src={image.src}
                 alt={image.alt}
+                loading="lazy"
                 className="bannerImage"
               />
             </div>

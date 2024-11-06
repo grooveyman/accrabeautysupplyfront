@@ -86,7 +86,7 @@ const Newarrivals = () => {
               <NavLink to={"#"} key={index}>
                 <div className="imageContainer">
                   <div className="newarrival">
-                    <img src={product.image} alt={product.name} className="shadow-lg hover:shadow-2xl hover:opacity-75" />
+                    <img src={product.image} alt={product.name} loading="lazy" className="shadow-lg hover:shadow-2xl hover:opacity-75" />
                   </div>
                   <div className="text-center mt-3 text-base/7 font-semibold tracking-tight text-gray-900">{product.name}</div>
                   <div className="text-center text-base/7 text-gray-600">{product.price}</div>
