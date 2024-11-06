@@ -3,7 +3,7 @@ import { emphasize, styled } from "@mui/material/styles";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Chip from "@mui/material/Chip";
 import HomeIcon from "@mui/icons-material/Home";
-import {Link, useLocation} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -25,10 +25,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   };
 }); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
 
-export default function CustomizedBreadcrumbs() {
-
-    const location = useLocation();
-
+export default function CustomizedBreadcrumbs({ category }) {
   return (
     <div role="presentation">
       <Breadcrumbs aria-label="breadcrumb">
@@ -37,8 +34,13 @@ export default function CustomizedBreadcrumbs() {
           to="/"
           label="Home"
           icon={<HomeIcon fontSize="small" />}
+          sx={{ cursor: "pointer" }}
         />
-        <StyledBreadcrumb component="a" label="Catalog" isActive={location.pathname === "/catalog"} />
+        <StyledBreadcrumb
+          component={Link}
+          label={category === 'artificialhair'? 'artificial hair' : (category === 'humanhair') ? 'human hair' : category }
+          sx={{ textTransform: "capitalize", cursor: "pointer" }}
+        />
       </Breadcrumbs>
     </div>
   );
