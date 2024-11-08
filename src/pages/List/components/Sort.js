@@ -1,18 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const Sort = () => {
+const Sort = ({ category }) => {
+  const [sorttoggle, setSortToggle] = useState(false);
+
+  const handleSortToggle = () => {
+    setSortToggle(!sorttoggle);
+  };
+
+  useEffect(() => {
+    setSortToggle(false);
+  }, [category]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sorttoggle) {
+        setSortToggle(false);
+      }
+    };
+
+    if (sorttoggle) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [sorttoggle]);
+
   return (
     <div className="w-full flex justify-between items-center">
       <div>
         <p className="text-sm font-medium text-gray-700">Total Products</p>
       </div>
-      <div className="relative">
+      <div className="relative" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
           className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
           id="menu-button"
           aria-expanded="false"
           aria-haspopup="true"
+          onClick={handleSortToggle}
         >
           Sort
           <svg
@@ -30,48 +58,47 @@ const Sort = () => {
         </button>
 
         <div
-          className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className={` ${
+            sorttoggle ? "block" : "hidden"
+          } absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none`}
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
           tabIndex="-1"
         >
           <div className="py-1" role="none">
-            <button
+            <Link
+              to={"#"}
               className="block w-full text-left px-4 py-2 text-sm hover:bg-neutral-100 font-medium text-gray-900"
               tabIndex="-1"
               id="menu-item-0"
             >
               Most Popular
-            </button>
-            <button
-              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100"
-              tabIndex="-1"
-              id="menu-item-1"
-            >
-              Best Rating
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"#"}
               className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100"
               tabIndex="-1"
               id="menu-item-2"
             >
               Newest
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"#"}
               className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100"
               tabIndex="-1"
               id="menu-item-3"
             >
               Price: Low to High
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"#"}
               className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100"
               tabIndex="-1"
               id="menu-item-4"
             >
               Price: High to Low
-            </button>
+            </Link>
           </div>
         </div>
       </div>

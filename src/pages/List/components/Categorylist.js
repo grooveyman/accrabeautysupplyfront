@@ -13,7 +13,7 @@ const Categorylist = ({ category }) => {
             : category}
         </h3>
       </div>
-      <Sort />
+      <Sort category={category} />
     </div>
   );
 };
