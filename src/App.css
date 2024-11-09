@@ -1,0 +1,8 @@
+/* Custom styles for nprogress */
+#nprogress .bar {
+    background: rgb(2 6 23); /* Change this to your desired color */
+  }
+  
+  #nprogress .peg {
+    box-shadow: 0 0 10px rgb(2 6 23), 0 0 5px rgb(2 6 23); /* Change this to match the bar color */
+  }

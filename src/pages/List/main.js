@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Categorylist from "./components/Categorylist";
+import Productlist from "./components/Productlist";
 
 const List = () => {
   const { category } = useParams();
@@ -12,6 +13,7 @@ const List = () => {
         <div className="max-w-7xl mx-auto">
           <Breadcrumbs category={category} />
           <Categorylist category={category} />
+          <Productlist />
         </div>
       </section>
     </main>

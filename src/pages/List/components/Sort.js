@@ -44,7 +44,7 @@ const Sort = ({ category }) => {
         >
           Sort
           <svg
-            className="-mr-1 ml-1 h-5 w-5 shrink-0 text-gray-400 group-hover:text-gray-500 hover:bg-neutral-100"
+            className={`${sorttoggle ? 'rotate-180' : ''} transition-all -mr-1 ml-1 h-5 w-5 shrink-0 text-gray-400 group-hover:text-gray-500 hover:bg-neutral-100`}
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"

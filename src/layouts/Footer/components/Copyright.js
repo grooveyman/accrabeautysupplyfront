@@ -10,7 +10,7 @@ const Copyright = () => {
   return (
     <div className="copyrightcontainer mt-3 pt-3 flex flex-col-reverse md:flex-row items-center justify-between">
       <div className="">
-        <p className="text-base/7 text-gray-600">© {currentYear} AccraBeautySupply. All rights reserved.</p>
+        <p className="text-sm sm:text-base/7 text-gray-600">© {currentYear} AccraBeautySupply. All rights reserved.</p>
       </div>
       <div className="flex gap-3 mb-2 md:mb-0">
         <XIcon />
