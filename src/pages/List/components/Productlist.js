@@ -1,6 +1,6 @@
 import React from "react";
 import Product from "./Product";
-import Noresults from "../../../layouts/NoResults/noresults";
+import Noresults from "../../../components/NoResults/noresults";
 import image from "../../../assets/images/art3.jpg";
 import image2 from "../../../assets/images/cosm.png";
 import image3 from "../../../assets/images/hairagain.jpg";
