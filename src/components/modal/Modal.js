@@ -3,8 +3,12 @@ import ReactDOM from "react-dom";
 import classes from "./Modal.module.css";
 
 const Backdrop = (props) => {
-
-  return <div className={`fixed top-0 left-0 w-full h-screen z-[1000] ${props.toggler} lg:hidden ${classes.backdrop}`} onClick={props.closeFnc} />;
+  return (
+    <div
+      className={`fixed top-0 left-0 w-full h-screen z-[1000] lg:hidden ${classes.backdrop}`}
+      onClick={props.closeFnc}
+    />
+  );
 };
 
 const ModalOverlay = ({ children, customstyle }) => {
@@ -21,11 +25,13 @@ const Modal = (props) => {
   return (
     <Fragment>
       {ReactDOM.createPortal(
-        <Backdrop toggler={props.togglestyle} closeFnc={props.onClose} />,
+        <Backdrop closeFnc={props.onClose} />,
         modalPortal
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay customstyle={props.customstyle}>{props.children}</ModalOverlay>,
+        <ModalOverlay customstyle={props.customstyle}>
+          {props.children}
+        </ModalOverlay>,
         modalPortal
       )}
     </Fragment>

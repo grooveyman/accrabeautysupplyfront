@@ -1,11 +1,12 @@
 import React from "react";
-import Product from "./Product";
-import Noresults from "../../../components/NoResults/noresults";
-// import Spinner from "../../../components/Spinner";
+import Initialsearchmsg from "./Initialsearchmsg";
 import image from "../../../assets/images/art3.jpg";
 import image2 from "../../../assets/images/cosm.png";
 import image3 from "../../../assets/images/hairagain.jpg";
 import image4 from "../../../assets/images/fabricc.jpg";
+import Searchproduct from "./Searchproduct";
+import Noresults from "../../../components/NoResults/noresults";
+// import Spinner from "../../../components/Spinner";
 
 const products = [
   {
@@ -82,22 +83,36 @@ const products = [
   },
 ];
 
-const Productlist = () => {
+const Searchlist = ({ query }) => {
+  //   const [loading, setLoading] = useState(false);
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(query.toLowerCase())
+  );
+
+  if (!query) {
+    return <Initialsearchmsg />;
+  }
+
   //   if (loading) {
   //     return <Spinner loading={loading} />;
   //   }
 
-  if (products.length === 0) {
-    return <Noresults />;
+  if (query && filteredProducts.length === 0) {
+    return (
+      <Noresults>
+        It seems we can't find any results based on your search.
+      </Noresults>
+    );
   }
 
   return (
     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
-      {products.map((product, index) => (
-        <Product key={product.id} {...product} />
+      {filteredProducts.map((product) => (
+        <Searchproduct key={product.id} {...product} />
       ))}
     </div>
   );
 };
 
-export default Productlist;
+export default Searchlist;

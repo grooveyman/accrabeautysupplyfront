@@ -3,7 +3,7 @@
 }
 
 .catImageContainer{
-    height: 280px;
+    height: 330px;
 }
 
 .catImageContainer img{
@@ -15,13 +15,13 @@
 
 @media (min-width: 36rem){
     .catImageContainer{
-        height: 400px;
+        height: 460px;
     }
 }
 
 @media (min-width: 48rem){
     .catImageContainer{
-        height: 520px;
+        height: 620px;
     }
 }
 
