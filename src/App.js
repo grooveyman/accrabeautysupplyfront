@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { PageComponents } from "./routes";
-import { useEffect, useContext } from "react";
-import { ModalToggleProvider, ModalContext } from "./context";
+import { useEffect } from "react";
+import { ModalToggleProvider } from "./context";
 import Header from "./layouts/Header/Header";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -14,8 +14,6 @@ import Sidemenu from "./layouts/Sidemenu/Sidemenu";
 
 function AppWrapper() {
   const location = useLocation();
-  const modalcxt = useContext(ModalContext)
-  const toggleState = modalcxt.toggleMenu;
 
   useEffect(() => {
     // Configure nprogress to disable the spinner
@@ -39,7 +37,7 @@ function AppWrapper() {
   return (
     <>
       <Header />
-      {toggleState && <Sidemenu />}
+      <Sidemenu />
       <Routes>
         {PageComponents.map((page) => (
           <Route key={page.id} path={page.path} element={page.element} />

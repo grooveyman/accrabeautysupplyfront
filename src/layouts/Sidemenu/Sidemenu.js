@@ -19,6 +19,7 @@ const Sidemenu = () => {
     <Modal
       customstyle={`bg-gray-200 w-full sm:w-8/12 ${toggleMenu ? 'animate__animated animate__slideInLeft': 'animate__animated animate__slideOutLeft'} h-screen fixed top-0 left-0 z-[1001] py-4 lg:hidden`}
       onClose={closeMenu}
+      togglestyle={toggleMenu ? 'block': 'hidden'}
     >
       <div className="flex items-center justify-between px-8">
         <NavLink to={"/"} onClick={closeMenu}>
