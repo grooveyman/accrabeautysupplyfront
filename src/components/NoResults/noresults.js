@@ -4,7 +4,7 @@ import animation1 from "../../assets/animations/Animation1731140711323.lottie";
 
 const Noresults = ({children}) => {
   return (
-    <div className="flex items-center justify-center flex-col my-14">
+    <div className="flex items-center justify-center flex-col my-6 customstyle">
       <div className="max-w-lg h-auto">
         <DotLottieReact src={animation1} loop autoplay />
       </div>

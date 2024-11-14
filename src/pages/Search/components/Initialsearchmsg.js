@@ -1,8 +1,9 @@
 import React from "react";
+import './search.css'
 
 const Initialsearchmsg = () => {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-[300px]">
+    <div className="flex flex-col items-center justify-center w-full customstyle">
       <div>
         <h3 className="my-3 font-bold text-xl text-slate-950 text-center">
           Ready to Shop?
