@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Product = ({image, name, price}) => {
+const Product = ({ image, id, name, price }) => {
   return (
     <div className="group relative">
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 h-[26rem] sm:h-[22rem]">
-      {/* <Link to={"/"}> */}
+        {/* <Link to={"/"}> */}
         <img
           src={image}
           alt="Front of men's Basic Tee in black."
@@ -16,7 +16,7 @@ const Product = ({image, name, price}) => {
       <div className="mt-4 flex flex-col">
         <div>
           <h3 className="text-sm text-gray-700 text-center">
-            <Link to={"#"}>
+            <Link to={`/productdetail/${id}`}>
               <span aria-hidden="true" className="absolute inset-0"></span>
               Basic Tee
             </Link>

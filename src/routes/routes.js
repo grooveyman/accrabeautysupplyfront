@@ -3,7 +3,7 @@ import { Home, Details, List, Search} from "../pages";
 
 let PageComponents = [
     {name: "Home", path: "/", element: <Home />, id:1},
-    {name: "Details", path: "/productdetail/:id", element: <Details />, id:2},
+    {name: "Details", path: "/productdetail/:productId", element: <Details />, id:2},
     {name: "Cosmetics", path: "/:category", element: <List />, id:3},
     {name: "Humanhair", path: "/:category", element: <List />, id:4},
     {name: "Artificialhair", path: "/:category", element: <List />, id:5},
