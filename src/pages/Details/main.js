@@ -10,7 +10,7 @@ const Details = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex w-full">
             <div className="w-1/2">
-              <div className="w-[430px] h-[480px] rounded-md">
+              <div className="w-full h-[480px] rounded-md">
                 <Imagezoom
                   className={classes.fullimagezoom}
                   src={image1}
