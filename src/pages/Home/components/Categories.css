@@ -1,0 +1,37 @@
+.categorycontainer{
+    width: 100%;
+}
+
+.catImageContainer{
+    height: 330px;
+}
+
+.catImageContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (min-width: 36rem){
+    .catImageContainer{
+        height: 460px;
+    }
+}
+
+@media (min-width: 48rem){
+    .catImageContainer{
+        height: 620px;
+    }
+}
+
+@media (min-width: 64rem){
+    .categorycontainer{
+        width: 48%;
+    }
+    
+    .catImageContainer{
+        height: 400px;
+    }
+
+}
