@@ -53,7 +53,7 @@ function AppWrapper() {
 function App() {
   return (
     <ModalToggleProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/accrabeautysupplyfront">
         <AppWrapper />
       </BrowserRouter>
     </ModalToggleProvider>
