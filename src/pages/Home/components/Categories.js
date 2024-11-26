@@ -1,8 +1,8 @@
 import React from "react";
 import "./Categories.css";
 import image1 from "../../../assets/images/cosmetics2.jpg";
-import image2 from "../../../assets/images/humanhair.webp";
-import image3 from "../../../assets/images/artificialhair.webp";
+import image2 from "../../../assets/images/naturalhair.jpg";
+import image3 from "../../../assets/images/synthetichair.jpg";
 import image4 from "../../../assets/images/fabricswomen.webp";
 import image5 from "../../../assets/images/fashionwomen.webp";
 import { NavLink } from "react-router-dom";
