@@ -9,7 +9,7 @@ const Product = ({ image, id, name, price }) => {
         <img
           src={image}
           alt="Front of men's Basic Tee in black."
-          className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+          className="h-full w-full object-cover object-center"
         />
         {/* </Link> */}
       </div>

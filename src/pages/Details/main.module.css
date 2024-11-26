@@ -1,10 +1,10 @@
 .fullimagezoom{
-    width: 100%;
+    width: 100% !important;
     height: 100%;
 }
 
 .fullimagezoom img{
     object-fit: cover;
-    object-position: center;
+    object-position: top center;
     height: 100%;
 }
