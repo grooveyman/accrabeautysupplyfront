@@ -18,25 +18,25 @@ const thumbnails = [
     id: 1,
     image: image,
     name: "Product 1",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     id: 2,
     image: image2,
     name: "Product 2",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     id: 3,
     image: image3,
     name: "Product 3",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     id: 4,
     image: image4,
     name: "Product 4",
-    price: "$5.00",
+    price: "5.00",
   },
 ];
 
@@ -143,9 +143,9 @@ const Details = () => {
 
           <div>
             <div className="mb-4">
-              <h3 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
+              <h2 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
                 Recommended for you
-              </h3>
+              </h2>
             </div>
             <CustomSlider data={thumbnails} link='#' />
           </div>

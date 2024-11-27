@@ -3,6 +3,8 @@ import image2 from "../../assets/images/cosm.png";
 import image3 from "../../assets/images/hairagain.jpg";
 import image4 from "../../assets/images/darkxlovely.jpg";
 import image1 from "../../assets/images/art3.jpg";
+import CustomSlider from "../../components/Slider";
+// import Emptycart from "./components/Emptycart";
 
 const cartItems = [
   {
@@ -74,12 +76,14 @@ const ShoppingCart = () => {
   //   const tax = 8.32;
   //   const total = subtotal + shipping + tax;
 
+  // return <Emptycart />
+
   return (
     <main>
       <section className="max-w-full py-4 px-8">
         <div className="max-w-7xl mx-auto">
           <div>
-            <h3 className="mt-8 mb-4 font-bold text-2xl text-slate-950">
+            <h3 className="mt-6 mb-4 font-bold text-2xl text-slate-950">
               My Bag (4)
             </h3>
           </div>
@@ -178,6 +182,12 @@ const ShoppingCart = () => {
               </button>
             </div>
           </div>
+          <div className="mb-4 mt-8">
+              <h2 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
+                Recommended for you
+              </h2>
+            </div>
+            <CustomSlider data={cartItems} link='#' />
         </div>
       </section>
     </main>
