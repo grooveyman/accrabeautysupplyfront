@@ -1,4 +1,4 @@
-import { Home, Details, List, Search} from "../pages";
+import { Home, Details, List, Search, NotFound} from "../pages";
 
 
 let PageComponents = [
@@ -10,7 +10,8 @@ let PageComponents = [
     {name: "Fabrics", path: "/:category", element: <List />, id:6},
     {name: "Fashion", path: "/:category", element: <List />, id:7},
     {name: "Newarrivals", path: "/:category", element: <List />, id:8},
-    {name: "Search", path: "/search", element: <Search />, id:9}
+    {name: "Search", path: "/search", element: <Search />, id:9},
+    {name: "NotFound", path: "*", element: <NotFound />, id:10}
 
 ]
 

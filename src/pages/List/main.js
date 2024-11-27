@@ -3,9 +3,23 @@ import { useParams } from "react-router-dom";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Categorylist from "./components/Categorylist";
 import Productlist from "./components/Productlist";
+import NotFound from "../NotFound";
+
+const validCategories = [
+  "cosmetics",
+  "humanhair",
+  "artificialhair",
+  "fashion",
+  "fabrics",
+  "newarrivals",
+];
 
 const List = () => {
   const { category } = useParams();
+
+  if (!validCategories.includes(category)) {
+    return <NotFound />;
+  }
 
   return (
     <main>

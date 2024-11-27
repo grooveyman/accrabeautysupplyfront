@@ -14,7 +14,7 @@ const Noresults = ({children}) => {
         </h3>
       </div>
       <div>
-        <p className="text-base/7 text-gray-600 text-center">
+        <p className="text-base/7 text-gray-600 text-center mb-6">
           {children}
         </p>
       </div>
