@@ -9,13 +9,13 @@ import Footer from "./layouts/Footer/Footer";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import "./App.css";
-import 'animate.css';
+import "animate.css";
 import Sidemenu from "./layouts/Sidemenu/Sidemenu";
+import Cartmodal from "./layouts/Cartmodal/Cartmodal";
 
 function AppWrapper() {
   const location = useLocation();
-  const modalcxt = useContext(ModalContext)
-  const toggleState = modalcxt.toggleMenu;
+  const { menuOpen, cartOpen } = useContext(ModalContext);
 
   useEffect(() => {
     // Configure nprogress to disable the spinner
@@ -36,10 +36,23 @@ function AppWrapper() {
     };
   }, [location]);
 
+  useEffect(() => {
+    if (menuOpen || cartOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen, cartOpen]);
+
   return (
     <>
       <Header />
-      {toggleState && <Sidemenu />}
+      {menuOpen && <Sidemenu />}
+      {cartOpen && <Cartmodal />}
       <Routes>
         {PageComponents.map((page) => (
           <Route key={page.id} path={page.path} element={page.element} />

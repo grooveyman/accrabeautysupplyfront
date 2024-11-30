@@ -9,22 +9,22 @@ const products = [
   {
     image: image,
     name: "Product 1",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     image: image2,
     name: "Product 2",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     image: image3,
     name: "Product 3",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     image: image4,
     name: "Product 4",
-    price: "$5.00",
+    price: "5.00",
   },
 ];
 

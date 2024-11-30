@@ -1,0 +1,21 @@
+.productimages {
+  height: 218px;
+}
+
+@media (min-width: 481px) {
+  .productimages {
+    height: 300px;
+  }
+}
+
+@media (min-width: 640px) {
+    .productimages {
+      height: 400px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .productimages {
+      height: 352px;
+    }
+  }

@@ -4,7 +4,7 @@ import image1 from "../../../assets/images/cosmetics2.jpg";
 import image2 from "../../../assets/images/naturalhair.jpg";
 import image3 from "../../../assets/images/synthetichair.jpg";
 import image4 from "../../../assets/images/fabricswomen.webp";
-import image5 from "../../../assets/images/fashionwomen.webp";
+import image5 from "../../../assets/images/fashionnnnn.jpg";
 import { NavLink } from "react-router-dom";
 
 const categories = [

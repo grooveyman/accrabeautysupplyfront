@@ -12,31 +12,33 @@ import Thumbnail from "./components/Thumbnail";
 import Description from "./components/Description";
 import Sizes from "./components/Sizes";
 import CustomSlider from "../../components/Slider";
+import { useContext } from "react";
+import { ModalContext } from "../../context";
 
 const thumbnails = [
   {
     id: 1,
     image: image,
     name: "Product 1",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     id: 2,
     image: image2,
     name: "Product 2",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     id: 3,
     image: image3,
     name: "Product 3",
-    price: "$5.00",
+    price: "5.00",
   },
   {
     id: 4,
     image: image4,
     name: "Product 4",
-    price: "$5.00",
+    price: "5.00",
   },
 ];
 
@@ -64,6 +66,7 @@ const settings = {
 const Details = () => {
   const [activeImg, setActiveImg] = useState(thumbnails[0].image);
   const [selected, setSelected] = useState("");
+  const { openCart } = useContext(ModalContext);
 
   const handleSelect = (id) => {
     setSelected(id);
@@ -127,13 +130,19 @@ const Details = () => {
               </div>
               <div className="grid grid-cols-4 gap-4 w-full md:max-w-80">
                 {options.map((option) => (
-                  <Sizes key={option.id} {...option} selected={selected} selecthandler={handleSelect} />
+                  <Sizes
+                    key={option.id}
+                    {...option}
+                    selected={selected}
+                    selecthandler={handleSelect}
+                  />
                 ))}
               </div>
               <div className="w-full md:max-w-80">
                 <button
                   type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-slate-950 px-8 py-3 text-base font-medium text-white transition duration-300 ease-in-out transform md:hover:scale-105 md:hover:bg-slate-800 md:hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
+                  onClick={openCart}
                 >
                   Add to bag
                 </button>
@@ -143,11 +152,11 @@ const Details = () => {
 
           <div>
             <div className="mb-4">
-              <h3 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
+              <h2 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
                 Recommended for you
-              </h3>
+              </h2>
             </div>
-            <CustomSlider data={thumbnails} link='#' />
+            <CustomSlider data={thumbnails} link="#" />
           </div>
         </div>
       </section>
