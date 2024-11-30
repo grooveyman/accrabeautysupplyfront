@@ -3,10 +3,10 @@ import {ModalContext} from '../../../context'
 
 const BarIcon = () => {
 
-  const {toggle} = useContext(ModalContext)
+  const {toggleMenu} = useContext(ModalContext)
 
   return (
-    <div className="lg:hidden" onClick={toggle}>
+    <div className="lg:hidden" onClick={toggleMenu}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

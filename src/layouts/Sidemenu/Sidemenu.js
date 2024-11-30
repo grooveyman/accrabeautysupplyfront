@@ -13,11 +13,15 @@ const NAV_ITEMS = [
 ];
 
 const Sidemenu = () => {
-  const {closeMenu, toggleMenu } = useContext(ModalContext);
+  const { closeMenu, menuOpen } = useContext(ModalContext);
 
   return (
     <Modal
-      customstyle={`bg-gray-200 w-full sm:w-8/12 ${toggleMenu ? 'animate__animated animate__slideInLeft': 'animate__animated animate__slideOutLeft'} h-screen fixed top-0 left-0 z-[1001] py-4 lg:hidden`}
+      customstyle={`bg-gray-200 w-full sm:w-6/12 lg:w-2/6 ${
+        menuOpen
+          ? "animate__animated animate__slideInLeft"
+          : "animate__animated animate__slideOutLeft"
+      } h-screen fixed top-0 left-0 z-[1001] py-4`}
       onClose={closeMenu}
     >
       <div className="flex items-center justify-between px-8">
@@ -33,7 +37,9 @@ const Sidemenu = () => {
           {NAV_ITEMS.map((navitem) => (
             <li key={navitem.id} onClick={closeMenu}>
               <NavLink to={navitem.path} className="flex justify-between">
-                <h3 className="text-2xl text-gray-600">{navitem.name}</h3>
+                <h3 className="text-2xl text-gray-600 hover:text-slate-950">
+                  {navitem.name}
+                </h3>
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
