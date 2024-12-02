@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/accrabeautysupplyfront/static/css/main.4cbd7ee5.css",
-    "main.js": "/accrabeautysupplyfront/static/js/main.e181185b.js",
+    "main.css": "/accrabeautysupplyfront/static/css/main.b1229343.css",
+    "main.js": "/accrabeautysupplyfront/static/js/main.db692a6f.js",
     "static/media/cosm.png": "/accrabeautysupplyfront/static/media/cosm.e8d5df23068181cc054f.png",
-    "static/media/fashionwomen.webp": "/accrabeautysupplyfront/static/media/fashionwomen.190c07de756b31f043ee.webp",
     "static/media/naturalhair.jpg": "/accrabeautysupplyfront/static/media/naturalhair.76654bd6fab5eacef600.jpg",
     "static/media/fabricswomen.webp": "/accrabeautysupplyfront/static/media/fabricswomen.6a0bf35724fe36267e70.webp",
     "static/media/cosmetics2.jpg": "/accrabeautysupplyfront/static/media/cosmetics2.858f827a0f39d6e6ab46.jpg",
     "static/media/darkxlovely.jpg": "/accrabeautysupplyfront/static/media/darkxlovely.1cab21f58ac10f4b82a0.jpg",
+    "static/media/fashionnnnn.jpg": "/accrabeautysupplyfront/static/media/fashionnnnn.63fcda428c6cf21f40f0.jpg",
     "static/media/artificialhair.jpg": "/accrabeautysupplyfront/static/media/artificialhair.bf768339af5b7d0c3587.jpg",
     "static/media/hairagain.jpg": "/accrabeautysupplyfront/static/media/hairagain.b3fa49dc46a0f216e332.jpg",
     "static/media/art3.jpg": "/accrabeautysupplyfront/static/media/art3.7400dc10de743ab57ce5.jpg",
@@ -20,11 +20,11 @@
     "static/media/slick.ttf": "/accrabeautysupplyfront/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "index.html": "/accrabeautysupplyfront/index.html",
     "static/media/slick.woff": "/accrabeautysupplyfront/static/media/slick.295183786cd8a1389865.woff",
-    "main.4cbd7ee5.css.map": "/accrabeautysupplyfront/static/css/main.4cbd7ee5.css.map",
-    "main.e181185b.js.map": "/accrabeautysupplyfront/static/js/main.e181185b.js.map"
+    "main.b1229343.css.map": "/accrabeautysupplyfront/static/css/main.b1229343.css.map",
+    "main.db692a6f.js.map": "/accrabeautysupplyfront/static/js/main.db692a6f.js.map"
   },
   "entrypoints": [
-    "static/css/main.4cbd7ee5.css",
-    "static/js/main.e181185b.js"
+    "static/css/main.b1229343.css",
+    "static/js/main.db692a6f.js"
   ]
 }
