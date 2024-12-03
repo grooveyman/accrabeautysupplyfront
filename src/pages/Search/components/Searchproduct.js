@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Searchproduct = ({image, name, price}) => {
   return (
     <div className="group relative">
-      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 h-[26rem] sm:h-[22rem]">
+      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 productimages">
       {/* <Link to={"/"}> */}
         <img
           src={image}
