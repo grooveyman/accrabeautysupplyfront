@@ -2,40 +2,64 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Authcontext } from "../../../context";
 
-const Authform = () => {
+const Authform = ({ formik }) => {
   const { loginActive, closeLogin } = useContext(Authcontext);
 
   return (
-    <form>
-      {loginActive || (
+    <form onSubmit={formik.handleSubmit}>
+      {!loginActive && (
         <div className="flex gap-3 nameContainer mb-4 sm:mb-2">
           <div className="firstnameContainer w-full">
             <label
-              htmlFor="firstname"
+              htmlFor="firstName"
               className="block text-sm/6 font-medium text-gray-900 mb-2"
             >
               First Name
             </label>
             <input
               type="text"
-              name="firstname"
-              id="firstname"
-              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-950 sm:text-sm/6"
+              name="firstName"
+              id="firstName"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.firstName}
+              className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${
+                formik.touched.firstName && formik.errors.firstName
+                  ? "outline-red-500" // Error state
+                  : "outline-gray-300 focus:outline-slate-950"
+              } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
             />
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <div className="text-red-500 text-sm">
+                {formik.errors.firstName}
+              </div>
+            ) : null}
           </div>
           <div className="othernamesContainer w-full">
             <label
-              htmlFor="othernames"
+              htmlFor="otherNames"
               className="block text-sm/6 font-medium text-gray-900 mb-2"
             >
               Last Name
             </label>
             <input
               type="text"
-              name="othernames"
-              id="othernames"
-              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-950 sm:text-sm/6"
+              name="otherNames"
+              id="otherNames"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.otherNames}
+              className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${
+                formik.touched.otherNames && formik.errors.otherNames
+                  ? "outline-red-500"
+                  : "outline-gray-300 focus:outline-slate-950"
+              } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
             />
+            {formik.touched.otherNames && formik.errors.otherNames ? (
+              <div className="text-red-500 text-sm">
+                {formik.errors.otherNames}
+              </div>
+            ) : null}
           </div>
         </div>
       )}
@@ -50,8 +74,18 @@ const Authform = () => {
           type="email"
           name="email"
           id="email"
-          className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-950 sm:text-sm/6"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.email}
+          className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${
+            formik.touched.email && formik.errors.email
+              ? "outline-red-500"
+              : "outline-gray-300 focus:outline-slate-950"
+          } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
         />
+        {formik.touched.email && formik.errors.email ? (
+          <div className="text-red-500 text-sm">{formik.errors.email}</div>
+        ) : null}
       </div>
       <div className="passwordContainer mb-4 sm:mb-2">
         <label
@@ -64,8 +98,18 @@ const Authform = () => {
           type="password"
           name="password"
           id="password"
-          className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-slate-950 sm:text-sm/6"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.password}
+          className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${
+            formik.touched.password && formik.errors.password
+              ? "outline-red-500"
+              : "outline-gray-300 focus:outline-slate-950"
+          } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
         />
+        {formik.touched.password && formik.errors.password ? (
+          <div className="text-red-500 text-sm">{formik.errors.password}</div>
+        ) : null}
       </div>
 
       {loginActive && (
@@ -75,11 +119,17 @@ const Authform = () => {
               Forgot Password?
             </Link>
           </div>
-          <button className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-3">
+          <button
+            type="submit"
+            className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-4"
+          >
             Sign In
           </button>
 
-          <div className="flex justify-center cursor-pointer" onClick={closeLogin}>
+          <div
+            className="flex justify-center cursor-pointer"
+            onClick={closeLogin}
+          >
             <span className="underline underline-offset-2 text-sm">
               New to AccraBeautySupply? Register
             </span>
@@ -87,9 +137,9 @@ const Authform = () => {
         </div>
       )}
 
-      {loginActive || (
+      {!loginActive && (
         <div className="registrationContainer">
-          <div className="mt-3 sm:mt-2 sm:mb-3 mb-5">
+          <div className="mt-3 sm:mt-2 sm:mb-2 mb-5">
             <p className="text-sm text-gray-600">
               By registering, you agree to our{" "}
               {
@@ -107,7 +157,10 @@ const Authform = () => {
             </p>
           </div>
 
-          <button className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-3">
+          <button
+            type="submit"
+            className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+          >
             Register
           </button>
         </div>
