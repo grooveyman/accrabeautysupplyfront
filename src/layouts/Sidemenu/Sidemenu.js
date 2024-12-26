@@ -3,6 +3,7 @@ import Modal from "../../components/modal/Modal";
 import XIcon from "../Header/components/XIcon";
 import { NavLink } from "react-router-dom";
 import { ModalContext } from "../../context";
+import { Authcontext } from "../../context";
 
 const NAV_ITEMS = [
   { id: 1, name: "Cosmetics", path: "/cosmetics" },
@@ -13,7 +14,19 @@ const NAV_ITEMS = [
 ];
 
 const Sidemenu = () => {
-  const { closeMenu, menuOpen } = useContext(ModalContext);
+  const { closeMenu, menuOpen, openAuth } = useContext(ModalContext);
+  const {closeLogin} = useContext(Authcontext)
+
+  const openRegistration = () => {
+    closeLogin();
+    closeMenu();
+    openAuth();
+  }
+
+  const openSignIn = () => {
+    closeMenu();
+    openAuth();
+  }
 
   return (
     <Modal
@@ -58,6 +71,16 @@ const Sidemenu = () => {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="px-8 mt-8">
+        <h3 className="text-lg font-black text-slate-950 mb-3">My Account</h3>
+        <button className="rounded-md w-full bg-slate-950 px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-3" onClick={openSignIn}>
+          Sign In
+        </button>
+        <button className="rounded-md w-full bg-white px-4 py-1.5 text-sm font-semibold shadow-sm hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate- border border-slate-950" onClick={openRegistration}>
+          Register
+        </button>
       </div>
     </Modal>
   );

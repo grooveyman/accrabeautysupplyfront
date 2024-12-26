@@ -6,7 +6,7 @@ const BarIcon = () => {
   const {toggleMenu} = useContext(ModalContext)
 
   return (
-    <div className="lg:hidden" onClick={toggleMenu}>
+    <div className="lg:hidden cursor-pointer hover:bg-gray-200" onClick={toggleMenu}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

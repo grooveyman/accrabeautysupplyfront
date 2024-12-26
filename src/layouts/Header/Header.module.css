@@ -37,6 +37,11 @@
     transition: all 0.5s ease 0.3s;
     /* width: 100px; */
   }
+
+  .icon:hover{
+    background: #F2F2F2;
+    border-radius: 3px;
+  }
   
   .navlink:nth-child(1):hover ~ .animation {
     left: 0;
