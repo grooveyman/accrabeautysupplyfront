@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Authcontext } from "../../../context";
 
-const Authform = ({ formik }) => {
+const Authform = ({ formik, forgotFormSwitch }) => {
   const { loginActive, closeLogin } = useContext(Authcontext);
 
   return (
@@ -30,7 +30,7 @@ const Authform = ({ formik }) => {
               } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
             />
             {formik.touched.firstName && formik.errors.firstName ? (
-              <div className="text-red-500 text-sm">
+              <div className="text-red-500 text-xs">
                 {formik.errors.firstName}
               </div>
             ) : null}
@@ -56,7 +56,7 @@ const Authform = ({ formik }) => {
               } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
             />
             {formik.touched.otherNames && formik.errors.otherNames ? (
-              <div className="text-red-500 text-sm">
+              <div className="text-red-500 text-xs">
                 {formik.errors.otherNames}
               </div>
             ) : null}
@@ -84,7 +84,7 @@ const Authform = ({ formik }) => {
           } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
         />
         {formik.touched.email && formik.errors.email ? (
-          <div className="text-red-500 text-sm">{formik.errors.email}</div>
+          <div className="text-red-500 text-xs">{formik.errors.email}</div>
         ) : null}
       </div>
       <div className="passwordContainer mb-4 sm:mb-2">
@@ -108,16 +108,19 @@ const Authform = ({ formik }) => {
           } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
         />
         {formik.touched.password && formik.errors.password ? (
-          <div className="text-red-500 text-sm">{formik.errors.password}</div>
+          <div className="text-red-500 text-xs">{formik.errors.password}</div>
         ) : null}
       </div>
 
       {loginActive && (
         <div className="signInContainer">
           <div className="mb-4 ">
-            <Link to={""} className="underline underline-offset-2 text-sm">
+            <span
+              className="underline underline-offset-2 text-sm cursor-pointer text-gray-900 hover:text-gray-600"
+              onClick={forgotFormSwitch}
+            >
               Forgot Password?
-            </Link>
+            </span>
           </div>
           <button
             type="submit"
@@ -130,7 +133,7 @@ const Authform = ({ formik }) => {
             className="flex justify-center cursor-pointer"
             onClick={closeLogin}
           >
-            <span className="underline underline-offset-2 text-sm">
+            <span className="underline underline-offset-2 text-sm text-gray-900 hover:text-gray-600">
               New to AccraBeautySupply? Register
             </span>
           </div>
