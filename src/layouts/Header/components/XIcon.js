@@ -2,7 +2,7 @@ import React from "react";
 
 const XIcon = ({handleClick}) => {
   return (
-    <div onClick={handleClick}>
+    <div onClick={handleClick} className="cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
