@@ -4,6 +4,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Chip from "@mui/material/Chip";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
+import {returnCategoryName} from "../../../helpers"
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -38,7 +39,7 @@ export default function CustomizedBreadcrumbs({ category }) {
         />
         <StyledBreadcrumb
           component={Link}
-          label={category === 'artificialhair'? 'artificial hair' : (category === 'humanhair') ? 'human hair' : category }
+          label={returnCategoryName(category)}
           sx={{ textTransform: "capitalize", cursor: "pointer" }}
         />
       </Breadcrumbs>
