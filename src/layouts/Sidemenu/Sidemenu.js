@@ -39,7 +39,7 @@ const Sidemenu = () => {
     >
       <div className="flex items-center justify-between px-8">
         <NavLink to={"/"} onClick={closeMenu}>
-          <h3 className="text-2xl font-black text-gray-600 max-w-44">
+          <h3 className="text-xl font-black text-gray-600 max-w-44">
             AccraBeautySupply
           </h3>
         </NavLink>

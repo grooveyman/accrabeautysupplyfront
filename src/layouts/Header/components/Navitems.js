@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Bubble from "./Bubble";
 import classes from "../Header.module.css";
 import { ModalContext, Authcontext } from "../../../context";
+import AuthMenu from "./AuthMenu";
 
 const Navitems = () => {
   const { toggleAuth } = useContext(ModalContext);
-  const { isLoggedIn, loginHandler } = useContext(Authcontext);
+  const { isLoggedIn } = useContext(Authcontext);
 
   const [toggleAuthMenu, setToggleAuthMenu] = useState(false);
 
@@ -33,7 +34,11 @@ const Navitems = () => {
 
   return (
     <div className="flex justify-between gap-1">
-      <NavLink to={"/search"} className={`flex justify-center items-center px-1 ${classes.icon}`} title="Search">
+      <NavLink
+        to={"/search"}
+        className={`flex justify-center items-center px-1 ${classes.icon}`}
+        title="Search"
+      >
         <div className="search">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -74,63 +79,14 @@ const Navitems = () => {
           </svg>
           {isLoggedIn && "Emmanuel"}
         </div>
-        <div
-          className={`absolute right-0 top-9 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none ${
-            toggleAuthMenu ? "block" : "hidden"
-          } `}
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="menu-button"
-          tabIndex="-1"
-        >
-          <div className="py-1" role="none">
-            <Link
-              to="#"
-              className="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
-              role="menuitem"
-              tabIndex="-1"
-              id="menu-item-0"
-              title="Account settings"
-            >
-              Account settings
-            </Link>
-            <Link
-              to="#"
-              className="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
-              role="menuitem"
-              tabIndex="-1"
-              id="menu-item-1"
-              title="Address book"
-            >
-              Address book
-            </Link>
-            <Link
-              to="#"
-              className="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
-              role="menuitem"
-              tabIndex="-1"
-              id="menu-item-2"
-              title="My orders"
-            >
-              My Orders
-            </Link>
-            <form>
-              <button
-                type="button"
-                className="block w-full px-4 py-2 text-left text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
-                role="menuitem"
-                tabIndex="-1"
-                id="menu-item-3"
-                onClick={loginHandler}
-              >
-                Sign out
-              </button>
-            </form>
-          </div>
-        </div>
+        <AuthMenu toggleAuthMenu={toggleAuthMenu} />
       </div>
 
-      <NavLink to={"/cart"} className={`flex justify-center items-center px-1 ${classes.icon}`} title="Bag">
+      <NavLink
+        to={"/cart"}
+        className={`flex justify-center items-center px-1 ${classes.icon}`}
+        title="Bag"
+      >
         <div className="shoppingbagicon relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"

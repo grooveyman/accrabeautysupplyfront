@@ -11,7 +11,7 @@ export const Authcontext = createContext({
 
 const AuthContextProvider = ({ children }) => {
   const [loginActive, setLoginActive] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleLoginActive = () => {
     setLoginActive((prevstate) => !prevstate);
