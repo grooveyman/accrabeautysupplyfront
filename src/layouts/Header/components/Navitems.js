@@ -1,14 +1,39 @@
-import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import Bubble from "./Bubble";
 import classes from "../Header.module.css";
-import { ModalContext } from "../../../context";
+import { ModalContext, Authcontext } from "../../../context";
 
 const Navitems = () => {
-  const {toggleAuth} = useContext(ModalContext)
+  const { toggleAuth } = useContext(ModalContext);
+  const { isLoggedIn, loginHandler } = useContext(Authcontext);
+
+  const [toggleAuthMenu, setToggleAuthMenu] = useState(false);
+
+  const authMenuHandler = (e) => {
+    e.stopPropagation();
+    setToggleAuthMenu((prevstate) => !prevstate);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (toggleAuthMenu) {
+        setToggleAuthMenu(false);
+      }
+    };
+
+    if (toggleAuthMenu) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [toggleAuthMenu]);
+
   return (
-    <div className="flex justify-between gap-3">
-      <NavLink to={"/search"} className={classes.icon}>
+    <div className="flex justify-between gap-1">
+      <NavLink to={"/search"} className={`flex justify-center items-center px-1 ${classes.icon}`} title="Search">
         <div className="search">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,23 +51,86 @@ const Navitems = () => {
           </svg>
         </div>
       </NavLink>
-      <div className={`hidden sm:block cursor-pointer ${classes.icon}`} onClick={toggleAuth}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
+
+      <div
+        className={`hidden sm:flex sm:justify-center sm:items-center sm:px-1 cursor-pointer relative ${classes.icon}`}
+        onClick={isLoggedIn ? authMenuHandler : toggleAuth}
+        title="User"
+      >
+        <div className="flex gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+            />
+          </svg>
+          {isLoggedIn && "Emmanuel"}
+        </div>
+        <div
+          className={`absolute right-0 top-9 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none ${
+            toggleAuthMenu ? "block" : "hidden"
+          } `}
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabIndex="-1"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-          />
-        </svg>
+          <div className="py-1" role="none">
+            <Link
+              to="#"
+              className="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
+              role="menuitem"
+              tabIndex="-1"
+              id="menu-item-0"
+              title="Account settings"
+            >
+              Account settings
+            </Link>
+            <Link
+              to="#"
+              className="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
+              role="menuitem"
+              tabIndex="-1"
+              id="menu-item-1"
+              title="Address book"
+            >
+              Address book
+            </Link>
+            <Link
+              to="#"
+              className="block px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
+              role="menuitem"
+              tabIndex="-1"
+              id="menu-item-2"
+              title="My orders"
+            >
+              My Orders
+            </Link>
+            <form>
+              <button
+                type="button"
+                className="block w-full px-4 py-2 text-left text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
+                role="menuitem"
+                tabIndex="-1"
+                id="menu-item-3"
+                onClick={loginHandler}
+              >
+                Sign out
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-      <NavLink to={"/cart"} className={classes.icon}>
+
+      <NavLink to={"/cart"} className={`flex justify-center items-center px-1 ${classes.icon}`} title="Bag">
         <div className="shoppingbagicon relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
