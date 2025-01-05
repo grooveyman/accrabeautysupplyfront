@@ -46,7 +46,7 @@ const AuthMenu = ({toggleAuthMenu}) => {
             >
               My Orders
             </Link>
-            <form>
+            <form className='border-t border-t-gray-200'>
               <button
                 type="button"
                 className="block w-full px-4 py-2 text-left text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
