@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Modal from "../../components/modal/Modal";
 import XIcon from "../Header/components/XIcon";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ModalContext } from "../../context";
 import { Authcontext } from "../../context";
 
@@ -15,18 +15,18 @@ const NAV_ITEMS = [
 
 const Sidemenu = () => {
   const { closeMenu, menuOpen, openAuth } = useContext(ModalContext);
-  const {closeLogin} = useContext(Authcontext)
+  const { closeLogin, isLoggedIn } = useContext(Authcontext);
 
   const openRegistration = () => {
     closeLogin();
     closeMenu();
     openAuth();
-  }
+  };
 
   const openSignIn = () => {
     closeMenu();
     openAuth();
-  }
+  };
 
   return (
     <Modal
@@ -39,7 +39,7 @@ const Sidemenu = () => {
     >
       <div className="flex items-center justify-between px-8">
         <NavLink to={"/"} onClick={closeMenu}>
-          <h3 className="text-2xl font-black text-gray-600 max-w-44">
+          <h3 className="text-xl font-black text-gray-600 max-w-44">
             AccraBeautySupply
           </h3>
         </NavLink>
@@ -73,14 +73,80 @@ const Sidemenu = () => {
         </ul>
       </div>
 
-      <div className="px-8 mt-8">
-        <h3 className="text-lg font-black text-slate-950 mb-3">My Account</h3>
-        <button className="rounded-md w-full bg-slate-950 px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-3" onClick={openSignIn}>
-          Sign In
-        </button>
-        <button className="rounded-md w-full bg-white px-4 py-1.5 text-sm font-semibold shadow-sm hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate- border border-slate-950" onClick={openRegistration}>
-          Register
-        </button>
+      <div className="px-8 mt-6">
+        {!isLoggedIn && (
+          <h3 className="text-lg font-black text-slate-950 mb-3">My Account</h3>
+        )}
+
+        {!isLoggedIn && (
+          <div>
+            <button
+              className="rounded-md w-full bg-slate-950 px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-3"
+              onClick={openSignIn}
+            >
+              Sign In
+            </button>
+            <button
+              className="rounded-md w-full bg-white px-4 py-1.5 text-sm font-semibold shadow-sm hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate- border border-slate-950"
+              onClick={openRegistration}
+            >
+              Register
+            </button>
+          </div>
+        )}
+
+        {isLoggedIn && (
+          <div className="border-b border-gray-300 py-2 mt-2">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Welcome, Emmanuel
+            </h3>
+          </div>
+        )}
+
+        {isLoggedIn && (
+          <nav className="pt-3">
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/account-settings"
+                  className="block text-gray-700 hover:text-gray-900"
+                  // onClick={toggleMenu}
+                >
+                  Account Settings
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/address-book"
+                  className="block text-gray-700 hover:text-gray-900"
+                  // onClick={toggleMenu}
+                >
+                  Address Book
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/orders"
+                  className="block text-gray-700 hover:text-gray-900"
+                  // onClick={toggleMenu}
+                >
+                  My Orders
+                </Link>
+              </li>
+              <li>
+                <button
+                  className="block w-full text-left text-red-600 hover:text-red-800"
+                  // onClick={() => {
+                  //   toggleMenu();
+                  //   onSignOut();
+                  // }}
+                >
+                  Sign Out
+                </button>
+              </li>
+            </ul>
+          </nav>
+        )}
       </div>
     </Modal>
   );

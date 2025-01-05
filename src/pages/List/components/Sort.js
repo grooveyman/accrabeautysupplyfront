@@ -5,12 +5,12 @@ const Sort = ({ category }) => {
   const [sorttoggle, setSortToggle] = useState(false);
 
   const handleSortToggle = () => {
-    setSortToggle(!sorttoggle);
+    setSortToggle((prevstate) => !prevstate);
   };
 
-  useEffect(() => {
-    setSortToggle(false);
-  }, [category]);
+  // useEffect(() => {
+  //   setSortToggle(false);
+  // }, [category]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -69,7 +69,7 @@ const Sort = ({ category }) => {
           <div className="py-1" role="none">
             <Link
               to={"#"}
-              className="block w-full text-left px-4 py-2 text-sm hover:bg-neutral-100 font-medium text-gray-900"
+              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100 font-medium hover:text-gray-900"
               tabIndex="-1"
               id="menu-item-0"
             >
@@ -77,7 +77,7 @@ const Sort = ({ category }) => {
             </Link>
             <Link
               to={"#"}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100"
+              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
               tabIndex="-1"
               id="menu-item-2"
             >
@@ -85,7 +85,7 @@ const Sort = ({ category }) => {
             </Link>
             <Link
               to={"#"}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100"
+              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
               tabIndex="-1"
               id="menu-item-3"
             >
@@ -93,7 +93,7 @@ const Sort = ({ category }) => {
             </Link>
             <Link
               to={"#"}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100"
+              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
               tabIndex="-1"
               id="menu-item-4"
             >
