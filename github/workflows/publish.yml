@@ -30,10 +30,4 @@ jobs:
           FOLDER: gh-pages # The directory where your assets are generated
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
           MESSAGE: "Build: ({sha}) {msg}" # The commit message
-        with:
-        # Use git to remove the 'old_dir' directory from wqthe changes before pushing
-        # Ignore the 'old_dir' when committing changess
-        args: |
-          git rm -r --cached public_html/accrabeautyback || true
-          git commit -m "Deploy: Remove accrabeautyback from update" || true
-          npm push origin main
+        
