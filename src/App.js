@@ -73,7 +73,7 @@ function App() {
   return (
     <AuthContextProvider>
       <ModalToggleProvider>
-        <BrowserRouter basename="/accrabeautysupplyfront">
+        <BrowserRouter>
           <AppWrapper />
         </BrowserRouter>
       </ModalToggleProvider>
