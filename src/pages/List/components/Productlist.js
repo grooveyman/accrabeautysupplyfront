@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Product from "./Product";
 import Noresults from "../../../components/NoResults/noresults";
 // import Spinner from "../../../components/Spinner";
@@ -81,6 +81,9 @@ const products = [
     price: "$5.00",
   },
 ];
+
+
+
 
 const Productlist = () => {
   //   if (loading) {
