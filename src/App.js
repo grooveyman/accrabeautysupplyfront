@@ -42,7 +42,7 @@ function AppWrapper() {
   }, [location]);
 
   useEffect(() => {
-    if (menuOpen || cartOpen) {
+    if (menuOpen || cartOpen || authOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -51,7 +51,7 @@ function AppWrapper() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [menuOpen, cartOpen]);
+  }, [menuOpen, cartOpen, authOpen]);
 
   return (
     <>
