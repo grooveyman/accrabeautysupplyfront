@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/accrabeautysupplyfront/static/css/main.e45d2122.css",
-    "main.js": "/accrabeautysupplyfront/static/js/main.7874a761.js",
+    "main.js": "/accrabeautysupplyfront/static/js/main.71d21bac.js",
     "static/media/cosm.png": "/accrabeautysupplyfront/static/media/cosm.e8d5df23068181cc054f.png",
     "static/media/naturalhair.jpg": "/accrabeautysupplyfront/static/media/naturalhair.76654bd6fab5eacef600.jpg",
     "static/media/fabricswomen.webp": "/accrabeautysupplyfront/static/media/fabricswomen.6a0bf35724fe36267e70.webp",
@@ -21,10 +21,10 @@
     "index.html": "/accrabeautysupplyfront/index.html",
     "static/media/slick.woff": "/accrabeautysupplyfront/static/media/slick.295183786cd8a1389865.woff",
     "main.e45d2122.css.map": "/accrabeautysupplyfront/static/css/main.e45d2122.css.map",
-    "main.7874a761.js.map": "/accrabeautysupplyfront/static/js/main.7874a761.js.map"
+    "main.71d21bac.js.map": "/accrabeautysupplyfront/static/js/main.71d21bac.js.map"
   },
   "entrypoints": [
     "static/css/main.e45d2122.css",
-    "static/js/main.7874a761.js"
+    "static/js/main.71d21bac.js"
   ]
 }
