@@ -61,9 +61,9 @@ const CustomSlider = ({ data, link }) => {
               <div className="text-center mt-3 text-base/7 font-semibold tracking-tight text-gray-900">
                 {product.name}
               </div>
-              <div className="text-center text-base/7 text-gray-600">
+              {/* <div className="text-center text-base/7 text-gray-600">
                 ${product.price}
-              </div>
+              </div> */}
             </div>
           </NavLink>
         ))}

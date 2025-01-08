@@ -49,7 +49,7 @@ const AuthModal = () => {
       <Modal
         onClose={closeAuth}
         customstyle={
-          "sm:max-w-md w-full p-8 sm:p-4 bg-gray-50 fixed z-[1001] h-screen sm:h-[400px] sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-md overflow-y-auto"
+          "sm:max-w-md w-full px-8 py-10 sm:p-4 bg-gray-50 fixed z-[1001] h-screen sm:h-[400px] sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-md"
         }
       >
         <div className="flex flex-col">
