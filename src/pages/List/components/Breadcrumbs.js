@@ -26,7 +26,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   };
 }); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
 
-export default function CustomizedBreadcrumbs({ category }) {
+export default function CustomizedBreadcrumbs({ category, allCategories }) {
   return (
     <div role="presentation">
       <Breadcrumbs aria-label="breadcrumb">
@@ -39,7 +39,7 @@ export default function CustomizedBreadcrumbs({ category }) {
         />
         <StyledBreadcrumb
           component={Link}
-          label={returnCategoryName(category)}
+          label={returnCategoryName(category, allCategories)}
           sx={{ textTransform: "capitalize", cursor: "pointer" }}
         />
       </Breadcrumbs>

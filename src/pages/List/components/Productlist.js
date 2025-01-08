@@ -6,6 +6,7 @@ import image from "../../../assets/images/art3.jpg";
 import image2 from "../../../assets/images/cosm.png";
 import image3 from "../../../assets/images/hairagain.jpg";
 import image4 from "../../../assets/images/fabricc.jpg";
+import { returnCategoryCode } from "../../../helpers/Helperfunctions";
 
 const products = [
   {
@@ -82,7 +83,10 @@ const products = [
   },
 ];
 
-const Productlist = () => {
+const Productlist = ({ category, allCategories }) => {
+  const catcode = returnCategoryCode(category, allCategories);
+  console.log(catcode);
+
   //   if (loading) {
   //     return <Spinner loading={loading} />;
   //   }

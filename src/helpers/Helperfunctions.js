@@ -12,10 +12,19 @@ export const formatText = (text) => {
   return text.toLowerCase().split(" ").join("");
 };
 
-export const returnCategoryName = (category) => {
-  for (let obj of NAV_ITEMS) {
+export const returnCategoryName = (category, objData) => {
+  for (let obj of objData) {
     if (formatText(obj["name"]) === category) {
       return obj["name"];
+    }
+  }
+  return null;
+};
+
+export const returnCategoryCode = (category, objData) => {
+  for (let obj of objData) {
+    if (formatText(obj["name"]) === category) {
+      return obj["code"];
     }
   }
   return null;

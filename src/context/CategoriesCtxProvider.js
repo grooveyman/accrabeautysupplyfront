@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
 import { useFetch } from "../hooks";
 import { Endpoints } from "../services";
+import Spinner from "../components/Spinner";
 
 export const CategoriesContext = createContext({
   categoriesData: {},
@@ -13,6 +14,14 @@ const CategoriesCtxProvider = ({ children }) => {
     ["categories"],
     Endpoints.CATEGORIES
   );
+
+  if (isLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <CategoriesContext.Provider
