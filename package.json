@@ -1,5 +1,5 @@
 {
-  "homepage": "https://grooveyman.github.io/accrabeautysupplyfront",
+  "homepage": "/",
   "name": "accrabeautysupply",
   "version": "0.1.0",
   "private": true,
@@ -16,6 +16,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "animate.css": "^4.1.1",
+    "axios": "^1.7.9",
     "formik": "^2.4.6",
     "gh-pages": "^6.2.0",
     "nprogress": "^0.2.0",

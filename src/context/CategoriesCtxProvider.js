@@ -1,12 +1,23 @@
-import React, { createContext, useState } from "react";
+import React, { createContext } from "react";
+import { useFetch } from "../hooks";
+import { Endpoints } from "../services";
 
-export const CategoriesContext = createContext([]);
+export const CategoriesContext = createContext({
+  categoriesData: {},
+  isLoading: false,
+  isError: false,
+});
 
 const CategoriesCtxProvider = ({ children }) => {
-  const [categories] = useState([]);
+  const { isLoading, isError, data } = useFetch(
+    ["categories"],
+    Endpoints.CATEGORIES
+  );
 
   return (
-    <CategoriesContext.Provider value={categories}>
+    <CategoriesContext.Provider
+      value={{ categoriesData: data, isLoading, isError }}
+    >
       {children}
     </CategoriesContext.Provider>
   );

@@ -5,6 +5,7 @@ import {
   ModalToggleProvider,
   ModalContext,
   AuthContextProvider,
+  CategoriesCtxProvider,
 } from "./context";
 import Header from "./layouts/Header/Header";
 import "slick-carousel/slick/slick.css";
@@ -72,11 +73,13 @@ function AppWrapper() {
 function App() {
   return (
     <AuthContextProvider>
-      <ModalToggleProvider>
-        <BrowserRouter>
-          <AppWrapper />
-        </BrowserRouter>
-      </ModalToggleProvider>
+      <CategoriesCtxProvider>
+        <ModalToggleProvider>
+          <BrowserRouter>
+            <AppWrapper />
+          </BrowserRouter>
+        </ModalToggleProvider>
+      </CategoriesCtxProvider>
     </AuthContextProvider>
   );
 }
