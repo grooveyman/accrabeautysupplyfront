@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "../Header.module.css";
 import { NavLink } from "react-router-dom";
 import {formatText} from "../../../helpers"
-import {NAV_ITEMS} from "../../../helpers" 
+// import { NAV_ITEMS } from "../../../helpers";
+import { CategoriesContext } from "../../../context/CategoriesCtxProvider";
 
 const Navmenu = () => {
+  const {categoriesData, isLoading} = useContext(CategoriesContext);
+  const categories = categoriesData?.results;
+
+
+
   return (
     <div className={classes.navigations}>
       <div className="hidden lg:flex relative">
-        {NAV_ITEMS.map((navitem) => (
+        {!isLoading && categories.map((category) => (
           <NavLink
-            to={'/'+ formatText(navitem.name)}
-            key={navitem.id}
+            to={'/'+ formatText(category.name)}
+            key={category.id}
             className={classes.navlink}
           >
-            {navitem.name}
+            {category.name}
           </NavLink>
         ))}
         <div className={classes.animation}></div>

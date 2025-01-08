@@ -6,6 +6,7 @@ import image3 from "../../../assets/images/synthetichair.jpg";
 import image4 from "../../../assets/images/fabricswomen.webp";
 import image5 from "../../../assets/images/fashionnnnn.jpg";
 import { NavLink } from "react-router-dom";
+// import { CategoriesContext } from "../../../context/CategoriesCtxProvider";
 
 const categories = [
   {
@@ -41,6 +42,10 @@ const categories = [
 ];
 
 const Categories = () => {
+
+  // const {categoriesData, isLoading} = useContext(CategoriesContext);
+  // const categories = categoriesData?.results;
+
   return (
     <section className="max-w-full py-4 px-8">
       <div className="max-w-7xl mx-auto">

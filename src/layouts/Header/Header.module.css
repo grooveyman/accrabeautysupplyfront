@@ -54,7 +54,7 @@
   }
   
   .navlink:nth-child(3):hover ~ .animation {
-    left: 193px;
+    left: 199px; /*193*/
     width: 100px;
   }
   
@@ -69,11 +69,11 @@
   } */
 
   .navlink:nth-child(4):hover ~ .animation {
-    left: 304px;
+    left: 310px;  /*304*/
     width: 60px;
   }
 
   .navlink:nth-child(5):hover ~ .animation {
-    left: 374px;
+    left: 380px; /*374*/
     width: 70px;
   }
