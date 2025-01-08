@@ -23,7 +23,7 @@ const Product = ({ image, id, name, price }) => {
             </Link>
           </h3>
         </div>
-        <p className="text-sm font-medium text-gray-900 text-center">$35</p>
+        {/* <p className="text-sm font-medium text-gray-900 text-center">$35</p> */}
       </div>
     </div>
   );
