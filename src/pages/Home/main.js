@@ -4,6 +4,7 @@ import Newarrivals from './components/Newarrivals'
 import Categories from './components/Categories'
 
 const Home = () => {
+  // console.log('this is home')
   return (
     <main>
       <Banner />

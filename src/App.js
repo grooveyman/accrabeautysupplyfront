@@ -42,18 +42,6 @@ function AppWrapper() {
     };
   }, [location]);
 
-  useEffect(() => {
-    if (menuOpen || cartOpen || authOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen, cartOpen, authOpen]);
-
   return (
     <>
       <Header />

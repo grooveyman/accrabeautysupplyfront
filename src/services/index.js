@@ -1,1 +1,1 @@
-export {api, Endpoints} from './endpoints'
+export {api, backendURL, Endpoints} from './endpoints'

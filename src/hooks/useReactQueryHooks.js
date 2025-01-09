@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import { api } from "../services";
 
 export const useFetch = (qKey, endpoint, options = {}) => {
@@ -22,9 +27,52 @@ export const usePost = (qKey, endpoint) => {
       queryClient.invalidateQueries({ queryKey: qKey });
     },
     onError: (error) => {
-        console.log(error)
+      console.log(error);
       //handle error
     },
   });
   return { postReq, isLoading };
+};
+
+export const useFetchPaginatedData = (qKey, endpoint, limit) => {
+  const fetchData = async ({ pageParam = 0 }) => {
+    const response = await api.get(endpoint, {
+      params: {
+        limit: limit,
+        offset: pageParam,
+      },
+    });
+
+    return response.data; // Return the fetched data
+  };
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: qKey,
+    queryFn: fetchData,
+    getNextPageParam: (lastPage, allPages) => {
+      const totalFetched = allPages.length * limit;
+      if (lastPage.results.length < limit || lastPage.results.length === 0) {
+        return undefined;
+      }
+      return totalFetched;
+    },
+  });
+
+  return {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isError,
+    error,
+  };
 };

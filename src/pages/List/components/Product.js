@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import classes from './Product.module.css'
 
-const Product = ({ image, id, name, price }) => {
+const Product = ({ preview, id, name }) => {
   return (
     <div className="group relative">
       <div className={`aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 ${classes.productimages}`}>
         {/* <Link to={"/"}> */}
         <img
-          src={image}
-          alt="Front of men's Basic Tee in black."
+          src={preview}
+          alt={name}
           className="h-full w-full object-cover object-center"
         />
         {/* </Link> */}
@@ -19,7 +19,7 @@ const Product = ({ image, id, name, price }) => {
           <h3 className="text-sm text-gray-700 text-center">
             <Link to={`/productdetail/${id}`}>
               <span aria-hidden="true" className="absolute inset-0"></span>
-              Basic Tee
+              {name}
             </Link>
           </h3>
         </div>

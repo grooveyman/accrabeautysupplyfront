@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Categorylist from "./components/Categorylist";
@@ -19,19 +19,22 @@ import { formatText } from "../../helpers";
 
 const List = () => {
   const { category } = useParams();
-  console.log(category)
+  // console.log(category)
 
   const { categoriesData } = useContext(CategoriesContext);
-  console.log(categoriesData)
+  // console.log(categoriesData)
   const allCategories = categoriesData?.results;
-  console.log(allCategories)
-  // const categoryLinks = categoriesData?.results?.map((item) =>
-  //   formatText(item.name)
-  // );
+  // console.log(allCategories)
 
-  // if (!categoryLinks.includes(category)) {
-  //   return <NotFound />;
-  // }
+const categoryLinks = useMemo(
+  () => categoriesData?.results?.map((item) => formatText(item.name)),
+  [categoriesData]
+);
+
+
+  if (!categoryLinks.includes(category)) {
+    return <NotFound />;
+  }
 
   return (
     <main>
@@ -46,4 +49,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default memo(List);

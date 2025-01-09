@@ -13,19 +13,12 @@ export const formatText = (text) => {
 };
 
 export const returnCategoryName = (category, objData) => {
-  for (let obj of objData) {
-    if (formatText(obj["name"]) === category) {
-      return obj["name"];
-    }
-  }
-  return null;
+  const categoryObj = objData.find(obj => formatText(obj.name) === category);
+  return categoryObj ? categoryObj.name : null;
 };
 
 export const returnCategoryCode = (category, objData) => {
-  for (let obj of objData) {
-    if (formatText(obj["name"]) === category) {
-      return obj["code"];
-    }
-  }
-  return null;
+  const categoryObj = objData.find(obj => formatText(obj.name) === category);
+  return categoryObj ? categoryObj.code : null;
 };
+

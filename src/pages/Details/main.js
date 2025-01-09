@@ -72,6 +72,8 @@ const Details = () => {
     setSelected(id);
   };
 
+  // console.log('this is details page')
+
   return (
     <main>
       <section className="max-w-full py-4 px-8">
