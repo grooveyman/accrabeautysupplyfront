@@ -12,11 +12,13 @@ export const formatText = (text) => {
   return text.toLowerCase().split(" ").join("");
 };
 
-export const returnCategoryName = (category) => {
-  for (let obj of NAV_ITEMS) {
-    if (formatText(obj["name"]) === category) {
-      return obj["name"];
-    }
-  }
-  return null;
+export const returnCategoryName = (category, objData) => {
+  const categoryObj = objData.find(obj => formatText(obj.name) === category);
+  return categoryObj ? categoryObj.name : null;
 };
+
+export const returnCategoryCode = (category, objData) => {
+  const categoryObj = objData.find(obj => formatText(obj.name) === category);
+  return categoryObj ? categoryObj.code : null;
+};
+

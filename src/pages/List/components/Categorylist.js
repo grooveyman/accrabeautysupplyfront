@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Sort from "./Sort";
 import { returnCategoryName } from "../../../helpers";
 
-const Categorylist = ({ category }) => {
+const Categorylist = ({ category, allCategories }) => {
+  const categoryName = useMemo(() => returnCategoryName(category, allCategories), [category, allCategories]);
+
   return (
     <div>
       <div>
         <h3 className="my-4 font-bold text-3xl text-slate-950 text-center capitalize">
-          {returnCategoryName(category)}
+          {categoryName}
         </h3>
       </div>
       <Sort category={category} />

@@ -3,6 +3,7 @@ import Searchinput from "./components/Searchinput";
 import Searchlist from "./components/Searchlist";
 
 const Search = () => {
+  // console.log('this is search')
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
 

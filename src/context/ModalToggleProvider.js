@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Authcontext } from "./AuthContextProvider";
 
 export const ModalContext = createContext({});
 
 export const ModalToggleProvider = ({ children }) => {
-  const {openLogin} = useContext(Authcontext)
+  const { openLogin } = useContext(Authcontext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
@@ -19,11 +19,23 @@ export const ModalToggleProvider = ({ children }) => {
 
   const closeAuth = () => {
     openLogin();
-    setAuthOpen(false)
+    setAuthOpen(false);
   };
 
   const openCart = () => setCartOpen(true);
   const closeCart = () => setCartOpen(false);
+
+  useEffect(() => {
+    if (menuOpen || cartOpen || authOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen, cartOpen, authOpen]);
 
   return (
     <ModalContext.Provider
@@ -46,4 +58,3 @@ export const ModalToggleProvider = ({ children }) => {
     </ModalContext.Provider>
   );
 };
-

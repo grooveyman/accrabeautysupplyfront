@@ -54,6 +54,7 @@ const cartItems = [
 ];
 
 const ShoppingCart = () => {
+  // console.log('this is cart')
   // const [cartItems, setCartItems] = useState([]);
 
   //   const handleQuantityChange = (id, value) => {
