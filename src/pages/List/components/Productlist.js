@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import Product from "./Product";
 import Noresults from "../../../components/NoResults/noresults";
 import Spinner from "../../../components/Spinner";
@@ -9,7 +9,13 @@ import {
   useFetchSortedData,
 } from "../../../hooks/useReactQueryHooks";
 
-const Productlist = ({ category, allCategories, mode }) => {
+const Productlist = ({
+  category,
+  allCategories,
+  mode,
+  totalProducts,
+  setTotalProducts,
+}) => {
   const catcode = useMemo(
     () => returnCategoryCode(category, allCategories),
     [category, allCategories]
@@ -96,6 +102,18 @@ const Productlist = ({ category, allCategories, mode }) => {
     isFetchingNextPage = false,
   } = hookResponse;
 
+  useEffect(() => {
+    if (data) {
+      const newLength = data?.pages[0]?.count || 0;
+      setTotalProducts((prev) => (prev !== newLength ? newLength : prev));
+    }
+  }, [data, category, setTotalProducts]);
+
+  const productsSoFar = data?.pages.reduce(
+    (total, page) => total + page.results.length,
+    0
+  );
+
   if (isLoading) {
     return <Spinner loading={isLoading} />;
   }
@@ -124,6 +142,11 @@ const Productlist = ({ category, allCategories, mode }) => {
             {isFetchingNextPage ? "Loading..." : "Load More"}
           </button>
         )}
+      </div>
+      <div className="flex justify-center items-center my-6">
+        <p className="text-base/7 text-gray-600">
+          You've viewed {productsSoFar} out of {totalProducts} products.
+        </p>
       </div>
     </div>
   );

@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 
 //prop drilling but ignored
 
-const Sort = ({ newest, lowprice, highprice, defaultFn, mode }) => {
+const Sort = ({ newest, lowprice, highprice, defaultFn, mode, totalProducts }) => {
   const [sorttoggle, setSortToggle] = useState(false);
 
   const handleSortToggle = () => {
     setSortToggle((prevstate) => !prevstate);
   };
-
-  console.log(mode)
 
   // useEffect(() => {
   //   setSortToggle(false);
@@ -34,7 +32,7 @@ const Sort = ({ newest, lowprice, highprice, defaultFn, mode }) => {
   return (
     <div className="w-full flex justify-between items-center">
       <div>
-        <p className="text-sm font-medium text-gray-700">Total Products</p>
+        <p className="text-sm font-medium text-gray-700">{totalProducts > 0 ? `${totalProducts} Products` : "No Products"}</p>
       </div>
       <div className="relative" onClick={(e) => e.stopPropagation()}>
         <button

@@ -9,16 +9,13 @@ import { CategoriesContext } from "../../context/CategoriesCtxProvider";
 import { formatText } from "../../helpers";
 
 const List = () => {
-  console.log('this is productlist')
+  //console.log('this is productlist')
   const { category } = useParams();
   const [mode, setMode] = useState("default");
   const [totalProducts, setTotalProducts] = useState(0);
-  // console.log(category)
 
   const { categoriesData } = useContext(CategoriesContext);
-  // console.log(categoriesData)
   const allCategories = categoriesData?.results;
-  // console.log(allCategories)
 
 const categoryLinks = useMemo(
   () => categoriesData?.results?.map((item) => formatText(item.name)),
@@ -52,7 +49,7 @@ const defaultFn = () => {
       <section className="max-w-full py-4 px-8">
         <div className="max-w-7xl mx-auto">
           <Breadcrumbs category={category} allCategories={allCategories} />
-          <Categorylist category={category} allCategories={allCategories} newest={newest} lowprice={lowprice} highprice={highprice} defaultFn={defaultFn} mode={mode} totalProducts={totalProducts} setTotalProducts={setTotalProducts} />
+          <Categorylist category={category} allCategories={allCategories} newest={newest} lowprice={lowprice} highprice={highprice} defaultFn={defaultFn} mode={mode} totalProducts={totalProducts} />
           <Productlist category={category} allCategories={allCategories} mode={mode} totalProducts={totalProducts} setTotalProducts={setTotalProducts} />
         </div>
       </section>
