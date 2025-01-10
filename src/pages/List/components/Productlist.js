@@ -1,30 +1,124 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import Product from "./Product";
 import Noresults from "../../../components/NoResults/noresults";
 import Spinner from "../../../components/Spinner";
 import { returnCategoryCode } from "../../../helpers/Helperfunctions";
 import { Endpoints } from "../../../services";
-import { useFetchPaginatedData } from "../../../hooks/useReactQueryHooks";
+import {
+  useFetchPaginatedData,
+  useFetchSortedData,
+} from "../../../hooks/useReactQueryHooks";
 
-const Productlist = ({ category, allCategories }) => {
+const Productlist = ({
+  category,
+  allCategories,
+  mode,
+  totalProducts,
+  setTotalProducts,
+}) => {
   const catcode = useMemo(
     () => returnCategoryCode(category, allCategories),
     [category, allCategories]
   );
 
   const limit = 12;
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useFetchPaginatedData(
-      ["productscat", catcode, Endpoints.CATEGORY_PRODUCTS(catcode), limit],
+
+  // Always initialize hooks
+  const paginatedHookResponse = useFetchPaginatedData(
+    ["productscat", catcode, Endpoints.CATEGORY_PRODUCTS(catcode), limit],
+    Endpoints.CATEGORY_PRODUCTS(catcode),
+    limit
+  );
+
+  const newSortedHookResponse = useFetchSortedData(
+    [
+      "newestproductscat",
+      catcode,
       Endpoints.CATEGORY_PRODUCTS(catcode),
-      limit
-    );
+      limit,
+      "new",
+      "desc",
+    ],
+    Endpoints.CATEGORY_PRODUCTS(catcode),
+    limit,
+    "new",
+    "desc"
+  );
+
+  const lowpriceSortedHookResponse = useFetchSortedData(
+    [
+      "lowpriceproductscat",
+      catcode,
+      Endpoints.CATEGORY_PRODUCTS(catcode),
+      limit,
+      "price",
+      "asc",
+    ],
+    Endpoints.CATEGORY_PRODUCTS(catcode),
+    limit,
+    "price",
+    "asc"
+  );
+
+  const highpriceSortedHookResponse = useFetchSortedData(
+    [
+      "highpriceproductscat",
+      catcode,
+      Endpoints.CATEGORY_PRODUCTS(catcode),
+      limit,
+      "price",
+      "desc",
+    ],
+    Endpoints.CATEGORY_PRODUCTS(catcode),
+    limit,
+    "price",
+    "desc"
+  );
+
+  let hookResponse;
+  switch (mode) {
+    case "default":
+      hookResponse = paginatedHookResponse;
+      break;
+    case "newest":
+      hookResponse = newSortedHookResponse;
+      break;
+    case "lowprice":
+      hookResponse = lowpriceSortedHookResponse;
+      break;
+    case "highprice":
+      hookResponse = highpriceSortedHookResponse;
+      break;
+    default:
+      hookResponse = paginatedHookResponse;
+      break;
+  }
+
+  const {
+    data = null,
+    isLoading = false,
+    fetchNextPage,
+    hasNextPage = false,
+    isFetchingNextPage = false,
+  } = hookResponse;
+
+  useEffect(() => {
+    if (data) {
+      const newLength = data?.pages[0]?.count || 0;
+      setTotalProducts((prev) => (prev !== newLength ? newLength : prev));
+    }
+  }, [data, category, setTotalProducts]);
+
+  const productsSoFar = data?.pages.reduce(
+    (total, page) => total + page.results.length,
+    0
+  );
 
   if (isLoading) {
     return <Spinner loading={isLoading} />;
   }
 
-  if (!isLoading && data?.pages[0].results.length === 0) {
+  if (!isLoading && data?.pages[0]?.results?.length === 0) {
     return <Noresults />;
   }
 
@@ -48,6 +142,11 @@ const Productlist = ({ category, allCategories }) => {
             {isFetchingNextPage ? "Loading..." : "Load More"}
           </button>
         )}
+      </div>
+      <div className="flex justify-center items-center my-6">
+        <p className="text-base/7 text-gray-600">
+          You've viewed {productsSoFar} out of {totalProducts} products.
+        </p>
       </div>
     </div>
   );
