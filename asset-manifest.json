@@ -1,30 +1,25 @@
 {
   "files": {
-    "main.css": "/accrabeautysupplyfront/static/css/main.56df9ce8.css",
-    "main.js": "/accrabeautysupplyfront/static/js/main.838e5b6f.js",
-    "static/media/cosm.png": "/accrabeautysupplyfront/static/media/cosm.e8d5df23068181cc054f.png",
-    "static/media/naturalhair.jpg": "/accrabeautysupplyfront/static/media/naturalhair.76654bd6fab5eacef600.jpg",
-    "static/media/fabricswomen.webp": "/accrabeautysupplyfront/static/media/fabricswomen.6a0bf35724fe36267e70.webp",
-    "static/media/cosmetics2.jpg": "/accrabeautysupplyfront/static/media/cosmetics2.858f827a0f39d6e6ab46.jpg",
-    "static/media/darkxlovely.jpg": "/accrabeautysupplyfront/static/media/darkxlovely.1cab21f58ac10f4b82a0.jpg",
-    "static/media/fashionnnnn.jpg": "/accrabeautysupplyfront/static/media/fashionnnnn.63fcda428c6cf21f40f0.jpg",
-    "static/media/artificialhair.jpg": "/accrabeautysupplyfront/static/media/artificialhair.bf768339af5b7d0c3587.jpg",
-    "static/media/hairagain.jpg": "/accrabeautysupplyfront/static/media/hairagain.b3fa49dc46a0f216e332.jpg",
-    "static/media/art3.jpg": "/accrabeautysupplyfront/static/media/art3.7400dc10de743ab57ce5.jpg",
-    "static/media/fabricc.jpg": "/accrabeautysupplyfront/static/media/fabricc.0462b780a0fa5dede975.jpg",
-    "static/media/hair3.jpg": "/accrabeautysupplyfront/static/media/hair3.3994e033473361129675.jpg",
-    "static/media/synthetichair.jpg": "/accrabeautysupplyfront/static/media/synthetichair.c4e0d8825ab17a26e4de.jpg",
-    "static/media/Animation1731140711323.lottie": "/accrabeautysupplyfront/static/media/Animation1731140711323.31afba52278ab4f6862a.lottie",
-    "static/media/slick.svg": "/accrabeautysupplyfront/static/media/slick.2630a3e3eab21c607e21.svg",
-    "static/media/slick.eot": "/accrabeautysupplyfront/static/media/slick.a4e97f5a2a64f0ab1323.eot",
-    "static/media/slick.ttf": "/accrabeautysupplyfront/static/media/slick.c94f7671dcc99dce43e2.ttf",
-    "index.html": "/accrabeautysupplyfront/index.html",
-    "static/media/slick.woff": "/accrabeautysupplyfront/static/media/slick.295183786cd8a1389865.woff",
-    "main.56df9ce8.css.map": "/accrabeautysupplyfront/static/css/main.56df9ce8.css.map",
-    "main.838e5b6f.js.map": "/accrabeautysupplyfront/static/js/main.838e5b6f.js.map"
+    "main.css": "/static/css/main.c9d14b09.css",
+    "main.js": "/static/js/main.bf86b275.js",
+    "static/media/cosm.png": "/static/media/cosm.e8d5df23068181cc054f.png",
+    "static/media/darkxlovely.jpg": "/static/media/darkxlovely.1cab21f58ac10f4b82a0.jpg",
+    "static/media/artificialhair.jpg": "/static/media/artificialhair.bf768339af5b7d0c3587.jpg",
+    "static/media/hairagain.jpg": "/static/media/hairagain.b3fa49dc46a0f216e332.jpg",
+    "static/media/art3.jpg": "/static/media/art3.7400dc10de743ab57ce5.jpg",
+    "static/media/fabricc.jpg": "/static/media/fabricc.0462b780a0fa5dede975.jpg",
+    "static/media/hair3.jpg": "/static/media/hair3.3994e033473361129675.jpg",
+    "static/media/Animation1731140711323.lottie": "/static/media/Animation1731140711323.31afba52278ab4f6862a.lottie",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/index.html",
+    "main.c9d14b09.css.map": "/static/css/main.c9d14b09.css.map",
+    "main.bf86b275.js.map": "/static/js/main.bf86b275.js.map"
   },
   "entrypoints": [
-    "static/css/main.56df9ce8.css",
-    "static/js/main.838e5b6f.js"
+    "static/css/main.c9d14b09.css",
+    "static/js/main.bf86b275.js"
   ]
 }
