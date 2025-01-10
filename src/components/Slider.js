@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { NavLink } from "react-router-dom";
 import { backendURL } from "../services";
 
-const CustomSlider = ({ data, link }) => {
+const CustomSlider = ({ data }) => {
   const settings = {
     className: "center",
     infinite: true,
@@ -48,8 +48,8 @@ const CustomSlider = ({ data, link }) => {
   return (
     <div className="slider-container w-full">
       <Slider {...settings}>
-        {data?.map((product, index) => (
-          <NavLink to={link} key={product.id}>
+        {data?.map((product) => (
+          <NavLink to={`/productdetail/${product.id}`} key={product.id}>
             <div className="imageContainer">
               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none hover:opacity-75 lg:h-80 w-[97%] h-60 md:h-[300px]">
                 <img
