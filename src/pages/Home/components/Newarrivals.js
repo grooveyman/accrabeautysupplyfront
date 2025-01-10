@@ -1,34 +1,45 @@
 import React from "react";
-import image from "../../../assets/images/art3.jpg";
-import image2 from "../../../assets/images/cosm.png";
-import image3 from "../../../assets/images/hairagain.jpg";
-import image4 from "../../../assets/images/fabricc.jpg";
+// import image from "../../../assets/images/art3.jpg";
+// import image2 from "../../../assets/images/cosm.png";
+// import image3 from "../../../assets/images/hairagain.jpg";
+// import image4 from "../../../assets/images/fabricc.jpg";
 import CustomSlider from "../../../components/Slider";
+import { useFetch } from "../../../hooks/useReactQueryHooks";
+import { Endpoints } from "../../../services";
+import Spinner from "../../../components/Spinner";
 
-const products = [
-  {
-    image: image,
-    name: "Product 1",
-    price: "5.00",
-  },
-  {
-    image: image2,
-    name: "Product 2",
-    price: "5.00",
-  },
-  {
-    image: image3,
-    name: "Product 3",
-    price: "5.00",
-  },
-  {
-    image: image4,
-    name: "Product 4",
-    price: "5.00",
-  },
-];
+// const products = [
+//   {
+//     image: image,
+//     name: "Product 1",
+//     price: "5.00",
+//   },
+//   {
+//     image: image2,
+//     name: "Product 2",
+//     price: "5.00",
+//   },
+//   {
+//     image: image3,
+//     name: "Product 3",
+//     price: "5.00",
+//   },
+//   {
+//     image: image4,
+//     name: "Product 4",
+//     price: "5.00",
+//   },
+// ];
 
 const Newarrivals = () => {
+
+const {isLoading, data} = useFetch(['newarrivals'], Endpoints.PRODUCTS(8,0,"desc"));
+const products = data?.results;
+
+if (isLoading) {
+  return <Spinner />;
+}
+
   return (
     <section className="max-w-full py-5 px-8 my-3">
       <div className="max-w-7xl mx-auto relative">

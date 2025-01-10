@@ -1,6 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import { NavLink } from "react-router-dom";
+import { backendURL } from "../services";
 
 const CustomSlider = ({ data, link }) => {
   const settings = {
@@ -47,12 +48,12 @@ const CustomSlider = ({ data, link }) => {
   return (
     <div className="slider-container w-full">
       <Slider {...settings}>
-        {data.map((product, index) => (
-          <NavLink to={link} key={index}>
+        {data?.map((product, index) => (
+          <NavLink to={link} key={product.id}>
             <div className="imageContainer">
               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none hover:opacity-75 lg:h-80 w-[97%] h-60 md:h-[300px]">
                 <img
-                  src={product.image}
+                  src={backendURL + product.preview}
                   alt={product.name}
                   loading="lazy"
                   className="shadow-lg hover:shadow-2xl h-full w-full object-cover object-center lg:h-full lg:w-full"
@@ -61,9 +62,9 @@ const CustomSlider = ({ data, link }) => {
               <div className="text-center mt-3 text-base/7 font-semibold tracking-tight text-gray-900">
                 {product.name}
               </div>
-              {/* <div className="text-center text-base/7 text-gray-600">
+              <div className="text-center text-base/7 text-gray-600">
                 ${product.price}
-              </div> */}
+              </div>
             </div>
           </NavLink>
         ))}
