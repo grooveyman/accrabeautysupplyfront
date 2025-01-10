@@ -76,3 +76,49 @@ export const useFetchPaginatedData = (qKey, endpoint, limit) => {
     error,
   };
 };
+
+
+export const useFetchSortedData = (qKey, endpoint, limit, sort, order) => {
+  const fetchData = async ({ pageParam = 0 }) => {
+    const response = await api.get(endpoint, {
+      params: {
+        limit: limit,
+        offset: pageParam,
+        sort: sort,
+        order: order
+      },
+    });
+
+    return response.data; // Return the fetched data
+  };
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: qKey,
+    queryFn: fetchData,
+    getNextPageParam: (lastPage, allPages) => {
+      const totalFetched = allPages.length * limit;
+      if (lastPage.results.length < limit || lastPage.results.length === 0) {
+        return undefined;
+      }
+      return totalFetched;
+    },
+  });
+
+  return {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isError,
+    error,
+  };
+};

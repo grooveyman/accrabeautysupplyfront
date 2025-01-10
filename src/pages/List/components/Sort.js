@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
-const Sort = ({ category }) => {
+//prop drilling but ignored
+
+const Sort = ({ newest, lowprice, highprice, defaultFn, mode }) => {
   const [sorttoggle, setSortToggle] = useState(false);
 
   const handleSortToggle = () => {
     setSortToggle((prevstate) => !prevstate);
   };
+
+  console.log(mode)
 
   // useEffect(() => {
   //   setSortToggle(false);
@@ -44,7 +47,9 @@ const Sort = ({ category }) => {
         >
           Sort
           <svg
-            className={`${sorttoggle ? 'rotate-180' : ''} transition-all -mr-1 ml-1 h-5 w-5 shrink-0 text-gray-400 group-hover:text-gray-500 hover:bg-neutral-100`}
+            className={`${
+              sorttoggle ? "rotate-180" : ""
+            } transition-all -mr-1 ml-1 h-5 w-5 shrink-0 text-gray-400 group-hover:text-gray-500 hover:bg-neutral-100`}
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -67,38 +72,49 @@ const Sort = ({ category }) => {
           tabIndex="-1"
         >
           <div className="py-1" role="none">
-            <Link
-              to={"#"}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100 font-medium hover:text-gray-900"
+            {/* <button
+              className={`block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-neutral-100 font-medium hover:text-gray-900`}
               tabIndex="-1"
               id="menu-item-0"
             >
               Most Popular
-            </Link>
-            <Link
-              to={"#"}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
+            </button> */}
+            <button
+              className={`block w-full text-left px-4 py-2 text-sm ${mode === "newest" ? "text-gray-900" : "text-gray-500"}  hover:text-gray-900 hover:bg-neutral-100`}
               tabIndex="-1"
               id="menu-item-2"
+              type="button"
+              onClick={newest}
             >
               Newest
-            </Link>
-            <Link
-              to={"#"}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
+            </button>
+            <button
+              className={`block w-full text-left px-4 py-2 text-sm ${mode === "lowprice" ? "text-gray-900" : "text-gray-500"} hover:text-gray-900 hover:bg-neutral-100`}
               tabIndex="-1"
               id="menu-item-3"
+              type="button"
+              onClick={lowprice}
             >
               Price: Low to High
-            </Link>
-            <Link
-              to={"#"}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:text-gray-900 hover:bg-neutral-100"
+            </button>
+            <button
+              className={`block w-full text-left px-4 py-2 text-sm ${mode === "highprice" ? "text-gray-900" : "text-gray-500"} hover:text-gray-900 hover:bg-neutral-100`}
               tabIndex="-1"
               id="menu-item-4"
+              type="button"
+              onClick={highprice}
             >
               Price: High to Low
-            </Link>
+            </button>
+            <button
+              className={`block w-full text-left px-4 py-2 text-sm ${mode === "default" ? "text-gray-900" : "text-gray-500"} hover:text-gray-900 hover:bg-neutral-100`}
+              tabIndex="-1"
+              id="menu-item-2"
+              type="button"
+              onClick={defaultFn}
+            >
+              Default
+            </button>
           </div>
         </div>
       </div>

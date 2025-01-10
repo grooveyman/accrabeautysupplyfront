@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Sort from "./Sort";
 import { returnCategoryName } from "../../../helpers";
 
-const Categorylist = ({ category, allCategories }) => {
+const Categorylist = ({ category, allCategories, newest, lowprice, highprice, defaultFn, mode }) => {
   const categoryName = useMemo(() => returnCategoryName(category, allCategories), [category, allCategories]);
 
   return (
@@ -12,7 +12,7 @@ const Categorylist = ({ category, allCategories }) => {
           {categoryName}
         </h3>
       </div>
-      <Sort category={category} />
+      <Sort newest={newest} lowprice={lowprice} highprice={highprice} defaultFn={defaultFn} mode={mode} />
     </div>
   );
 };

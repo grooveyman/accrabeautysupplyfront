@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import classes from './Product.module.css'
+import { backendURL } from "../../../services";
 
-const Product = ({ preview, id, name }) => {
+const Product = ({ preview, id, name, price }) => {
   return (
     <div className="group relative">
       <div className={`aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 ${classes.productimages}`}>
         {/* <Link to={"/"}> */}
         <img
-          src={preview}
+          src={backendURL + preview}
           alt={name}
           className="h-full w-full object-cover object-center"
         />
@@ -23,7 +24,7 @@ const Product = ({ preview, id, name }) => {
             </Link>
           </h3>
         </div>
-        {/* <p className="text-sm font-medium text-gray-900 text-center">$35</p> */}
+        <p className="text-sm font-medium text-gray-900 text-center">${price}</p>
       </div>
     </div>
   );
