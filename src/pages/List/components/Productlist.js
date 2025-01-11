@@ -127,7 +127,7 @@ const Productlist = ({
       <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
         {data?.pages.map((page) =>
           page?.results?.map((product) => (
-            <Product key={product.id} {...product} /> // Render each product
+            <Product key={product.code} {...product} /> // Render each product
           ))
         )}
       </div>

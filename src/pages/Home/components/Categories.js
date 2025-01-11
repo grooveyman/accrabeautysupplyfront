@@ -7,7 +7,7 @@ import { formatText } from "../../../helpers/Helperfunctions";
 
 const Categories = () => {
   const { categoriesData, isLoading } = useContext(CategoriesContext);
-  const categories = categoriesData?.results;
+  const categories = categoriesData?.results || {};
 
   return (
     <section className="max-w-full py-4 px-8">
@@ -20,7 +20,7 @@ const Categories = () => {
         <div className="flex flex-wrap justify-between">
           {!isLoading &&
             categories.map((category) => (
-              <div key={category.id} className="categorycontainer my-4">
+              <div key={category.code} className="categorycontainer my-4">
                 <div className="catImageContainer rounded">
                   <NavLink to={formatText(category.name)}>
                     <img

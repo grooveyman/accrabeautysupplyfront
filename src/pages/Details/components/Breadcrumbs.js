@@ -4,6 +4,8 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Chip from "@mui/material/Chip";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
+import { CategoriesContext } from "../../../context/CategoriesCtxProvider";
+import { formatText, returnCategoryNameViaCode } from "../../../helpers/Helperfunctions";
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -30,7 +32,11 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
 //   console.info("You clicked a breadcrumb.");
 // }
 
-export default function CustomizedBreadcrumbs() {
+export default function CustomizedBreadcrumbs({ category, name, productCode }) {
+  const { categoriesData } = React.useContext(CategoriesContext);
+  const categoryObj = categoriesData?.results || {};
+  const categoryName = returnCategoryNameViaCode(category, categoryObj) || "Unknown";
+
   return (
     <div role="presentation">
       <Breadcrumbs aria-label="breadcrumb">
@@ -43,12 +49,13 @@ export default function CustomizedBreadcrumbs() {
         />
         <StyledBreadcrumb
           component={Link}
-          label="Category"
+          to={`/${formatText(categoryName)}`}
+          label={categoryName}
           sx={{ cursor: "pointer" }}
         />
         <StyledBreadcrumb
           component={Link}
-          label="Product"
+          label={name}
           sx={{ cursor: "pointer" }}
         />
       </Breadcrumbs>

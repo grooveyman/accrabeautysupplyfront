@@ -7,7 +7,7 @@ import { CategoriesContext } from "../../../context/CategoriesCtxProvider";
 
 const Navmenu = () => {
   const {categoriesData, isLoading} = useContext(CategoriesContext);
-  const categories = categoriesData?.results;
+  const categories = categoriesData?.results || {};
 
 
 

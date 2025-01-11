@@ -16,9 +16,10 @@ export const api = axios.create({
 
 export const Endpoints = {
   CATEGORY_PRODUCTS: (categorycode) => `/productscat/${categorycode}`,
-  PRODUCTS: (limit, offset, order) => `/products?limit=${limit}&offset=${offset}&order=${order}`,
-  PRODUCT: (productId) => `/products/${productId}`,
+  PRODUCTS: (limit, offset, sort, order) => `/products?limit=${limit}&offset=${offset}&sort=${sort}&order=${order}`,
+  PRODUCT: (productCode) => `/products/${productCode}`,
   CART: `/carts`,
   CATEGORIES: `/categories`,
   CUSTOMERS: `/customers`,
+  RECOMMENDED: (categorycode, limit, offset) => `/productscat/${categorycode}?limit=${limit}&offset=${offset}`,
 };

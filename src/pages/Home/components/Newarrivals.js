@@ -33,8 +33,8 @@ import Spinner from "../../../components/Spinner";
 
 const Newarrivals = () => {
 
-const {isLoading, data} = useFetch(['newarrivals'], Endpoints.PRODUCTS(8,0,"desc"));
-const products = data?.results;
+const {isLoading, data} = useFetch(['newarrivals'], Endpoints.PRODUCTS(8,0,"new","desc"));
+const products = data?.results || {};
 
 if (isLoading) {
   return <Spinner />;

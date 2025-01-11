@@ -15,7 +15,7 @@ const List = () => {
   const [totalProducts, setTotalProducts] = useState(0);
 
   const { categoriesData } = useContext(CategoriesContext);
-  const allCategories = categoriesData?.results;
+  const allCategories = categoriesData?.results || {};
 
 const categoryLinks = useMemo(
   () => categoriesData?.results?.map((item) => formatText(item.name)),

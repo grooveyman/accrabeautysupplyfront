@@ -49,7 +49,7 @@ const CustomSlider = ({ data }) => {
     <div className="slider-container w-full">
       <Slider {...settings}>
         {data?.map((product) => (
-          <NavLink to={`/productdetail/${product.id}`} key={product.id}>
+          <NavLink to={`/productdetail/${product.code}`} key={product.id}>
             <div className="imageContainer">
               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none hover:opacity-75 lg:h-80 w-[97%] h-60 md:h-[300px]">
                 <img

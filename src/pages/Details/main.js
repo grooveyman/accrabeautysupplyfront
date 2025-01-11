@@ -1,12 +1,7 @@
-import React, { useState } from "react";
-// import image1 from "../../assets/images/hair3.jpg";
+import React, { useEffect, useRef, useState } from "react";
 import Imagezoom from "react-image-zooom";
 import classes from "./main.module.css";
 import CustomizedBreadcrumbs from "./components/Breadcrumbs";
-import image from "../../assets/images/art3.jpg";
-import image2 from "../../assets/images/cosm.png";
-import image3 from "../../assets/images/hairagain.jpg";
-import image4 from "../../assets/images/darkxlovely.jpg";
 import Slider from "react-slick";
 import Thumbnail from "./components/Thumbnail";
 import Description from "./components/Description";
@@ -14,44 +9,18 @@ import Sizes from "./components/Sizes";
 import CustomSlider from "../../components/Slider";
 import { useContext } from "react";
 import { ModalContext } from "../../context";
-
-const thumbnails = [
-  {
-    id: 1,
-    image: image,
-    name: "Product 1",
-    price: "5.00",
-  },
-  {
-    id: 2,
-    image: image2,
-    name: "Product 2",
-    price: "5.00",
-  },
-  {
-    id: 3,
-    image: image3,
-    name: "Product 3",
-    price: "5.00",
-  },
-  {
-    id: 4,
-    image: image4,
-    name: "Product 4",
-    price: "5.00",
-  },
-];
-
-const options = [
-  { id: "XXS", label: "XXS", inStock: false },
-  { id: "XS", label: "XS", inStock: true },
-  { id: "S", label: "S", inStock: true },
-  { id: "M", label: "M", inStock: true },
-  { id: "L", label: "L", inStock: true },
-  { id: "XL", label: "XL", inStock: true },
-  { id: "2XL", label: "2XL", inStock: true },
-  { id: "3XL", label: "3XL", inStock: true },
-];
+import ProductColors from "./components/ProductColors";
+import { useFetch } from "../../hooks";
+import { useParams } from "react-router-dom";
+import { backendURL, Endpoints } from "../../services";
+import Spinner from "../../components/Spinner";
+import "./components/Input.css";
+import {
+  extractUniqueValues,
+  getSizesForColor,
+} from "../../helpers/Helperfunctions";
+import Decrementbtn from "../../components/Decrementbtn";
+import Incrementbtn from "../../components/Incrementbtn";
 
 const settings = {
   dots: true,
@@ -64,49 +33,130 @@ const settings = {
 };
 
 const Details = () => {
-  const [activeImg, setActiveImg] = useState(thumbnails[0].image);
   const [selected, setSelected] = useState("");
   const { openCart } = useContext(ModalContext);
+  const [activeImg, setActiveImg] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const { productCode } = useParams();
+  const inputref = useRef(null);
 
-  const handleSelect = (id) => {
-    setSelected(id);
+  const { data, isLoading } = useFetch(
+    ["prdouctdetail", productCode],
+    Endpoints.PRODUCT(productCode)
+  );
+
+  const product = data?.results || {};
+  const category = product.catcode;
+  const prodname = product.name;
+  const mainImage = product.preview ? backendURL + product?.preview : null;
+  const mainImageObj = { code: productCode, imageurl: product.preview };
+  const prodPrice = product.price;
+  const prodDescription = product.description;
+  const otherImages = product.prodimages;
+  const prodvariations = product.prodvariations;
+  const  {data: recommendedData, isLoading: isFetching} = useFetch(['recommended', productCode, category], Endpoints.RECOMMENDED(category,8,0) )
+  const filteredRecommended = recommendedData?.results?.filter((dataObj) => dataObj.code !== productCode );
+  
+  console.log(product);
+
+  const handleSelect = (size) => {
+    setSelected(size);
   };
 
+  const handleSelectedColor = (color) => {
+    setSelectedColor(color);
+  };
+
+  const increaseAmt = () => {
+    const amount = inputref.current.value;
+
+    if (parseInt(amount) === 10) {
+      //error handle
+      console.log('hiii')
+      return;
+    }
+
+    const newamount = parseInt(amount) + 1;
+    inputref.current.value = newamount;
+  };
+
+  const decreaseAmt = () => {
+    const amount = inputref.current.value;
+
+    if (parseInt(amount) === 1) {
+      return;
+    }
+    const newamount = parseInt(amount) - 1;
+    inputref.current.value = newamount;
+  };
+
+  useEffect(() => {
+    if (!isLoading) {
+      setActiveImg(mainImage);
+    }
+  }, [mainImage, isLoading]);
+
+  if (isLoading) {
+    return <Spinner loading={isLoading} />;
+  }
+
+  const allImages = [mainImageObj, ...otherImages];
+  const availableVariations = extractUniqueValues(
+    prodvariations,
+    "color",
+    "value",
+    "size"
+  );
+  console.log(availableVariations);
+
+  const sizesForColor = getSizesForColor(prodvariations, selectedColor);
   // console.log('this is details page')
+
+  console.log(selectedColor);
 
   return (
     <main>
       <section className="max-w-full py-4 px-8">
         <div className="max-w-7xl mx-auto">
-          <CustomizedBreadcrumbs />
+          <CustomizedBreadcrumbs
+            category={category}
+            name={prodname}
+            productCode={productCode}
+          />
           <div className="flex w-full flex-col md:flex-row mt-4 mb-16 gap-y-10 md:gap-y-0 md:gap-x-12">
             <div className="md:w-[43%] w-full">
-              <div className="w-full hidden md:block md:h-[450px] rounded-md overflow-hidden relative mb-3 p-5 md:p-0">
-                <Imagezoom
-                  className={classes.fullimagezoom}
-                  src={activeImg}
-                  alt="A image to apply the ImageZoom plugin"
-                  zoom="250"
-                />
-              </div>
+              {activeImg ? (
+                <div className="w-full hidden md:block md:h-[450px] rounded-md overflow-hidden relative mb-3 p-5 md:p-0">
+                  <Imagezoom
+                    className={classes.fullimagezoom}
+                    src={activeImg}
+                    alt={prodname}
+                    zoom="250"
+                  />
+                </div>
+              ) : (
+                <Spinner />
+              )}
+
               <div className="thumbnailsContainer hidden md:grid grid-cols-4 gap-x-2">
-                {thumbnails.map((thumbnail) => (
+                {allImages?.map((image) => (
                   <Thumbnail
-                    key={thumbnail.id}
-                    image={thumbnail.image}
+                    key={image.code}
+                    image={backendURL + image.imageurl}
+                    name={prodname}
                     activeImage={activeImg}
-                    onPress={() => setActiveImg(thumbnail.image)}
+                    onPress={() => setActiveImg(backendURL + image.imageurl)}
                   />
                 ))}
               </div>
 
               <div className="md:hidden">
                 <Slider {...settings}>
-                  {thumbnails.map((image, index) => (
-                    <div key={index}>
+                  {allImages?.map((image) => (
+                    <div key={image.code}>
                       <img
-                        src={image.image}
-                        alt={image.name}
+                        src={backendURL + image.imageurl}
+                        alt={prodname}
                         loading="lazy"
                         className="w-full h-[520px] sm:h-[710px] object-cover object-center"
                       />
@@ -118,33 +168,74 @@ const Details = () => {
             <div className="md:w-[57%] w-full">
               <div className="mb-4">
                 <h3 className="font-bold text-3xl text-slate-950">
-                  Beautiful Product
+                  {prodname}
                 </h3>
               </div>
               <div className="mb-4">
-                <p className="text-2xl text-slate-950">$75.00</p>
+                <p className="text-2xl text-slate-950">${prodPrice}</p>
               </div>
               <div className="mb-4">
-                <Description />
+                <Description description={prodDescription} />
+              </div>
+              <div className="mb-3">
+                <p className="text-base text-slate-950">Color</p>
+              </div>
+              <div className="flex items-center gap-x-3 mb-4 w-full md:max-w-80">
+                {availableVariations.uniqueKey1Values?.map((color) => (
+                  <ProductColors
+                    key={color}
+                    color={color}
+                    selected={selectedColor}
+                    selecthandler={handleSelectedColor}
+                  />
+                ))}
               </div>
               <div className="mb-3">
                 <p className="text-base text-slate-950">Size</p>
               </div>
               <div className="grid grid-cols-4 gap-4 w-full md:max-w-80">
-                {options.map((option) => (
+                {availableVariations.uniqueKey2Values?.map((size) => (
                   <Sizes
-                    key={option.id}
-                    {...option}
+                    key={size}
+                    size={size}
                     selected={selected}
                     selecthandler={handleSelect}
+                    sizesForColor={sizesForColor}
                   />
                 ))}
               </div>
-              <div className="w-full md:max-w-80">
+              <div className="w-full md:max-w-[28.125rem] flex gap-x-3 items-center mt-8">
+                <div className="flex flex-1 border border-gray-600 w-full rounded-md">
+                  <button
+                    type="button"
+                    onClick={decreaseAmt}
+                    className="py-3 px-2"
+                  >
+                    <Decrementbtn />
+                  </button>
+                  <input
+                    id="amount"
+                    type="number"
+                    min="1"
+                    max="5"
+                    step="1"
+                    defaultValue="1"
+                    ref={inputref}
+                    className="text-black border-none outline-none appearance-none py-3 px-3 text-center"
+                  />
+                  <button
+                    type="button"
+                    onClick={increaseAmt}
+                    className="py-3 px-2"
+                  >
+                    <Incrementbtn />
+                  </button>
+                </div>
                 <button
                   type="submit"
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-slate-950 px-8 py-3 text-base font-medium text-white transition duration-300 ease-in-out transform md:hover:scale-105 md:hover:bg-slate-800 md:hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
+                  className="flex w-full items-center justify-center rounded-md border border-transparent hover:border-gray-600 bg-slate-950 px-8 py-3 text-base font-medium text-white transition duration-300 ease-in-out hover:text-black md:hover:bg-transparent md:hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
                   onClick={openCart}
+                  // disabled={selectedColor === "" ? false : true}
                 >
                   Add to bag
                 </button>
@@ -158,7 +249,7 @@ const Details = () => {
                 Recommended for you
               </h2>
             </div>
-            <CustomSlider data={thumbnails} link="#" />
+            <CustomSlider data={filteredRecommended} link="#" />
           </div>
         </div>
       </section>
