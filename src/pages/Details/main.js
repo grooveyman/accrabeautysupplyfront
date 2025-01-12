@@ -54,7 +54,7 @@ const Details = () => {
   const prodDescription = product.description;
   const otherImages = product.prodimages;
   const prodvariations = product.prodvariations;
-  const  {data: recommendedData, isLoading: isFetching} = useFetch(['recommended', productCode, category], Endpoints.RECOMMENDED(category,8,0) )
+  const  {data: recommendedData} = useFetch(['recommended', productCode, category], Endpoints.RECOMMENDED(category,8,0) )
   const filteredRecommended = recommendedData?.results?.filter((dataObj) => dataObj.code !== productCode );
   
   console.log(product);
