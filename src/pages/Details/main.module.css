@@ -5,6 +5,6 @@
 
 .fullimagezoom img{
     object-fit: cover;
-    object-position: top center;
+    object-position: center;
     height: 100%;
 }

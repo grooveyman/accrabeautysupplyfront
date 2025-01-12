@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import classes from './Product.module.css'
 import { backendURL } from "../../../services";
 
-const Product = ({ preview, id, name, price }) => {
+const Product = ({ preview, code, name, price }) => {
   return (
     <div className="group relative">
       <div className={`aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 ${classes.productimages}`}>
@@ -18,7 +18,7 @@ const Product = ({ preview, id, name, price }) => {
       <div className="mt-4 flex flex-col">
         <div>
           <h3 className="text-sm text-gray-700 text-center">
-            <Link to={`/productdetail/${id}`}>
+            <Link to={`/productdetail/${code}`}>
               <span aria-hidden="true" className="absolute inset-0"></span>
               {name}
             </Link>

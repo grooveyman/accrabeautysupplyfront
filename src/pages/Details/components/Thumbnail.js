@@ -1,6 +1,6 @@
 import React from "react";
 
-const Thumbnail = ({ image, activeImage, onPress }) => {
+const Thumbnail = ({ image, activeImage, name, onPress }) => {
   return (
     <div
       className={`aspect-h-1 aspect-w-1 overflow-hidden rounded-md ${
@@ -9,7 +9,7 @@ const Thumbnail = ({ image, activeImage, onPress }) => {
     >
       <img
         src={image}
-        alt="Front of men's Basic Tee in black."
+        alt={name}
         className="h-full w-full object-cover object-center"
       />
     </div>
