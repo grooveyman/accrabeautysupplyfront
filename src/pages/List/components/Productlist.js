@@ -1,13 +1,13 @@
 import React, { memo, useEffect, useMemo } from "react";
 import Product from "./Product";
 import Noresults from "../../../components/NoResults/noresults";
-import Spinner from "../../../components/Spinner";
 import { returnCategoryCode } from "../../../helpers/Helperfunctions";
 import { Endpoints } from "../../../services";
 import {
   useFetchPaginatedData,
   useFetchSortedData,
 } from "../../../hooks/useReactQueryHooks";
+import ProductCard from "../../../components/Skeletons/ProductCard";
 
 const Productlist = ({
   category,
@@ -115,7 +115,11 @@ const Productlist = ({
   );
 
   if (isLoading) {
-    return <Spinner loading={isLoading} />;
+    return (
+      <div className="mb-3">
+        <ProductCard />
+      </div>
+    );
   }
 
   if (!isLoading && data?.pages[0]?.results?.length === 0) {
