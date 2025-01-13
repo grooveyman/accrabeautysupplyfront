@@ -10,7 +10,7 @@ const Categories = () => {
   const categories = categoriesData?.results || {};
 
   return (
-    <section className="max-w-full py-4 px-8">
+    <section className="max-w-full py-4 px-4">
       <div className="max-w-7xl mx-auto">
         <div>
           <h3 className="mb-4 font-bold text-3xl text-slate-950 text-center">

@@ -34,7 +34,7 @@ const Sidemenu = () => {
         menuOpen
           ? "animate__animated animate__slideInLeft"
           : "animate__animated animate__slideOutLeft"
-      } h-screen fixed top-0 left-0 z-[1001] py-4`}
+      } min-h-screen h-full fixed top-0 left-0 z-[1001] py-4`}
       onClose={closeMenu}
     >
       <div className="flex items-center justify-between px-8">

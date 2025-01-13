@@ -75,7 +75,7 @@ const Cartmodal = () => {
         cartOpen
           ? "animate__animated animate__slideInRight"
           : "animate__animated animate__slideOutRight"
-      } h-screen fixed top-0 right-0 z-[1001] p-4 flex flex-col`}
+      } min-h-screen h-full fixed top-0 right-0 z-[1001] p-4 flex flex-col`}
       onClose={closeCart}
     >
       <div className="flex items-center justify-between border-b border-gray-200 h-[8%]">

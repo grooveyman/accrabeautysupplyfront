@@ -20,7 +20,7 @@ const Search = () => {
 
   return (
     <main>
-      <section className="max-w-full py-4 px-8">
+      <section className="max-w-full py-4 px-4">
         <div className="max-w-7xl mx-auto">
           <Searchinput query={debouncedQuery} setSearchterm={setSearchQuery} />
           <Searchlist query={debouncedQuery} />

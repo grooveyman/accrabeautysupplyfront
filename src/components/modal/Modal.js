@@ -5,7 +5,7 @@ import classes from "./Modal.module.css";
 const Backdrop = (props) => {
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-screen z-[1000] ${classes.backdrop}`}
+      className={`fixed top-0 left-0 w-full min-h-screen h-full z-[1000] ${classes.backdrop}`}
       onClick={props.closeFnc}
     />
   );

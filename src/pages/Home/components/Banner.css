@@ -1,10 +1,4 @@
-.slick-next, .slick-prev{
-    color: black !important
-}
 
-.slick-next::before, .slick-prev::before{
-    color: black !important
-}
 
 .bannerImage{
     width: 100%;
@@ -13,8 +7,84 @@
     object-position: center top;
 }
 
+.swiper-pagination-bullet-active {
+    background-color: #fff !important;
+  }
+
+  .swiper-button-next {
+    right: 0 !important;
+    color: #333 !important;
+  }
+  .swiper-button-prev {
+    left: 0 !important;
+    color: #333 !important;
+  }
+
+  /* .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+
+  } */
+  /* Slide content */
+  /* .slide-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    height: 100%;
+    font-size: 1.5rem;
+    font-weight: bold;
+  } */
+  
+  /* Custom navigation buttons */
+  .custom-prev,
+  .custom-next {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-40%);
+    color: #333;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .custom-prev {
+    left: -10px;
+  }
+  
+  .custom-next {
+    right: 0px;
+  }
+
+  .custom-size {
+    width: 45px;
+    height: 45px;
+  }
+
+  .disabled-button {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  /* .custom-prev:hover,
+  .custom-next:hover {
+  } */
+  
+  
+
+
+
 @media (min-width: 48rem){
     .bannerImage{
         height: 550px;
     }
+
+    /* .swiper-button-next {
+        top: 39% !important;
+      }
+      .swiper-button-prev {
+        top: 39% !important;
+      } */
 }

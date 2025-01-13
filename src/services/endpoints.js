@@ -17,6 +17,7 @@ export const api = axios.create({
 export const Endpoints = {
   CATEGORY_PRODUCTS: (categorycode) => `/productscat/${categorycode}`,
   PRODUCTS: (limit, offset, sort, order) => `/products?limit=${limit}&offset=${offset}&sort=${sort}&order=${order}`,
+  PRODUCTS2: (limit, offset) => `/products?limit=${limit}&offset=${offset}`,
   PRODUCT: (productCode) => `/products/${productCode}`,
   CART: `/carts`,
   CATEGORIES: `/categories`,

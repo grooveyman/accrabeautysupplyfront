@@ -46,7 +46,7 @@ const defaultFn = () => {
 
   return (
     <main>
-      <section className="max-w-full py-4 px-8">
+      <section className="max-w-full py-4 px-4">
         <div className="max-w-7xl mx-auto">
           <Breadcrumbs category={category} allCategories={allCategories} />
           <Categorylist category={category} allCategories={allCategories} newest={newest} lowprice={lowprice} highprice={highprice} defaultFn={defaultFn} mode={mode} totalProducts={totalProducts} />

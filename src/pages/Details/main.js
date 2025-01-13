@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Imagezoom from "react-image-zooom";
 import classes from "./main.module.css";
 import CustomizedBreadcrumbs from "./components/Breadcrumbs";
-import Slider from "react-slick";
 import Thumbnail from "./components/Thumbnail";
 import Description from "./components/Description";
 import Sizes from "./components/Sizes";
@@ -21,16 +20,7 @@ import {
 } from "../../helpers/Helperfunctions";
 import Decrementbtn from "../../components/Decrementbtn";
 import Incrementbtn from "../../components/Incrementbtn";
-
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 0,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  waitForAnimate: false,
-  arrows: true,
-};
+import ImageSlider from "./components/ImageSlider";
 
 const Details = () => {
   const [selected, setSelected] = useState("");
@@ -54,9 +44,14 @@ const Details = () => {
   const prodDescription = product.description;
   const otherImages = product.prodimages;
   const prodvariations = product.prodvariations;
-  const  {data: recommendedData} = useFetch(['recommended', productCode, category], Endpoints.RECOMMENDED(category,8,0) )
-  const filteredRecommended = recommendedData?.results?.filter((dataObj) => dataObj.code !== productCode );
-  
+  const { data: recommendedData, isLoading: isFetching } = useFetch(
+    ["recommended", productCode, category],
+    Endpoints.RECOMMENDED(category, 8, 0)
+  );
+  const filteredRecommended = recommendedData?.results?.filter(
+    (dataObj) => dataObj.code !== productCode
+  );
+
   console.log(product);
 
   const handleSelect = (size) => {
@@ -72,7 +67,7 @@ const Details = () => {
 
     if (parseInt(amount) === 10) {
       //error handle
-      console.log('hiii')
+      console.log("hiii");
       return;
     }
 
@@ -116,7 +111,7 @@ const Details = () => {
 
   return (
     <main>
-      <section className="max-w-full py-4 px-8">
+      <section className="max-w-full py-4 px-4">
         <div className="max-w-7xl mx-auto">
           <CustomizedBreadcrumbs
             category={category}
@@ -126,7 +121,7 @@ const Details = () => {
           <div className="flex w-full flex-col md:flex-row mt-4 mb-16 gap-y-10 md:gap-y-0 md:gap-x-12">
             <div className="md:w-[43%] w-full">
               {activeImg ? (
-                <div className="w-full hidden md:block md:h-[450px] rounded-md overflow-hidden relative mb-3 p-5 md:p-0">
+                <div className="w-full hidden md:block md:h-[500px] rounded-md overflow-hidden relative mb-3 p-5 md:p-0">
                   <Imagezoom
                     className={classes.fullimagezoom}
                     src={activeImg}
@@ -151,18 +146,7 @@ const Details = () => {
               </div>
 
               <div className="md:hidden">
-                <Slider {...settings}>
-                  {allImages?.map((image) => (
-                    <div key={image.code}>
-                      <img
-                        src={backendURL + image.imageurl}
-                        alt={prodname}
-                        loading="lazy"
-                        className="w-full h-[520px] sm:h-[710px] object-cover object-center"
-                      />
-                    </div>
-                  ))}
-                </Slider>
+                  <ImageSlider images={allImages} name={prodname} />
               </div>
             </div>
             <div className="md:w-[57%] w-full">
@@ -204,12 +188,12 @@ const Details = () => {
                   />
                 ))}
               </div>
-              <div className="w-full md:max-w-[28.125rem] flex gap-x-3 items-center mt-8">
+              <div className="w-full md:max-w-[28.125rem] flex gap-x-2 sm:gap-x-3 items-center mt-8">
                 <div className="flex flex-1 border border-gray-600 w-full rounded-md">
                   <button
                     type="button"
                     onClick={decreaseAmt}
-                    className="py-3 px-2"
+                    className="py-3 px-1 sm:px-2"
                   >
                     <Decrementbtn />
                   </button>
@@ -221,12 +205,12 @@ const Details = () => {
                     step="1"
                     defaultValue="1"
                     ref={inputref}
-                    className="text-black border-none outline-none appearance-none py-3 px-3 text-center"
+                    className="text-black border-none outline-none appearance-none py-3 px-2 sm:px-3 text-center"
                   />
                   <button
                     type="button"
                     onClick={increaseAmt}
-                    className="py-3 px-2"
+                    className="py-3 px-1 sm:px-2"
                   >
                     <Incrementbtn />
                   </button>
@@ -249,7 +233,11 @@ const Details = () => {
                 Recommended for you
               </h2>
             </div>
-            <CustomSlider data={filteredRecommended} link="#" />
+            {isFetching ? (
+              <Spinner />
+            ) : (
+              <CustomSlider data={filteredRecommended} link="#" />
+            )}
           </div>
         </div>
       </section>
