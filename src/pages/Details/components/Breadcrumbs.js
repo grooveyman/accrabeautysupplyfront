@@ -25,12 +25,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
       backgroundColor: emphasize(backgroundColor, 0.12),
     },
   };
-}); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
-
-// function handleClick(event) {
-//   event.preventDefault();
-//   console.info("You clicked a breadcrumb.");
-// }
+});
 
 export default function CustomizedBreadcrumbs({ category, name, productCode }) {
   const { categoriesData } = React.useContext(CategoriesContext);
@@ -45,18 +40,21 @@ export default function CustomizedBreadcrumbs({ category, name, productCode }) {
           to="/"
           label="Home"
           icon={<HomeIcon fontSize="small" />}
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", fontSize: { xs: "10px", sm: "13px" }, }}
         />
         <StyledBreadcrumb
           component={Link}
           to={`/${formatText(categoryName)}`}
           label={categoryName}
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", fontSize: { xs: "10px", sm: "13px" }, }}
         />
         <StyledBreadcrumb
           component={Link}
           label={name}
-          sx={{ cursor: "pointer" }}
+          sx={{
+            cursor: "pointer",
+            fontSize: { xs: "10px", sm: "13px" },
+          }}
         />
       </Breadcrumbs>
     </div>

@@ -119,7 +119,7 @@ const Details = () => {
             productCode={productCode}
           />
           <div className="flex w-full flex-col md:flex-row mt-4 mb-16 gap-y-10 md:gap-y-0 md:gap-x-12">
-            <div className="md:w-[43%] w-full">
+            <div className="md:w-[44%] w-full">
               {activeImg ? (
                 <div className="w-full hidden md:block md:h-[500px] rounded-md overflow-hidden relative mb-3 p-5 md:p-0">
                   <Imagezoom
@@ -149,7 +149,7 @@ const Details = () => {
                   <ImageSlider images={allImages} name={prodname} />
               </div>
             </div>
-            <div className="md:w-[57%] w-full">
+            <div className="md:w-[56%] w-full">
               <div className="mb-4">
                 <h3 className="font-bold text-3xl text-slate-950">
                   {prodname}
