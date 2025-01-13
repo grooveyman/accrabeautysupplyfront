@@ -19,6 +19,7 @@ import "animate.css";
 import Sidemenu from "./layouts/Sidemenu/Sidemenu";
 import Cartmodal from "./layouts/Cartmodal/Cartmodal";
 import { AuthModal } from "./layouts/AuthModal";
+import CustomToastConfig from "./components/CustomToastConfig";
 
 function AppWrapper() {
   const location = useLocation();
@@ -45,6 +46,7 @@ function AppWrapper() {
 
   return (
     <>
+     <CustomToastConfig />
       <Header />
       {menuOpen && <Sidemenu />}
       {cartOpen && <Cartmodal />}
