@@ -17,6 +17,7 @@ import "./components/Input.css";
 import {
   extractUniqueValues,
   getSizesForColor,
+  showErrorToast,
 } from "../../helpers/Helperfunctions";
 import Decrementbtn from "../../components/Decrementbtn";
 import Incrementbtn from "../../components/Incrementbtn";
@@ -67,7 +68,8 @@ const Details = () => {
 
     if (parseInt(amount) === 10) {
       //error handle
-      console.log("hiii");
+      showErrorToast('Sorry you can only add a max of 10')
+
       return;
     }
 
@@ -146,7 +148,7 @@ const Details = () => {
               </div>
 
               <div className="md:hidden">
-                  <ImageSlider images={allImages} name={prodname} />
+                <ImageSlider images={allImages} name={prodname} />
               </div>
             </div>
             <div className="md:w-[56%] w-full">

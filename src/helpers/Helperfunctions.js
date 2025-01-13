@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 //temporary data
 export const NAV_ITEMS = [
   { id: 1, name: "Cosmetics", path: "/cosmetics" },
@@ -53,4 +55,18 @@ export const getSizesForColor = (arr, targetColor) => {
 
   return Array.from(sizes);
 }
+
+export const showErrorToast = (message) => {
+  toast.error(message, {
+    style: { backgroundColor: "red", color: "#fff" },
+    theme: "colored",
+  });
+};
+
+export const showSuccessToast = (message) => {
+  toast.error(message, {
+    style: { backgroundColor: "green", color: "#fff" },
+    theme: "colored",
+  });
+};
 
