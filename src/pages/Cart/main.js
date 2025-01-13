@@ -6,6 +6,9 @@ import image1 from "../../assets/images/art3.jpg";
 import CustomSlider from "../../components/Slider";
 import Decrementbtn from "../../components/Decrementbtn";
 import Incrementbtn from "../../components/Incrementbtn";
+import { useFetch } from "../../hooks";
+import { Endpoints } from "../../services";
+import Spinner from "../../components/Spinner";
 // import Emptycart from "./components/Emptycart";
 
 const cartItems = [
@@ -56,6 +59,11 @@ const cartItems = [
 ];
 
 const ShoppingCart = () => {
+    const { data: recommendedData, isLoading: isFetching } = useFetch(
+      ["recommendedcart"],
+      Endpoints.PRODUCTS2(8, 0)
+    );
+    const recommended = recommendedData?.results
   // console.log('this is cart')
   // const [cartItems, setCartItems] = useState([]);
 
@@ -83,7 +91,7 @@ const ShoppingCart = () => {
 
   return (
     <main>
-      <section className="max-w-full py-4 px-8">
+      <section className="max-w-full py-4 px-4">
         <div className="max-w-7xl mx-auto">
           <div>
             <h3 className="mt-6 mb-4 font-bold text-2xl text-slate-950">
@@ -172,7 +180,10 @@ const ShoppingCart = () => {
               Recommended for you
             </h2>
           </div>
-          <CustomSlider data={cartItems} link="#" />
+          {isFetching ? (
+              <Spinner />
+            ) : (
+              <CustomSlider data={recommended} link="#" />)}
         </div>
       </section>
     </main>

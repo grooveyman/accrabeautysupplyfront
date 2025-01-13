@@ -1,55 +1,42 @@
 import React from "react";
-import Slider from "react-slick";
 import { NavLink } from "react-router-dom";
 import { backendURL } from "../services";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 
 const CustomSlider = ({ data }) => {
-  const settings = {
-    className: "center",
-    infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 4,
-    swipeToSlide: true,
-    // afterChange: function (index) {
-    //   console.log(
-    //     `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    //   );
-    // },
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-    ],
-  };
 
   return (
-    <div className="slider-container w-full">
-      <Slider {...settings}>
-        {data?.map((product) => (
-          <NavLink to={`/productdetail/${product.code}`} key={product.id}>
+    <Swiper
+      modules={[Navigation]} // Add modules as needed
+      navigation={{
+        nextEl: ".custom-next",
+        prevEl: ".custom-prev",
+        disabledClass: "disabled-button",
+      }}
+      loop={data.length >= 7 ? true : false}
+      spaceBetween={5}
+      slidesPerView={2}
+      breakpoints={{
+        600: {
+          slidesPerView: 3,
+          // spaceBetween: 10,
+        },
+        768: {
+          slidesPerView: 3,
+          // spaceBetween: 10,
+        },
+        1024: {
+          slidesPerView: 4,
+          // spaceBetween: 10,
+        },
+      }}
+    >
+      {/* Add Swiper slides */}
+
+      {data?.map((product) => (
+        <SwiperSlide key={product.id}>
+          <NavLink to={`/productdetail/${product.code}`}>
             <div className="imageContainer">
               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none hover:opacity-75 lg:h-80 w-[97%] h-60 md:h-[300px]">
                 <img
@@ -67,9 +54,38 @@ const CustomSlider = ({ data }) => {
               </div>
             </div>
           </NavLink>
-        ))}
-      </Slider>
-    </div>
+        </SwiperSlide>
+      ))}
+
+      <button className="custom-prev">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="size-6 custom-size"
+        >
+          <path
+            fillRule="evenodd"
+            d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+      <button className="custom-next">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="size-6 custom-size"
+        >
+          <path
+            fillRule="evenodd"
+            d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+    </Swiper>
   );
 };
 

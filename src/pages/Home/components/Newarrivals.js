@@ -41,7 +41,7 @@ if (isLoading) {
 }
 
   return (
-    <section className="max-w-full py-5 px-8 my-3">
+    <section className="max-w-full py-4 px-4 my-3">
       <div className="max-w-7xl mx-auto relative">
         <div className="mb-4">
           <h3 className="font-bold text-3xl text-slate-950 text-center">

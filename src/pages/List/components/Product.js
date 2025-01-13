@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import classes from './Product.module.css'
+import classes from "./Product.module.css";
 import { backendURL } from "../../../services";
 
-const Product = ({ preview, code, name, price }) => {
+const Product = ({ preview, code, name, price, prodimages }) => {
+  const [isHovered, setIsHovered] = useState(false);
   return (
-    <div className="group relative">
-      <div className={`aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 ${classes.productimages}`}>
+    <div
+      className="group relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div
+        className={`aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 ${classes.productimages}`}
+      >
         {/* <Link to={"/"}> */}
         <img
-          src={backendURL + preview}
+          src={
+            isHovered
+              ? backendURL + prodimages[0].imageurl
+              : backendURL + preview
+          }
           alt={name}
           className="h-full w-full object-cover object-center"
         />
@@ -24,7 +35,9 @@ const Product = ({ preview, code, name, price }) => {
             </Link>
           </h3>
         </div>
-        <p className="text-sm font-medium text-gray-900 text-center">${price}</p>
+        <p className="text-sm font-medium text-gray-900 text-center">
+          ${price}
+        </p>
       </div>
     </div>
   );
