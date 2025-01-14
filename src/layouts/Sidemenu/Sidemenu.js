@@ -4,6 +4,7 @@ import XIcon from "../Header/components/XIcon";
 import { Link, NavLink } from "react-router-dom";
 import { ModalContext } from "../../context";
 import { Authcontext } from "../../context";
+import { useNavigate } from "react-router-dom";
 
 const NAV_ITEMS = [
   { id: 1, name: "Cosmetics", path: "/cosmetics" },
@@ -15,7 +16,15 @@ const NAV_ITEMS = [
 
 const Sidemenu = () => {
   const { closeMenu, menuOpen, openAuth } = useContext(ModalContext);
-  const { closeLogin, isLoggedIn } = useContext(Authcontext);
+  const { closeLogin, isLoggedIn, logoutHandler } = useContext(Authcontext);
+  const username = localStorage.getItem("firstname")
+  const navigate = useNavigate();
+
+  const handlerLogout = () => {
+    logoutHandler();
+    closeMenu();
+    navigate("/");
+  };
 
   const openRegistration = () => {
     closeLogin();
@@ -98,7 +107,7 @@ const Sidemenu = () => {
         {isLoggedIn && (
           <div className="border-b border-gray-300 py-2 mt-2">
             <h3 className="text-lg font-semibold text-gray-800">
-              Welcome, Emmanuel
+              Welcome, {username}
             </h3>
           </div>
         )}
@@ -136,10 +145,8 @@ const Sidemenu = () => {
               <li>
                 <button
                   className="block w-full text-left text-red-600 hover:text-red-800"
-                  // onClick={() => {
-                  //   toggleMenu();
-                  //   onSignOut();
-                  // }}
+                  type="button"
+                  onClick={handlerLogout}
                 >
                   Sign Out
                 </button>

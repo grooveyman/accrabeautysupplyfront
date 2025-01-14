@@ -6,15 +6,22 @@ import { ModalContext, Authcontext } from "../../context";
 import { useFormik } from "formik";
 import { LoginSchema, RegistrationSchema } from "../../helpers";
 import ForgotPasswordForm from "./Components/ForgotPasswordForm";
+import { usePost } from "../../hooks";
+import { Endpoints } from "../../services";
+import { showErrorToast, showSuccessToast } from "../../helpers/Helperfunctions";
+import { useNavigate } from "react-router-dom";
 
 const AuthModal = () => {
   const { closeAuth } = useContext(ModalContext);
-  const { loginActive, openLogin, closeLogin } = useContext(Authcontext);
+  const { loginActive, openLogin, closeLogin, loginHandler } = useContext(Authcontext);
   const [forgotPasswordView, setforgotPasswordView] = useState(false);
+  const {postReq, isPending} = usePost(['customers'], Endpoints.CUSTOMERS);
+  const {postReq: login, isPending: isSubmitting} = usePost(['login'], Endpoints.LOGIN);
+  const navigate = useNavigate()
 
   const iniValues = {
-    firstName: "",
-    otherNames: "",
+    othernames: "",
+    lastname: "",
     email: "",
     password: "",
   };
@@ -26,7 +33,60 @@ const AuthModal = () => {
 
     // Submit handler
     onSubmit: (values) => {
-      console.log("Form Data:", values);
+      if(!loginActive){
+       return postReq(values, {
+        onSuccess: (data) => {
+          // console.log("Data returned from API:", data);
+          // console.log(data.data.token.plainTextToken)
+          showSuccessToast('Successful')
+          loginHandler() //set isLoggedIn to true
+          const usercode = data.data.usercode;
+          const token = data.data.token.plainTextToken;
+          const firstname = data.data.othernames;
+          const expiryDate = data.data.token.accessToken.expires_at;
+          localStorage.setItem('token', token)
+          localStorage.setItem('user', usercode)
+          localStorage.setItem('firstname', firstname)
+          localStorage.setItem("tokenExpiry", expiryDate);
+          closeAuth()
+          
+          return navigate('/');
+
+        },
+        onError: (error) => {
+          // console.error("Custom Error Handler:", error);
+          if(error.status === 422){
+            showErrorToast("User already exists!")
+          }
+        }
+      })
+      }
+
+      login({'email': values.email, 'password': values.password}, {
+        onSuccess: (data) => {
+          // console.log("Data returned from API:", data);
+          showSuccessToast('Login successful')
+          loginHandler() //set isLoggedIn to true
+          const token = data.data.access_token;
+          const usercode = data.data.usercode;
+          const firstname = data.data.othernames;
+          const expiryDate = data.data.expires_at;
+          // const expiration = new Date();
+          localStorage.setItem('token', token)
+          localStorage.setItem('user', usercode)
+          localStorage.setItem('firstname', firstname)
+          localStorage.setItem("tokenExpiry", expiryDate);
+          closeAuth()
+          
+          return navigate('/');
+        },
+        onError: (error) => {
+          // console.error("Custom Error Handler:", error);
+          if(error.status === 401){
+            showErrorToast('Invalid Credentials!')
+          }
+        }
+      });
     },
   });
 
@@ -100,7 +160,7 @@ const AuthModal = () => {
           </div>
         </div>
         <div className="formContent">
-          <Authform formik={formik} forgotFormSwitch={formSwitchHandler} />
+          <Authform formik={formik} forgotFormSwitch={formSwitchHandler} isLoading={isPending} isSubmitting={isSubmitting} />
         </div>
       </div>
     </Modal>

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Authcontext } from "../../../context";
 
-const Authform = ({ formik, forgotFormSwitch }) => {
+const Authform = ({ formik, forgotFormSwitch, isSubmitting, isLoading }) => {
   const { loginActive, closeLogin } = useContext(Authcontext);
 
   return (
@@ -11,15 +11,15 @@ const Authform = ({ formik, forgotFormSwitch }) => {
         <div className="flex gap-3 nameContainer mb-4 sm:mb-2">
           <div className="firstnameContainer w-full">
             <label
-              htmlFor="firstName"
+              htmlFor="othernames"
               className="block text-sm/6 font-medium text-gray-900 mb-2"
             >
               First Name
             </label>
             <input
               type="text"
-              name="firstName"
-              id="firstName"
+              name="othernames"
+              id="othernames"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.firstName}
@@ -37,15 +37,15 @@ const Authform = ({ formik, forgotFormSwitch }) => {
           </div>
           <div className="othernamesContainer w-full">
             <label
-              htmlFor="otherNames"
+              htmlFor="lastname"
               className="block text-sm/6 font-medium text-gray-900 mb-2"
             >
               Last Name
             </label>
             <input
               type="text"
-              name="otherNames"
-              id="otherNames"
+              name="lastname"
+              id="lastname"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.otherNames}
@@ -124,9 +124,9 @@ const Authform = ({ formik, forgotFormSwitch }) => {
           </div>
           <button
             type="submit"
-            className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-4"
+            className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-4" disabled={isSubmitting}
           >
-            Sign In
+            {isSubmitting ? "Submitting...": 'Sign In'}
           </button>
 
           <div
@@ -162,9 +162,9 @@ const Authform = ({ formik, forgotFormSwitch }) => {
 
           <button
             type="submit"
-            className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+            className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900" disabled={isLoading}
           >
-            Register
+            {isLoading ? "Submitting...": 'Register'}
           </button>
         </div>
       )}

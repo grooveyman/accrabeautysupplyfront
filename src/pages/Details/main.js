@@ -53,7 +53,7 @@ const Details = () => {
     (dataObj) => dataObj.code !== productCode
   );
 
-  console.log(product);
+  // console.log(product);
 
   const handleSelect = (size) => {
     setSelected(size);
@@ -109,7 +109,7 @@ const Details = () => {
   const sizesForColor = getSizesForColor(prodvariations, selectedColor);
   // console.log('this is details page')
 
-  console.log(selectedColor);
+  // console.log(selectedColor);
 
   return (
     <main>

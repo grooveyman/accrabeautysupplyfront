@@ -6,11 +6,12 @@ import {
   ModalContext,
   AuthContextProvider,
   CategoriesCtxProvider,
+  Authcontext,
 } from "./context";
 import Header from "./layouts/Header/Header";
 import "swiper/css";
 import "swiper/css/navigation";
-import 'swiper/css/pagination';
+import "swiper/css/pagination";
 import Footer from "./layouts/Footer/Footer";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -20,10 +21,15 @@ import Sidemenu from "./layouts/Sidemenu/Sidemenu";
 import Cartmodal from "./layouts/Cartmodal/Cartmodal";
 import { AuthModal } from "./layouts/AuthModal";
 import CustomToastConfig from "./components/CustomToastConfig";
+import { getAuthToken, getTokenDuration } from "./helpers/Auth";
+import { useNavigate } from "react-router-dom";
 
 function AppWrapper() {
   const location = useLocation();
   const { menuOpen, cartOpen, authOpen } = useContext(ModalContext);
+  const token = getAuthToken();
+  const { logoutHandler, loginHandler } = useContext(Authcontext);
+    const navigate = useNavigate();
 
   useEffect(() => {
     // Configure nprogress to disable the spinner
@@ -44,9 +50,42 @@ function AppWrapper() {
     };
   }, [location]);
 
+  useEffect(() => {
+    if (!token) return;
+  
+    if (token === "EXPIRED") {
+      // console.warn("Token is expired, logging out");
+      logoutHandler();
+      return navigate('/');
+    }
+  
+    const tokenDuration = getTokenDuration();
+    // console.log(`Token duration: ${tokenDuration}ms`);
+  
+    if (typeof tokenDuration !== "number" || tokenDuration <= 0) {
+      // console.error(`Invalid token duration (${tokenDuration}), logging out`);
+      logoutHandler();
+      return navigate('/');
+    }
+  
+    // If valid, log the user in
+    loginHandler(); // Sets `isLoggedIn` to true
+  
+    // Set a timer to log out when the token expires
+    const timeoutId = setTimeout(() => {
+      // console.log("Token expired, logging out");
+      logoutHandler();
+      return navigate('/');
+    }, tokenDuration);
+  
+    return () => clearTimeout(timeoutId);
+  }, [token, logoutHandler, loginHandler, navigate]);
+  
+  
+
   return (
     <>
-     <CustomToastConfig />
+      <CustomToastConfig />
       <Header />
       {menuOpen && <Sidemenu />}
       {cartOpen && <Cartmodal />}

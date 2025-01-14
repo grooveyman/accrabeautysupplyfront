@@ -23,4 +23,5 @@ export const Endpoints = {
   CATEGORIES: `/categories`,
   CUSTOMERS: `/customers`,
   RECOMMENDED: (categorycode, limit, offset) => `/productscat/${categorycode}?limit=${limit}&offset=${offset}`,
+  LOGIN: `/customers/login`
 };

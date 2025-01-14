@@ -1,8 +1,8 @@
 import * as Yup from "yup";
 
 export const RegistrationSchema = Yup.object().shape({
-  firstName: Yup.string().trim().required("First Name is required"),
-  otherNames: Yup.string().trim().required("Last Name is required"),
+  othernames: Yup.string().trim().required("First Name is required"),
+  lastname: Yup.string().trim().required("Last Name is required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
