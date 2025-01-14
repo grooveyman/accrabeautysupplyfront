@@ -7,6 +7,7 @@ export const Authcontext = createContext({
   closeLogin: () => {},
   isLoggedIn: false,
   loginHandler: () => {},
+  logoutHandler: () => {},
 });
 
 const AuthContextProvider = ({ children }) => {
@@ -26,7 +27,13 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const loginHandler = () => {
-    setIsLoggedIn((isLoggedIn) => !isLoggedIn);
+    setIsLoggedIn(true);
+  };
+
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
+    const keysToRemove = ['token', 'user', 'firstname', 'tokenExpiry'];
+    keysToRemove.forEach((key) => localStorage.removeItem(key));
   };
 
   return (
@@ -38,6 +45,7 @@ const AuthContextProvider = ({ children }) => {
         closeLogin,
         isLoggedIn,
         loginHandler,
+        logoutHandler
       }}
     >
       {children}

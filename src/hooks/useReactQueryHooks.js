@@ -21,17 +21,17 @@ export const useFetch = (qKey, endpoint, options = {}) => {
 
 export const usePost = (qKey, endpoint) => {
   const queryClient = useQueryClient();
-  const { mutate: postReq, isLoading } = useMutation({
+  const { mutate: postReq, isPending } = useMutation({
     mutationFn: (objData) => api.post(endpoint, objData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: qKey });
     },
     onError: (error) => {
-      console.log(error);
+      // console.log(error);
       //handle error
     },
   });
-  return { postReq, isLoading };
+  return { postReq, isPending };
 };
 
 export const useFetchPaginatedData = (qKey, endpoint, limit) => {
