@@ -6,7 +6,7 @@ import React from "react";
 import CustomSlider from "../../../components/Slider";
 import { useFetch } from "../../../hooks/useReactQueryHooks";
 import { Endpoints } from "../../../services";
-import Spinner from "../../../components/Spinner";
+// import Spinner from "../../../components/Spinner";
 
 // const products = [
 //   {
@@ -36,9 +36,9 @@ const Newarrivals = () => {
 const {isLoading, data} = useFetch(['newarrivals'], Endpoints.PRODUCTS(8,0,"new","desc"));
 const products = data?.results || {};
 
-if (isLoading) {
-  return <Spinner />;
-}
+// if (isLoading) {
+//   return <Spinner />;
+// }
 
   return (
     <section className="max-w-full py-4 px-4 my-3">
@@ -48,7 +48,7 @@ if (isLoading) {
             New Arrivals
           </h3>
         </div>
-        <CustomSlider data={products} link='#' />
+        <CustomSlider data={products} loading={isLoading} />
       </div>
     </section>
   );
