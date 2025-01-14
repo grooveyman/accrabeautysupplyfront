@@ -3,8 +3,13 @@ import { NavLink } from "react-router-dom";
 import { backendURL } from "../services";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import SliderSkeleton from "./Skeletons/SliderSkeleton";
 
-const CustomSlider = ({ data }) => {
+const CustomSlider = ({ data, loading }) => {
+
+  if(loading){
+    return <SliderSkeleton />
+  }
 
   return (
     <Swiper
@@ -15,7 +20,7 @@ const CustomSlider = ({ data }) => {
         disabledClass: "disabled-button",
       }}
       loop={data.length >= 7 ? true : false}
-      spaceBetween={5}
+      spaceBetween={10}
       slidesPerView={2}
       breakpoints={{
         600: {
@@ -38,7 +43,7 @@ const CustomSlider = ({ data }) => {
         <SwiperSlide key={product.id}>
           <NavLink to={`/productdetail/${product.code}`}>
             <div className="imageContainer">
-              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none hover:opacity-75 lg:h-80 w-[97%] h-60 md:h-[300px]">
+              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none hover:opacity-75 lg:h-80 w-full h-60 md:h-[300px]">
                 <img
                   src={backendURL + product.preview}
                   alt={product.name}

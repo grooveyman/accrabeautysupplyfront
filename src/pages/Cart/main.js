@@ -8,7 +8,7 @@ import Decrementbtn from "../../components/Decrementbtn";
 import Incrementbtn from "../../components/Incrementbtn";
 import { useFetch } from "../../hooks";
 import { Endpoints } from "../../services";
-import Spinner from "../../components/Spinner";
+// import Spinner from "../../components/Spinner";
 // import Emptycart from "./components/Emptycart";
 
 const cartItems = [
@@ -59,11 +59,11 @@ const cartItems = [
 ];
 
 const ShoppingCart = () => {
-    const { data: recommendedData, isLoading: isFetching } = useFetch(
-      ["recommendedcart"],
-      Endpoints.PRODUCTS2(8, 0)
-    );
-    const recommended = recommendedData?.results
+  const { data: recommendedData, isLoading: isFetching } = useFetch(
+    ["recommendedcart"],
+    Endpoints.PRODUCTS2(8, 0)
+  );
+  const recommended = recommendedData?.results;
   // console.log('this is cart')
   // const [cartItems, setCartItems] = useState([]);
 
@@ -180,10 +180,7 @@ const ShoppingCart = () => {
               Recommended for you
             </h2>
           </div>
-          {isFetching ? (
-              <Spinner />
-            ) : (
-              <CustomSlider data={recommended} link="#" />)}
+          <CustomSlider data={recommended} loading={isFetching} />
         </div>
       </section>
     </main>
