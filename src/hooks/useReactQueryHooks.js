@@ -34,6 +34,21 @@ export const usePost = (qKey, endpoint) => {
   return { postReq, isPending };
 };
 
+export const useCustomPost = (qKey, endpoint) => {
+  const queryClient = useQueryClient();
+  const { mutate: postReq, isPending } = useMutation({
+    mutationFn: ({ objData, config }) => api.post(endpoint, objData, config),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: qKey });
+    },
+    onError: (error) => {
+      // console.log(error);
+      //handle error
+    },
+  });
+  return { postReq, isPending };
+};
+
 export const useFetchPaginatedData = (qKey, endpoint, limit) => {
   const fetchData = async ({ pageParam = 0 }) => {
     const response = await api.get(endpoint, {

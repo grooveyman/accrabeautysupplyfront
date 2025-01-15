@@ -4,7 +4,7 @@ const ProductDetail = () => {
   return (
     <div className="flex w-full flex-col md:flex-row mt-4 mb-16 gap-y-10 md:gap-y-0 md:gap-x-12">
       <div className="md:w-[44%] w-full">
-        <div className="w-full hidden md:block bg-gray-200 animate-pulse md:h-[500px] rounded-md overflow-hidden relative mb-3 p-5 md:p-0"></div>
+        <div className="w-full hidden md:block bg-gray-200 animate-pulse md:h-[500px] rounded-md overflow-hidden relative mb-6 p-5 md:p-0"></div>
 
         <div className="thumbnailsContainer hidden md:grid grid-cols-4 gap-x-2">
           {Array.from({ length: 4 }).map((_, index) => (

@@ -5,25 +5,50 @@ import { Link, NavLink } from "react-router-dom";
 import { ModalContext } from "../../context";
 import { Authcontext } from "../../context";
 import { useNavigate } from "react-router-dom";
-
-const NAV_ITEMS = [
-  { id: 1, name: "Cosmetics", path: "/cosmetics" },
-  { id: 2, name: "Human hair", path: "/humanhair" },
-  { id: 3, name: "Artificial hair", path: "/artificialhair" },
-  { id: 4, name: "Fabrics", path: "/fabrics" },
-  { id: 5, name: "Fashion", path: "/fashion" },
-];
+import { formatText, showErrorToast } from "../../helpers/Helperfunctions";
+import { getAuthToken } from "../../helpers/Auth";
+import { useCustomPost } from "../../hooks/useReactQueryHooks";
+import { Endpoints } from "../../services";
+import { CategoriesContext } from "../../context/CategoriesCtxProvider";
 
 const Sidemenu = () => {
   const { closeMenu, menuOpen, openAuth } = useContext(ModalContext);
   const { closeLogin, isLoggedIn, logoutHandler } = useContext(Authcontext);
-  const username = localStorage.getItem("firstname")
+  const { categoriesData } = useContext(CategoriesContext);
+  const categories = categoriesData?.results || {};
+  const username = localStorage.getItem("firstname");
   const navigate = useNavigate();
+  const token = getAuthToken();
+  const usercode = localStorage.getItem("user");
+  const { postReq } = useCustomPost(["logout"], Endpoints.LOGOUT);
+  const config = {
+    headers: {
+      customer_token: token,
+    },
+  };
 
   const handlerLogout = () => {
-    logoutHandler();
-    closeMenu();
-    navigate("/");
+    postReq(
+      { objData: { usercode }, config },
+      {
+        onSuccess: (data) => {
+          // console.log(data);
+          if (data.status === 200) {
+            logoutHandler();
+            closeMenu();
+            navigate("/");
+          }
+        },
+        onError: (error) => {
+          console.error(error);
+          if (error.status === 401) {
+            showErrorToast(
+              "Your session has expired. Please log in again to continue."
+            );
+          }
+        },
+      }
+    );
   };
 
   const openRegistration = () => {
@@ -56,11 +81,14 @@ const Sidemenu = () => {
       </div>
       <div className="bg-white rounded-md mx-8 px-4 mt-8 py-4 shadow-slate-900">
         <ul className="flex flex-col gap-5">
-          {NAV_ITEMS.map((navitem) => (
-            <li key={navitem.id} onClick={closeMenu}>
-              <NavLink to={navitem.path} className="flex justify-between">
+          {categories.map((category) => (
+            <li key={category.code} onClick={closeMenu}>
+              <NavLink
+                to={"/" + formatText(category.name)}
+                className="flex justify-between"
+              >
                 <h3 className="text-2xl text-gray-600 hover:text-slate-950">
-                  {navitem.name}
+                  {category.name}
                 </h3>
                 <div>
                   <svg
