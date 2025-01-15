@@ -75,7 +75,7 @@ const Cartmodal = () => {
         cartOpen
           ? "animate__animated animate__slideInRight"
           : "animate__animated animate__slideOutRight"
-      } min-h-screen h-full fixed top-0 right-0 z-[1001] p-4 flex flex-col`}
+      } min-h-screen h-full fixed top-0 right-0 z-[1001] p-3 flex flex-col`}
       onClose={closeCart}
     >
       <div className="flex items-center justify-between border-b border-gray-200 h-[8%]">
@@ -84,7 +84,7 @@ const Cartmodal = () => {
       </div>
 
       <div className="flex flex-col flex-1 h-[92%]">
-        <div className="overflow-y-auto border-b h-[70%] border-gray-300">
+        <div className="overflow-y-auto border-b h-[66%] border-gray-300">
           {cartItems.map((item) => (
             <div
               key={item.id}
@@ -107,7 +107,7 @@ const Cartmodal = () => {
             </div>
           ))}
         </div>
-        <div className="border-t border-gray-200 h-[30%]">
+        <div className="border-t border-gray-200 h-[34%]">
           <div className="flex justify-between text-base font-medium text-gray-900 mt-3">
             <p>Subtotal</p>
             <p>$262.00</p>

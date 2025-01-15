@@ -20,6 +20,7 @@ const ProductColors = ({ color, selected, selecthandler }) => {
             type="radio"
             name="color"
             value={color}
+            checked={selected === color}
             onChange={() => selecthandler(color)}
             className="hidden"
           />

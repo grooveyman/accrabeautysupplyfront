@@ -32,7 +32,7 @@ const Sort = ({ newest, lowprice, highprice, defaultFn, mode, totalProducts }) =
   return (
     <div className="w-full flex justify-between items-center">
       <div>
-        <p className="text-sm font-medium text-gray-700">{totalProducts > 0 ? `${totalProducts} Products` : "No Products"}</p>
+        <p className="text-sm font-medium text-gray-700">{totalProducts > 1 ? `${totalProducts} Products` : totalProducts === 1 ? `${totalProducts} Product`: `No Products`}</p>
       </div>
       <div className="relative" onClick={(e) => e.stopPropagation()}>
         <button
