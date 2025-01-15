@@ -22,16 +22,16 @@ const Authform = ({ formik, forgotFormSwitch, isSubmitting, isLoading }) => {
               id="othernames"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.firstName}
+              value={formik.values.othernames}
               className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${
-                formik.touched.firstName && formik.errors.firstName
+                formik.touched.othernames && formik.errors.othernames
                   ? "outline-red-500" // Error state
                   : "outline-gray-300 focus:outline-slate-950"
               } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
             />
-            {formik.touched.firstName && formik.errors.firstName ? (
+            {formik.touched.othernames && formik.errors.othernames ? (
               <div className="text-red-500 text-xs">
-                {formik.errors.firstName}
+                {formik.errors.othernames}
               </div>
             ) : null}
           </div>
@@ -48,16 +48,16 @@ const Authform = ({ formik, forgotFormSwitch, isSubmitting, isLoading }) => {
               id="lastname"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.otherNames}
+              value={formik.values.lastname}
               className={`block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 ${
-                formik.touched.otherNames && formik.errors.otherNames
+                formik.touched.lastname && formik.errors.lastname
                   ? "outline-red-500"
                   : "outline-gray-300 focus:outline-slate-950"
               } placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 sm:text-sm/6`}
             />
-            {formik.touched.otherNames && formik.errors.otherNames ? (
+            {formik.touched.lastname && formik.errors.lastname ? (
               <div className="text-red-500 text-xs">
-                {formik.errors.otherNames}
+                {formik.errors.lastname}
               </div>
             ) : null}
           </div>
