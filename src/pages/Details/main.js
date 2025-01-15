@@ -88,11 +88,29 @@ const Details = () => {
     inputref.current.value = newamount;
   };
 
+  const addToBag = () => {
+    if (selectedColor === "") {
+      return showErrorToast("Please choose a color");
+    }
+
+    if (selected === "") {
+      return showErrorToast("Please choose a size");
+    }
+
+    // console.log(selected, selectedColor)
+    //logic for adding to cart and opening sidecart (openCart())
+    openCart()
+  };
+
   useEffect(() => {
     if (!isLoading) {
       setActiveImg(mainImage);
     }
   }, [mainImage, isLoading]);
+
+  useEffect(() => {
+    setSelected("")
+  }, [selectedColor])
 
   // if (isLoading) {
   //   return <Spinner loading={isLoading} />;
@@ -105,7 +123,7 @@ const Details = () => {
 
   const sizesForColor =
     !isLoading && getSizesForColor(prodvariations, selectedColor);
-  // console.log('this is details page')
+  // console.log(sizesForColor);
 
   // console.log(selectedColor);
 
@@ -127,7 +145,7 @@ const Details = () => {
             <div className="flex w-full flex-col md:flex-row mt-4 mb-16 gap-y-10 md:gap-y-0 md:gap-x-12">
               <div className="md:w-[44%] w-full">
                 {activeImg ? (
-                  <div className="w-full hidden md:block md:h-[500px] rounded-md overflow-hidden relative mb-3 p-5 md:p-0">
+                  <div className="w-full hidden md:block md:h-[550px] rounded-md overflow-hidden relative mb-3 p-2 md:p-0">
                     <Imagezoom
                       className={classes.fullimagezoom}
                       src={activeImg}
@@ -223,8 +241,8 @@ const Details = () => {
                   </div>
                   <button
                     type="submit"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent hover:border-gray-600 bg-slate-950 px-8 py-3 text-base font-medium text-white transition duration-300 ease-in-out hover:text-black md:hover:bg-transparent md:hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
-                    onClick={openCart}
+                    className="flex w-full items-center justify-center rounded-md border border-transparent hover:border-gray-600 bg-slate-950 px-8 py-3 text-base font-medium text-white transition duration-300 ease-in-out hover:text-black hover:bg-transparent md:hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
+                    onClick={addToBag}
                     // disabled={selectedColor === "" ? false : true}
                   >
                     Add to bag
@@ -233,15 +251,16 @@ const Details = () => {
               </div>
             </div>
           )}
-
-          <div>
-            <div className="mb-4">
-              <h2 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
-                Recommended for you
-              </h2>
+          {filteredRecommended?.length > 0 && (
+            <div>
+              <div className="mb-4">
+                <h2 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
+                  Recommended for you
+                </h2>
+              </div>
+              <CustomSlider data={filteredRecommended} loading={isFetching} />
             </div>
-            <CustomSlider data={filteredRecommended} loading={isFetching} />
-          </div>
+          )}
         </div>
       </section>
     </main>

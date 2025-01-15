@@ -35,7 +35,14 @@ export const extractUniqueValues = (arr, key1, key2, key3) => {
 
   for (const obj of arr) {
     if (obj[key1]) uniqueValues1.add(obj[key1]);
-    if (obj[key3]) uniqueValues2.add(obj[key2]+ obj[key3]);
+
+    if (obj[key3]) {
+      if (obj[key2] === "0") {
+        uniqueValues2.add(obj[key3]);
+      } else {
+        uniqueValues2.add(obj[key2] + obj[key3]);
+      }
+    }
   }
 
   return {
@@ -44,12 +51,17 @@ export const extractUniqueValues = (arr, key1, key2, key3) => {
   };
 };
 
+
 export const getSizesForColor = (arr, targetColor) => {
   const sizes = new Set();
 
   for (const obj of arr) {
     if (obj.color === targetColor && obj.value) {
-      sizes.add(obj.value + obj.size);
+      if(obj.value === "0"){
+        sizes.add(obj.size);
+      } else {
+        sizes.add(obj.value + obj.size);
+      }
     }
   }
 

@@ -175,12 +175,16 @@ const ShoppingCart = () => {
               </button>
             </div>
           </div>
-          <div className="mb-4 mt-8">
-            <h2 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
-              Recommended for you
-            </h2>
-          </div>
-          <CustomSlider data={recommended} loading={isFetching} />
+          {recommended?.length > 0 && (
+            <div className="mb-4 mt-8">
+              <h2 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
+                Recommended for you
+              </h2>
+            </div>
+          )}
+          {recommended?.length > 0 && (
+            <CustomSlider data={recommended} loading={isFetching} />
+          )}
         </div>
       </section>
     </main>

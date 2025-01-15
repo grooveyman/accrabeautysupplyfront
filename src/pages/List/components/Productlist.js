@@ -149,7 +149,7 @@ const Productlist = ({
       </div>
       <div className="flex justify-center items-center my-6">
         <p className="text-base/7 text-gray-600">
-          You've viewed {productsSoFar} out of {totalProducts} products.
+          You've viewed {productsSoFar} out of {totalProducts} {productsSoFar > 1 ? "products": "product"}.
         </p>
       </div>
     </div>

@@ -23,6 +23,7 @@ import { AuthModal } from "./layouts/AuthModal";
 import CustomToastConfig from "./components/CustomToastConfig";
 import { getAuthToken, getTokenDuration } from "./helpers/Auth";
 import { useNavigate } from "react-router-dom";
+import Notice from "./components/Notice/Notice";
 
 function AppWrapper() {
   const location = useLocation();
@@ -86,6 +87,7 @@ function AppWrapper() {
   return (
     <>
       <CustomToastConfig />
+      <Notice />
       <Header />
       {menuOpen && <Sidemenu />}
       {cartOpen && <Cartmodal />}
