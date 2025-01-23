@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Emptycart = () => {
   return (
     <div>
-      <div className="flex flex-col items-center justify-center h-full text-center p-8">
+      <div className="flex flex-col items-center justify-center h-screen text-center p-8">
         <div className="relative w-24 h-24 mb-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"

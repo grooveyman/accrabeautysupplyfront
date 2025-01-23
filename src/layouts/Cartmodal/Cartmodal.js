@@ -155,7 +155,7 @@ const Cartmodal = () => {
 
       <div className="flex flex-col flex-1 h-[92%]">
         {!isLoading ? (
-          <div className="overflow-y-auto border-b h-[66%] border-gray-300">
+          <div className="overflow-y-auto border-b flex-1 border-gray-300">
             {cartItems?.map((item) => (
               <div
                 key={item.itemvariation.prodvarcode}
@@ -245,7 +245,7 @@ const Cartmodal = () => {
         ) : (
           <CartModSkeleton />
         )}
-        <div className="border-t border-gray-200 h-[34%]">
+        <div className="border-t border-gray-200">
           <div className="flex justify-between text-base font-medium text-gray-900 mt-3">
             <p>Subtotal</p>
             <p>
