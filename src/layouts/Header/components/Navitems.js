@@ -7,10 +7,10 @@ import AuthMenu from "./AuthMenu";
 
 const Navitems = () => {
   const { toggleAuth } = useContext(ModalContext);
-  const { isLoggedIn } = useContext(Authcontext);
+  const { isLoggedIn, stateName } = useContext(Authcontext);
 
   const [toggleAuthMenu, setToggleAuthMenu] = useState(false);
-  const username = localStorage.getItem("firstname");
+  const username = stateName || localStorage.getItem("firstname");
 
   const authMenuHandler = (e) => {
     e.stopPropagation();

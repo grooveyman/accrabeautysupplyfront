@@ -76,9 +76,32 @@ export const showErrorToast = (message) => {
 };
 
 export const showSuccessToast = (message) => {
-  toast.error(message, {
+  toast.success(message, {
     style: { backgroundColor: "green", color: "#fff" },
     theme: "colored",
   });
 };
 
+export const findVariationDetails = (products, color, size) => {
+  if (!Array.isArray(products)) {
+    throw new Error("The first argument must be an array.");
+  }
+  const foundProduct = products.find(
+    (product) => product.color === color && product.size === size
+  );
+
+  if (!foundProduct) {
+    return null; 
+  }
+
+  const { code, quantity, price } = foundProduct;
+  return { code, quantity, price };
+};
+
+export const getConcatenatedSize = (value, size) => {
+  if(value === "0"){
+   return size;
+  } else {
+    return value + size;
+  }
+}

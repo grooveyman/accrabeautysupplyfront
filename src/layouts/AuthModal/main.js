@@ -36,19 +36,18 @@ const AuthModal = () => {
       if(!loginActive){
        return postReq(values, {
         onSuccess: (data) => {
-          // console.log("Data returned from API:", data);
-          // console.log(data.data.token.plainTextToken)
-          showSuccessToast('Successful')
-          loginHandler() //set isLoggedIn to true
-          const usercode = data.data.usercode;
-          const token = data.data.token.plainTextToken;
-          const firstname = data.data.othernames;
-          const expiryDate = data.data.token.accessToken.expires_at;
+          // console.log("Data returned from API after sign up:", data);
+          const usercode = data?.data?.code;
+          const token = data?.data?.token?.plainTextToken;
+          const firstname = data?.data?.othernames;
+          const expiryDate = data?.data?.token.accessToken.expires_at;
+          loginHandler(token, firstname, usercode) //set isLoggedIn to true
           localStorage.setItem('token', token)
           localStorage.setItem('user', usercode)
           localStorage.setItem('firstname', firstname)
           localStorage.setItem("tokenExpiry", expiryDate);
           closeAuth()
+          showSuccessToast('Successful')
           
           return navigate('/');
 
@@ -66,11 +65,11 @@ const AuthModal = () => {
         onSuccess: (data) => {
           // console.log("Data returned from API:", data);
           showSuccessToast('Login successful')
-          loginHandler() //set isLoggedIn to true
-          const token = data.data.access_token;
-          const usercode = data.data.usercode;
-          const firstname = data.data.othernames;
-          const expiryDate = data.data.expires_at;
+          const token = data?.data?.access_token;
+          const usercode = data?.data?.usercode;
+          const firstname = data?.data?.othernames;
+          const expiryDate = data?.data?.expires_at;
+          loginHandler(token, firstname, usercode) //set isLoggedIn to true
           // const expiration = new Date();
           localStorage.setItem('token', token)
           localStorage.setItem('user', usercode)
@@ -111,6 +110,10 @@ const AuthModal = () => {
         customstyle={
           "sm:max-w-md w-full p-8 sm:p-4 bg-gray-50 fixed z-[1001] h-screen sm:h-[400px] sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-md overflow-y-auto"
         }
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-5">
@@ -131,6 +134,10 @@ const AuthModal = () => {
       customstyle={
         "sm:max-w-md w-full p-8 sm:p-4 bg-gray-50 fixed z-[1001] h-screen sm:h-[520px] sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-md overflow-y-auto"
       }
+      initial={{ opacity: 0}} 
+      animate={{ opacity: 1}}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="flex flex-col">
         <div className="flex justify-end mb-5 sm:mb-3">

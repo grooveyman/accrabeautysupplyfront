@@ -12,14 +12,14 @@ import { Endpoints } from "../../services";
 import { CategoriesContext } from "../../context/CategoriesCtxProvider";
 
 const Sidemenu = () => {
-  const { closeMenu, menuOpen, openAuth } = useContext(ModalContext);
-  const { closeLogin, isLoggedIn, logoutHandler } = useContext(Authcontext);
+  const { closeMenu, openAuth } = useContext(ModalContext);
+  const { closeLogin, isLoggedIn, logoutHandler, stateName, stateUsercode, stateToken } = useContext(Authcontext);
   const { categoriesData } = useContext(CategoriesContext);
   const categories = categoriesData?.results || {};
-  const username = localStorage.getItem("firstname");
+  const username = stateName || localStorage.getItem("firstname");
   const navigate = useNavigate();
-  const token = getAuthToken();
-  const usercode = localStorage.getItem("user");
+  const token = stateToken || getAuthToken();
+  const usercode = stateUsercode || localStorage.getItem("user");
   const { postReq } = useCustomPost(["logout"], Endpoints.LOGOUT);
   const config = {
     headers: {
@@ -64,12 +64,12 @@ const Sidemenu = () => {
 
   return (
     <Modal
-      customstyle={`bg-gray-200 w-full sm:w-6/12 lg:w-2/6 ${
-        menuOpen
-          ? "animate__animated animate__slideInLeft"
-          : "animate__animated animate__slideOutLeft"
-      } min-h-screen h-full fixed top-0 left-0 z-[1001] py-4`}
+      customstyle={`bg-gray-200 w-full sm:w-6/12 lg:w-2/6 min-h-screen h-full fixed top-0 left-0 z-[1001] py-4`}
       onClose={closeMenu}
+      initial={{ opacity: 0, x: "-100%" }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 1, x: "-100%" }}
+      transition={{ duration: 0.5 }}
     >
       <div className="flex items-center justify-between px-8">
         <NavLink to={"/"} onClick={closeMenu}>

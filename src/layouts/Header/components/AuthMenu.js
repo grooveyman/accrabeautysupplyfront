@@ -9,9 +9,9 @@ import { getAuthToken } from "../../../helpers/Auth";
 
 const AuthMenu = ({ toggleAuthMenu }) => {
   const navigate = useNavigate();
-  const { logoutHandler } = useContext(Authcontext);
+  const { logoutHandler, stateUsercode } = useContext(Authcontext);
   const token = getAuthToken();
-  const usercode = localStorage.getItem("user");
+  const usercode = stateUsercode || localStorage.getItem("user");
   const { postReq } = useCustomPost(["logout"], Endpoints.LOGOUT);
   const config = {
     headers: {

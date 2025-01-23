@@ -27,4 +27,7 @@ export const Endpoints = {
     `/productscat/${categorycode}?limit=${limit}&offset=${offset}`,
   LOGIN: `/customers/login`,
   LOGOUT: `/customers/logout`,
+  FORGOT_PASSWORD: `/customers/forgotpassword`,
+  RESET_PASSWORD: `/customers/resetpassword`,
+  SEARCH_PRODUCTS: `/productsearch`
 };
