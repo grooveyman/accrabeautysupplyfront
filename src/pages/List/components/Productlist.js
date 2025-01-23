@@ -127,8 +127,8 @@ const Productlist = ({
   }
 
   return (
-    <div className="mb-3">
-      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-6">
+    <div className="mb-3 min-h-[80vh] flex flex-col">
+      <div className="flex-1 mt-6 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-6">
         {data?.pages.map((page) =>
           page?.results?.map((product) => (
             <Product key={product.code} {...product} /> // Render each product
