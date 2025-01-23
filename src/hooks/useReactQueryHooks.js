@@ -30,6 +30,7 @@ export const usePost = (qKey, endpoint) => {
       // console.log(error);
       //handle error
     },
+    useErrorBoundary: false,
   });
   return { postReq, isPending };
 };
@@ -45,6 +46,7 @@ export const useCustomPost = (qKey, endpoint) => {
       // console.log(error);
       //handle error
     },
+    useErrorBoundary: false,
   });
   return { postReq, isPending };
 };
@@ -101,6 +103,99 @@ export const useFetchSortedData = (qKey, endpoint, limit, sort, order) => {
         offset: pageParam,
         sort: sort,
         order: order
+      },
+    });
+
+    return response.data; // Return the fetched data
+  };
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: qKey,
+    queryFn: fetchData,
+    getNextPageParam: (lastPage, allPages) => {
+      const totalFetched = allPages.length * limit;
+      if (lastPage.results.length < limit || lastPage.results.length === 0) {
+        return undefined;
+      }
+      return totalFetched;
+    },
+  });
+
+  return {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isError,
+    error,
+  };
+};
+
+
+export const useFetchSearchPaginatedData = (qKey, endpoint, limit, searchKey, searchValue) => {
+  const fetchData = async ({ pageParam = 0 }) => {
+    const response = await api.get(endpoint, {
+      params: {
+        limit: limit,
+        offset: pageParam,
+        [searchKey]: searchValue,
+      },
+    });
+
+    return response.data; // Return the fetched data
+  };
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: qKey,
+    queryFn: fetchData,
+    getNextPageParam: (lastPage, allPages) => {
+      const totalFetched = allPages.length * limit;
+      if (lastPage.results.length < limit || lastPage.results.length === 0) {
+        return undefined;
+      }
+      return totalFetched;
+    },
+  });
+
+  return {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isError,
+    error,
+  };
+};
+
+
+export const useFetchSortedSearchData = (qKey, endpoint, limit, sort, order, searchKey, searchValue) => {
+  const fetchData = async ({ pageParam = 0 }) => {
+    const response = await api.get(endpoint, {
+      params: {
+        limit: limit,
+        offset: pageParam,
+        sort: sort,
+        order: order,
+        [searchKey]: searchValue,
+
       },
     });
 

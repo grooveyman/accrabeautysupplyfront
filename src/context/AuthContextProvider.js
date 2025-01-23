@@ -8,11 +8,17 @@ export const Authcontext = createContext({
   isLoggedIn: false,
   loginHandler: () => {},
   logoutHandler: () => {},
+  stateName: "",
+  stateToken: "",
+  stateUsercode: ""
 });
 
 const AuthContextProvider = ({ children }) => {
   const [loginActive, setLoginActive] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [stateToken, setStateToken] = useState("")
+  const [stateName, setStateName] = useState("")
+  const [stateUsercode, setStateUsercode] = useState("")
 
   const toggleLoginActive = () => {
     setLoginActive((prevstate) => !prevstate);
@@ -26,14 +32,20 @@ const AuthContextProvider = ({ children }) => {
     setLoginActive(false);
   };
 
-  const loginHandler = () => {
+  const loginHandler = (token, name, usercode ) => {
     setIsLoggedIn(true);
+    setStateToken(token)
+    setStateName(name)
+    setStateUsercode(usercode)
   };
 
   const logoutHandler = () => {
     setIsLoggedIn(false);
     const keysToRemove = ['token', 'user', 'firstname', 'tokenExpiry'];
     keysToRemove.forEach((key) => localStorage.removeItem(key));
+    setStateToken("")
+    setStateName("")
+    setStateUsercode("")
   };
 
   return (
@@ -45,7 +57,10 @@ const AuthContextProvider = ({ children }) => {
         closeLogin,
         isLoggedIn,
         loginHandler,
-        logoutHandler
+        logoutHandler,
+        stateName,
+        stateToken,
+        stateUsercode
       }}
     >
       {children}

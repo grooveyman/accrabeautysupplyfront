@@ -1,8 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import { ForgotPasswordSchema } from "../../../helpers/FormValidation";
+import { Endpoints } from "../../../services";
+import { usePost } from "../../../hooks";
+import { showErrorToast, showSuccessToast } from "../../../helpers/Helperfunctions";
 
 const ForgotPasswordForm = ({ forgotFormSwitch }) => {
+  const {postReq, isPending} = usePost(['forgotpassword'], Endpoints.FORGOT_PASSWORD);
   const iniValues = {
     email: "",
   };
@@ -14,7 +18,26 @@ const ForgotPasswordForm = ({ forgotFormSwitch }) => {
 
     // Submit handler
     onSubmit: (values) => {
-      console.log("Form Data:", values);
+        postReq(values, {
+        onSuccess: (data) => {
+          showSuccessToast('Password reset link sent! Check your email to reset your password.')
+          // return navigate('/');
+        },
+        onError: (error) => {
+          // console.error("Custom Error Handler:", error);
+          if(error.status === 422){
+            showErrorToast("User does not exist")
+            return;
+          }
+
+          if(error.status === 429){
+            showErrorToast("Too many requests!")
+            return;
+          }
+
+          showErrorToast("Failed to reset password")
+        }
+      })
     },
   });
 
@@ -51,9 +74,8 @@ const ForgotPasswordForm = ({ forgotFormSwitch }) => {
         </div>
         <button
           type="submit"
-          className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-4"
-        >
-          Reset Password
+          className="rounded-md w-full bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 mb-4" disabled={isPending}>
+          {isPending ? "Submitting...": 'Reset Password'}
         </button>
       </form>
         <button

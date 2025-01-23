@@ -1,6 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import ReactDOM from "react-dom";
 import classes from "./Modal.module.css";
+import { motion, AnimatePresence } from "framer-motion";
+import { ModalContext } from "../../context";
 
 const Backdrop = (props) => {
   return (
@@ -11,11 +13,24 @@ const Backdrop = (props) => {
   );
 };
 
-const ModalOverlay = ({ children, customstyle }) => {
+const ModalOverlay = ({ children, customstyle, initial, animate, exit, transition }) => {
+  const { menuOpen, cartOpen, authOpen } = useContext(ModalContext);
+
   return (
-    <div className={customstyle}>
-      {children}
-    </div>
+    <AnimatePresence>
+      {(menuOpen || cartOpen || authOpen) && (
+        <motion.div
+          key="sideMenu"
+          initial={initial}
+          animate={animate}
+          exit={exit}
+          transition={transition}
+          className={customstyle}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
@@ -29,7 +44,7 @@ const Modal = (props) => {
         modalPortal
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay customstyle={props.customstyle}>
+        <ModalOverlay customstyle={props.customstyle} initial={props.initial} animate={props.animate} exit={props.exit} transition={props.transition}>
           {props.children}
         </ModalOverlay>,
         modalPortal

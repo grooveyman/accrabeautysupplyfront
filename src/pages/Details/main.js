@@ -7,7 +7,7 @@ import Description from "./components/Description";
 import Sizes from "./components/Sizes";
 import CustomSlider from "../../components/Slider";
 import { useContext } from "react";
-import { ModalContext } from "../../context";
+import { ModalContext, Authcontext } from "../../context";
 import ProductColors from "./components/ProductColors";
 import { useFetch } from "../../hooks";
 import { useParams } from "react-router-dom";
@@ -16,6 +16,8 @@ import Spinner from "../../components/Spinner";
 import "./components/Input.css";
 import {
   extractUniqueValues,
+  findVariationDetails,
+  getConcatenatedSize,
   getSizesForColor,
   showErrorToast,
 } from "../../helpers/Helperfunctions";
@@ -23,13 +25,24 @@ import Decrementbtn from "../../components/Decrementbtn";
 import Incrementbtn from "../../components/Incrementbtn";
 import ImageSlider from "./components/ImageSlider";
 import ProductDetail from "../../components/Skeletons/ProductDetail";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../store/cartSlice";
+import { useAddToCartMutation } from "../../store/authenticatedCartSlice";
+import SliderSkeleton from "../../components/Skeletons/SliderSkeleton";
 
 const Details = () => {
   const [selected, setSelected] = useState("");
   const { openCart } = useContext(ModalContext);
+  const { isLoggedIn, stateUsercode } = useContext(Authcontext);
+  const customercode = stateUsercode || localStorage.getItem("user");
   const [activeImg, setActiveImg] = useState("");
+  const [activePrice, setActivePrice] = useState("");
+  // const [activeQuantity, setActiveQuantity] = useState("");
+  const [activeVarCode, setActiveVarCode] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const { productCode } = useParams();
+  const dispatch = useDispatch();
+  const [addToCartMutation, { isLoading: isAdding }] = useAddToCartMutation();
   const inputref = useRef(null);
 
   const { data, isLoading } = useFetch(
@@ -46,6 +59,7 @@ const Details = () => {
   const prodDescription = product.description;
   const otherImages = product.prodimages;
   const prodvariations = product.prodvariations;
+  // const totalQuantity = product.quantity;
   const { data: recommendedData, isLoading: isFetching } = useFetch(
     ["recommended", productCode, category],
     Endpoints.RECOMMENDED(category, 8, 0)
@@ -60,8 +74,23 @@ const Details = () => {
     setSelected(size);
   };
 
-  const handleSelectedColor = (color) => {
-    setSelectedColor(color);
+  const handleSelectedColor = (color, size) => {
+    if (size) {
+      const foundProduct = prodvariations?.find(
+        (variation) =>
+          variation.color === color &&
+          getConcatenatedSize(variation.value, variation.size) === size
+      );
+      if (foundProduct) {
+        setSelectedColor(color);
+      } else {
+        setSelected("");
+        setSelectedColor(color);
+        // showErrorToast("Color not available for the selected size");
+      }
+    } else {
+      setSelectedColor(color);
+    }
   };
 
   const increaseAmt = () => {
@@ -88,29 +117,99 @@ const Details = () => {
     inputref.current.value = newamount;
   };
 
-  const addToBag = () => {
+  const addToBag = async () => {
     if (selectedColor === "") {
-      return showErrorToast("Please choose a color");
+      return showErrorToast("Please select a color");
     }
 
     if (selected === "") {
-      return showErrorToast("Please choose a size");
+      return showErrorToast("Please select a size");
     }
 
+    if (isLoggedIn) {
+      const newProduct = {
+        items: [
+          {
+            prodcode: productCode,
+            quantity: inputref.current.value,
+            price: activePrice,
+            totalPrice:
+              parseFloat(activePrice) * parseFloat(inputref.current.value),
+            variation: {
+              prodvarcode: activeVarCode,
+              color: selectedColor,
+              size: selected,
+              quantity: inputref.current.value,
+              price: activePrice,
+              totalPrice:
+                parseFloat(activePrice) * parseFloat(inputref.current.value),
+            },
+            previmage: product.preview,
+            prodname: prodname,
+          },
+        ],
+      };
+      try {
+        const response = await addToCartMutation({
+          items: newProduct,
+          customercode,
+        }).unwrap();
+        // console.log(response);
+        if (response.status) {
+          openCart();
+        }
+      } catch (error) {
+        showErrorToast("Failed to add item to cart");
+      }
+    } else {
+      dispatch(
+        cartActions.addtoCart({
+          prodcode: productCode,
+          prodname: prodname,
+          variation: {
+            color: selectedColor,
+            size: selected,
+            prodvarcode: activeVarCode,
+          },
+          quantity: inputref.current.value,
+          previewimage: product.preview,
+          price: activePrice,
+        })
+      );
+
+      openCart();
+    }
     // console.log(selected, selectedColor)
     //logic for adding to cart and opening sidecart (openCart())
-    openCart()
   };
 
   useEffect(() => {
     if (!isLoading) {
       setActiveImg(mainImage);
+      setActivePrice(prodPrice);
     }
-  }, [mainImage, isLoading]);
+  }, [mainImage, isLoading, prodPrice]);
 
   useEffect(() => {
-    setSelected("")
-  }, [selectedColor])
+    setSelected("");
+  }, [selectedColor]);
+
+  useEffect(() => {
+    if (selected && selectedColor) {
+      const { code, price } = findVariationDetails(
+        prodvariations,
+        selectedColor,
+        selected
+      );
+      setActivePrice(price);
+      // setActiveQuantity(quantity);
+      setActiveVarCode(code);
+    } else if (selectedColor && selected === "") {
+      setActivePrice(prodPrice);
+      // setActiveQuantity(totalQuantity);
+      setActiveVarCode("");
+    }
+  }, [selected, selectedColor, prodvariations, prodPrice]);
 
   // if (isLoading) {
   //   return <Spinner loading={isLoading} />;
@@ -124,8 +223,8 @@ const Details = () => {
   const sizesForColor =
     !isLoading && getSizesForColor(prodvariations, selectedColor);
   // console.log(sizesForColor);
-
-  // console.log(selectedColor);
+  // console.log(product.prodvariations);
+  //console.log(activeVarCode);
 
   return (
     <main>
@@ -180,7 +279,7 @@ const Details = () => {
                   </h3>
                 </div>
                 <div className="mb-4">
-                  <p className="text-2xl text-slate-950">${prodPrice}</p>
+                  <p className="text-2xl text-slate-950">${activePrice}</p>
                 </div>
                 <div className="mb-4">
                   <Description description={prodDescription} />
@@ -193,6 +292,7 @@ const Details = () => {
                     <ProductColors
                       key={color}
                       color={color}
+                      activeSize={selected}
                       selected={selectedColor}
                       selecthandler={handleSelectedColor}
                     />
@@ -219,7 +319,7 @@ const Details = () => {
                       onClick={decreaseAmt}
                       className="py-3 px-1 sm:px-2"
                     >
-                      <Decrementbtn />
+                      <Decrementbtn className={"w-5 h-5"} />
                     </button>
                     <input
                       id="amount"
@@ -236,7 +336,7 @@ const Details = () => {
                       onClick={increaseAmt}
                       className="py-3 px-1 sm:px-2"
                     >
-                      <Incrementbtn />
+                      <Incrementbtn className={"w-5 h-5"} />
                     </button>
                   </div>
                   <button
@@ -245,22 +345,32 @@ const Details = () => {
                     onClick={addToBag}
                     // disabled={selectedColor === "" ? false : true}
                   >
-                    Add to bag
+                    {isLoggedIn && isAdding ? (
+                      <i className="fa fa-circle-o-notch fa-spin"></i>
+                    ) : (
+                      "Add to bag"
+                    )}
                   </button>
                 </div>
               </div>
             </div>
           )}
-          {filteredRecommended?.length > 0 && (
-            <div>
+          <div>
+            {filteredRecommended?.length > 0 && (
               <div className="mb-4">
                 <h2 className="font-bold text-2xl md:text-3xl text-slate-950 text-center md:text-left">
                   Recommended for you
                 </h2>
               </div>
-              <CustomSlider data={filteredRecommended} loading={isFetching} />
-            </div>
-          )}
+            )}
+            {!isFetching && filteredRecommended?.length > 0 ? (
+              <CustomSlider data={filteredRecommended} />
+            ) : isFetching ? (
+              <SliderSkeleton />
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </section>
     </main>

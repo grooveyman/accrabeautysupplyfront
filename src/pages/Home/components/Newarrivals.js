@@ -6,6 +6,7 @@ import React from "react";
 import CustomSlider from "../../../components/Slider";
 import { useFetch } from "../../../hooks/useReactQueryHooks";
 import { Endpoints } from "../../../services";
+import SliderSkeleton from "../../../components/Skeletons/SliderSkeleton";
 // import Spinner from "../../../components/Spinner";
 
 // const products = [
@@ -50,9 +51,9 @@ const Newarrivals = () => {
             New Arrivals
           </h3>
         </div>
-        {products?.length > 0 && (
-          <CustomSlider data={products} loading={isLoading} />
-        )}
+        {(!isLoading && products?.length > 0) ? (
+          <CustomSlider data={products} />
+        ): isLoading ? <SliderSkeleton /> : ""}
       </div>
     </section>
   );

@@ -1,104 +1,142 @@
-import React from "react";
-import Initialsearchmsg from "./Initialsearchmsg";
-import image from "../../../assets/images/art3.jpg";
-import image2 from "../../../assets/images/cosm.png";
-import image3 from "../../../assets/images/hairagain.jpg";
-import image4 from "../../../assets/images/fabricc.jpg";
+import React, { useEffect } from "react";
 import Searchproduct from "./Searchproduct";
 import Noresults from "../../../components/NoResults/noresults";
-// import Spinner from "../../../components/Spinner";
+import Sort from "./Sort";
+import {
+  useFetchSearchPaginatedData,
+  useFetchSortedSearchData,
+} from "../../../hooks/useReactQueryHooks";
+import { Endpoints } from "../../../services";
+import ProductCard from "../../../components/Skeletons/ProductCard";
 
-const products = [
-  {
-    id: 1,
-    image: image,
-    name: "Product 1",
-    price: "$5.00",
-  },
-  {
-    id: 2,
-    image: image2,
-    name: "Product 2",
-    price: "$5.00",
-  },
-  {
-    id: 3,
-    image: image3,
-    name: "Product 3",
-    price: "$5.00",
-  },
-  {
-    id: 4,
-    image: image4,
-    name: "Product 4",
-    price: "$5.00",
-  },
-  {
-    id: 5,
-    image: image,
-    name: "Product 1",
-    price: "$5.00",
-  },
-  {
-    id: 6,
-    image: image2,
-    name: "Product 2",
-    price: "$5.00",
-  },
-  {
-    id: 7,
-    image: image3,
-    name: "Product 3",
-    price: "$5.00",
-  },
-  {
-    id: 8,
-    image: image4,
-    name: "Product 4",
-    price: "$5.00",
-  },
-  {
-    id: 9,
-    image: image,
-    name: "Product 1",
-    price: "$5.00",
-  },
-  {
-    id: 10,
-    image: image2,
-    name: "Product 2",
-    price: "$5.00",
-  },
-  {
-    id: 11,
-    image: image3,
-    name: "Product 3",
-    price: "$5.00",
-  },
-  {
-    id: 12,
-    image: image4,
-    name: "Product 4",
-    price: "$5.00",
-  },
-];
 
-const Searchlist = ({ query }) => {
-  //   const [loading, setLoading] = useState(false);
+const Searchlist = ({
+  query,
+  newest,
+  lowprice,
+  highprice,
+  defaultFn,
+  mode,
+  totalProducts,
+  setTotalProducts
+}) => {
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(query.toLowerCase())
+  const limit = 12;
+  const searchKey = "searchkey"; //param name
+
+  // Always initialize hooks
+  const paginatedSearchHookResponse = useFetchSearchPaginatedData(
+    ["productsearch", Endpoints.SEARCH_PRODUCTS, limit, query],
+    Endpoints.SEARCH_PRODUCTS,
+    limit,
+    searchKey,
+    query
+  );
+  
+
+  const newSortedHookResponse = useFetchSortedSearchData(
+    [
+      "newestproductsearch",
+      Endpoints.SEARCH_PRODUCTS,
+      limit,
+      "new",
+      "desc",
+      searchKey,
+      query,
+    ],
+    Endpoints.SEARCH_PRODUCTS,
+    limit,
+    "new",
+    "desc",
+    searchKey,
+    query
   );
 
-  if (!query) {
-    return <Initialsearchmsg />;
+  const lowpriceSortedHookResponse = useFetchSortedSearchData(
+    [
+      "lowpriceproductsearch",
+      Endpoints.SEARCH_PRODUCTS,
+      limit,
+      "price",
+      "asc",
+      searchKey,
+      query,
+    ],
+    Endpoints.SEARCH_PRODUCTS,
+    limit,
+    "price",
+    "asc",
+    searchKey,
+    query
+  );
+
+  const highpriceSortedHookResponse = useFetchSortedSearchData(
+    [
+      "highpriceproductsearch",
+      Endpoints.SEARCH_PRODUCTS,
+      limit,
+      "price",
+      "desc",
+      searchKey,
+      query,
+    ],
+    Endpoints.SEARCH_PRODUCTS,
+    limit,
+    "price",
+    "desc",
+    searchKey,
+    query
+  );
+
+  let hookResponse;
+  switch (mode) {
+    case "default":
+      hookResponse = paginatedSearchHookResponse;
+      break;
+    case "newest":
+      hookResponse = newSortedHookResponse;
+      break;
+    case "lowprice":
+      hookResponse = lowpriceSortedHookResponse;
+      break;
+    case "highprice":
+      hookResponse = highpriceSortedHookResponse;
+      break;
+    default:
+      hookResponse = paginatedSearchHookResponse;
+      break;
   }
 
-  //   if (loading) {
-  //     return <Spinner loading={loading} />;
-  //   }
+  const {
+    data = null,
+    isLoading = false,
+    fetchNextPage,
+    hasNextPage = false,
+    isFetchingNextPage = false,
+  } = hookResponse;
 
-  if (query && filteredProducts.length === 0) {
+
+  useEffect(() => {
+    if (data) {
+      const newLength = data?.pages[0]?.count || 0;
+      setTotalProducts((prev) => (prev !== newLength ? newLength : prev));
+    }
+  }, [data, setTotalProducts]);
+
+  const productsSoFar = data?.pages.reduce(
+    (total, page) => total + page.results.length,
+    0
+  );
+
+  if (!query && isLoading) {
+    return (
+      <div className="mb-3">
+        <ProductCard />
+      </div>
+    );
+  }
+
+  if (query && !isLoading && data?.pages[0]?.results?.length === 0) {
     return (
       <Noresults>
         It seems we can't find any results based on your search.
@@ -107,10 +145,39 @@ const Searchlist = ({ query }) => {
   }
 
   return (
-    <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-6">
-      {filteredProducts.map((product) => (
-        <Searchproduct key={product.id} {...product} />
-      ))}
+    <div>
+      <Sort
+        newest={newest}
+        lowprice={lowprice}
+        highprice={highprice}
+        defaultFn={defaultFn}
+        mode={mode}
+        totalProducts={totalProducts}
+      />
+      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-6">
+        {data?.pages.map((page) =>
+          page?.results?.map((product) => (
+            <Searchproduct key={product.code} {...product} />
+          ))
+        )}
+      </div>
+            {/* Load More Button */}
+            <div className="flex justify-center items-center">
+        {hasNextPage && (
+          <button
+            onClick={() => fetchNextPage()}
+            disabled={isFetchingNextPage}
+            className="rounded-md bg-slate-950 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 my-4"
+          >
+            {isFetchingNextPage ? "Loading..." : "Load More"}
+          </button>
+        )}
+      </div>
+      <div className="flex justify-center items-center my-6">
+        <p className="text-base/7 text-gray-600">
+          You've viewed {productsSoFar} out of {totalProducts} {productsSoFar > 1 ? "products": "product"}.
+        </p>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductColors = ({ color, selected, selecthandler }) => {
+const ProductColors = ({ color, activeSize, selected, selecthandler }) => {
 //   const [selectedColor, setSelectedColor] = useState(null);
 
   return (
@@ -21,7 +21,7 @@ const ProductColors = ({ color, selected, selecthandler }) => {
             name="color"
             value={color}
             checked={selected === color}
-            onChange={() => selecthandler(color)}
+            onChange={() => selecthandler(color, activeSize)}
             className="hidden"
           />
           <span

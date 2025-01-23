@@ -25,7 +25,7 @@ const ProductDetail = () => {
             Lorem ipsum dsffref
           </h3>
         </div>
-        <div className="mb-8 bg-gray-200 animate-pulse">
+        <div className="mb-8 bg-gray-200 animate-pulse w-1/5">
           <p className="text-2xl text-gray-200">$233</p>
         </div>
         <div className="mb-6 mt-3 bg-gray-200 animate-pulse">
@@ -34,21 +34,10 @@ const ProductDetail = () => {
             mi, sagittis ut felis id, congue convallis augue. Aliquam molestie
             orci laoreet nisl bibendum facilisis eget a justo. Etiam dictum
             lacus at faucibus porta. Donec scelerisque felis eu libero accumsan,
-            vel semper augue scelerisque. Vestibulum ante ipsum primis in
-            faucibus orci luctus et ultrices posuere cubilia curae; Nullam sit
-            amet fringilla felis, at ullamcorper arcu. Morbi id tellus quis
-            turpis viverra euismod. Nulla ultricies velit in consectetur
-            ullamcorper. Aliquam vulputate nunc nisl, sit amet posuere augue
-            aliquet id. Nullam sed aliquet ante. Duis tincidunt velit quis
-            venenatis varius. Nullam congue quam enim, eget consequat sem
-            interdum eget. Sed porttitor eu arcu sit amet viverra. Ut nec justo
-            bibendum, facilisis lectus vel, vulputate nulla. Ut eget malesuada
-            tellus, a faucibus erat. Cras tempor ante sit amet est semper, quis
-            tincidunt nibh malesuada. Integer nec urna sem. Integer rhoncus
-            consequat nisl, eget pretium turpis molestie vel.
+            vel semper augue scelerisque.
           </p>
         </div>
-        <div className="mb-3 mt-3 bg-gray-200 animate-pulse">
+        <div className="mb-3 mt-3 bg-gray-200 animate-pulse w-1/4">
           <p className="text-base text-gray-200">Color</p>
         </div>
         <div className="flex items-center gap-x-3 mb-4 w-full md:max-w-80">
@@ -65,7 +54,7 @@ const ProductDetail = () => {
             ></span>
           ))}
         </div>
-        <div className="mb-3 bg-gray-200 animate-pulse">
+        <div className="mb-3 bg-gray-200 animate-pulse w-1/4">
           <p className="text-base text-gray-200">Size</p>
         </div>
         <div className="grid grid-cols-4 w-full md:max-w-80">

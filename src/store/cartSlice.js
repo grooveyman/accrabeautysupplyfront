@@ -6,27 +6,42 @@ const cartSlice = createSlice({
   reducers: {
     addtoCart(state, action) {
       const newItem = action.payload;
-      const existingItem = state.items.find((item) => item.id === newItem.id);
+      const existingItem = state.items.find(
+        (item) =>
+          item.prodcode === newItem.prodcode &&
+          item.itemvariation.prodvarcode === newItem.variation.prodvarcode
+      );
 
       if (existingItem) {
         existingItem.quantity += parseInt(newItem.quantity);
-        existingItem.totalPrice +=
+        existingItem.itemvariation.quantity += parseInt(newItem.quantity);
+        existingItem.totalprice +=
+          parseFloat(existingItem.price) * parseInt(newItem.quantity);
+          existingItem.itemvariation.totalprice +=
           parseFloat(existingItem.price) * parseInt(newItem.quantity);
       } else {
         state.items.push({
-          id: newItem.id,
-          title: newItem.title,
+          prodcode: newItem.prodcode,
+          prodname: newItem.prodname,
           quantity: parseInt(newItem.quantity),
-          image: newItem.image,
+          itemvariation: {
+            color: newItem.variation.color,
+            size: newItem.variation.size,
+            prodvarcode: newItem.variation.prodvarcode,
+            quantity: parseInt(newItem.quantity),
+            price: parseFloat(newItem.price),
+            totalprice: parseFloat(newItem.price) * parseInt(newItem.quantity)
+          },
+          previmage: newItem.previewimage,
           price: parseFloat(newItem.price),
-          totalPrice: parseFloat(newItem.price) * parseInt(newItem.quantity),
+          totalprice: parseFloat(newItem.price) * parseInt(newItem.quantity),
         });
       }
 
       state.totalQuantity += parseInt(newItem.quantity);
 
       localStorage.setItem(
-        "cart",
+        "cartSupply",
         JSON.stringify({
           items: state.items,
           totalQuantity: state.totalQuantity,
@@ -34,13 +49,19 @@ const cartSlice = createSlice({
       );
     },
     removeFromCart(state, action) {
-      const itemid = action.payload;
-      state.items = state.items.filter((item) => item.id !== itemid);
+      const itemprodcode = action.payload.prodcode;
+      const itemprodvariation = action.payload.prodvarcode;
+      state.items = state.items.filter(
+        (item) =>
+          item.prodcode !== itemprodcode ||
+          item.itemvariation.prodvarcode !== itemprodvariation
+      );
+
       state.totalQuantity = state.items.reduce((accumulator, currentItem) => {
         return accumulator + currentItem.quantity;
       }, 0);
       localStorage.setItem(
-        "cart",
+        "cartSupply",
         JSON.stringify({
           items: state.items,
           totalQuantity: state.totalQuantity,
@@ -48,14 +69,21 @@ const cartSlice = createSlice({
       );
     },
     increaseCartItem(state, action) {
-      const cartItemId = action.payload;
-      let cartItem = state.items.find((item) => item.id === cartItemId);
+      const cartItemProdCode = action.payload.prodcode;
+      const cartItemVariationCode = action.payload.prodvarcode;
+      let cartItem = state.items.find(
+        (item) =>
+          item.prodcode === cartItemProdCode &&
+          item.itemvariation.prodvarcode === cartItemVariationCode
+      );
       cartItem.quantity++;
-      cartItem.totalPrice += parseFloat(cartItem.price);
-      state.totalQuantity++
+      cartItem.totalprice += parseFloat(cartItem.price);
+      cartItem.itemvariation.quantity++;
+      cartItem.itemvariation.totalprice += parseFloat(cartItem.price);
+      state.totalQuantity++;
 
       localStorage.setItem(
-        "cart",
+        "cartSupply",
         JSON.stringify({
           items: state.items,
           totalQuantity: state.totalQuantity,
@@ -63,17 +91,24 @@ const cartSlice = createSlice({
       );
     },
     decreaseCartItem(state, action) {
-      const cartItemId = action.payload;
-      const cartItem = state.items.find((item) => item.id === cartItemId);
-      if (cartItem.quantity === 1){
+      const cartItemProdCode = action.payload.prodcode;
+      const cartItemVariationCode = action.payload.prodvarcode;
+      let cartItem = state.items.find(
+        (item) =>
+          item.prodcode === cartItemProdCode &&
+          item.itemvariation.prodvarcode === cartItemVariationCode
+      );
+      if (cartItem.quantity === 1) {
         return;
       }
       cartItem.quantity--;
-      cartItem.totalPrice -= parseFloat(cartItem.price);
+      cartItem.totalprice -= parseFloat(cartItem.price);
+      cartItem.itemvariation.quantity--;
+      cartItem.itemvariation.totalprice -= parseFloat(cartItem.price);
       state.totalQuantity--;
 
       localStorage.setItem(
-        "cart",
+        "cartSupply",
         JSON.stringify({
           items: state.items,
           totalQuantity: state.totalQuantity,
@@ -81,10 +116,10 @@ const cartSlice = createSlice({
       );
     },
     replaceCart(state, action) {
-        const localStorageCart = action.payload;
-        state.items = localStorageCart.items;
-        state.totalQuantity = localStorageCart.totalQuantity;
-    }
+      const localStorageCart = action.payload;
+      state.items = localStorageCart.items;
+      state.totalQuantity = localStorageCart.totalQuantity;
+    },
   },
 });
 

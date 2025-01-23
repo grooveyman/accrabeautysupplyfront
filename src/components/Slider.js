@@ -3,13 +3,8 @@ import { NavLink } from "react-router-dom";
 import { backendURL } from "../services";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import SliderSkeleton from "./Skeletons/SliderSkeleton";
 
 const CustomSlider = ({ data, loading }) => {
-
-  if(loading){
-    return <SliderSkeleton />
-  }
 
   return (
     <Swiper
