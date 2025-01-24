@@ -9,7 +9,6 @@ import {
 import { Endpoints } from "../../../services";
 import ProductCard from "../../../components/Skeletons/ProductCard";
 
-
 const Searchlist = ({
   query,
   newest,
@@ -18,9 +17,8 @@ const Searchlist = ({
   defaultFn,
   mode,
   totalProducts,
-  setTotalProducts
+  setTotalProducts,
 }) => {
-
   const limit = 12;
   const searchKey = "searchkey"; //param name
 
@@ -32,7 +30,6 @@ const Searchlist = ({
     searchKey,
     query
   );
-  
 
   const newSortedHookResponse = useFetchSortedSearchData(
     [
@@ -115,7 +112,6 @@ const Searchlist = ({
     isFetchingNextPage = false,
   } = hookResponse;
 
-
   useEffect(() => {
     if (data) {
       const newLength = data?.pages[0]?.count || 0;
@@ -128,7 +124,7 @@ const Searchlist = ({
     0
   );
 
-  if (!query && isLoading) {
+  if (query && isLoading) {
     return (
       <div className="mb-3">
         <ProductCard />
@@ -161,8 +157,8 @@ const Searchlist = ({
           ))
         )}
       </div>
-            {/* Load More Button */}
-            <div className="flex justify-center items-center">
+      {/* Load More Button */}
+      <div className="flex justify-center items-center">
         {hasNextPage && (
           <button
             onClick={() => fetchNextPage()}
@@ -173,11 +169,14 @@ const Searchlist = ({
           </button>
         )}
       </div>
-      <div className="flex justify-center items-center my-6">
-        <p className="text-base/7 text-gray-600">
-          You've viewed {productsSoFar} out of {totalProducts} {productsSoFar > 1 ? "products": "product"}.
-        </p>
-      </div>
+      {!isLoading && (
+        <div className="flex justify-center items-center my-6">
+          <p className="text-base/7 text-gray-600">
+            You've viewed {productsSoFar} out of {totalProducts}
+            {productsSoFar > 1 ? " products" : " product"}.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
