@@ -150,12 +150,14 @@ const Searchlist = ({
         mode={mode}
         totalProducts={totalProducts}
       />
-      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-6">
-        {data?.pages.map((page) =>
-          page?.results?.map((product) => (
-            <Searchproduct key={product.code} {...product} />
-          ))
-        )}
+      <div className="min-h-[70vh]">
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-6">
+          {data?.pages.map((page) =>
+            page?.results?.map((product) => (
+              <Searchproduct key={product.code} {...product} />
+            ))
+          )}
+        </div>
       </div>
       {/* Load More Button */}
       <div className="flex justify-center items-center">

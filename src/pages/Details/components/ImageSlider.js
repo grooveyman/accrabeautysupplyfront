@@ -13,7 +13,7 @@ export default function ImageSlider({ images, name }) {
               src={backendURL + image.imageurl}
               alt={name}
               loading="lazy"
-              className="w-full h-[520px] sm:h-[710px] object-cover object-center"
+              className="w-full h-[800px] sm:h-[1080px] object-cover object-center"
             />
           </div>
         </SwiperSlide>

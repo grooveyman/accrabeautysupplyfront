@@ -229,7 +229,7 @@ const Details = () => {
   return (
     <main>
       <section className="max-w-full py-4 px-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto min-h-[70vh]">
           {!isLoading && (
             <CustomizedBreadcrumbs
               category={category}
@@ -244,7 +244,7 @@ const Details = () => {
             <div className="flex w-full flex-col md:flex-row mt-4 mb-16 gap-y-10 md:gap-y-0 md:gap-x-12">
               <div className="md:w-[44%] w-full">
                 {activeImg ? (
-                  <div className="w-full hidden md:block md:h-[550px] rounded-md overflow-hidden relative mb-3 p-2 md:p-0">
+                  <div className="w-full hidden md:block md:h-[750px] rounded-md overflow-hidden relative mb-3 p-2 md:p-0">
                     <Imagezoom
                       className={classes.fullimagezoom}
                       src={activeImg}
