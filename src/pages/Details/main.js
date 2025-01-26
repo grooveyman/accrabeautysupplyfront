@@ -50,6 +50,12 @@ const Details = () => {
     Endpoints.PRODUCT(productCode)
   );
 
+  useEffect(() => {
+    setSelected("");
+    setSelectedColor("");
+  }, [productCode])
+  
+  
   const product = data?.results || {};
   const category = product.catcode;
   const prodname = product.name;
@@ -72,6 +78,16 @@ const Details = () => {
 
   const handleSelect = (size) => {
     setSelected(size);
+    // if(selected && selectedColor){
+    const { code, price } = findVariationDetails(
+      prodvariations,
+      selectedColor,
+      size
+    );
+    setActivePrice(price);
+    // setActiveQuantity(quantity);
+    setActiveVarCode(code);
+  // }
   };
 
   const handleSelectedColor = (color, size) => {
@@ -83,6 +99,15 @@ const Details = () => {
       );
       if (foundProduct) {
         setSelectedColor(color);
+        const { code, price } = findVariationDetails(
+          prodvariations,
+          color,
+          size
+        );
+        setActivePrice(price);
+        // setActiveQuantity(quantity);
+        setActiveVarCode(code);
+
       } else {
         setSelected("");
         setSelectedColor(color);
@@ -195,21 +220,13 @@ const Details = () => {
   }, [selectedColor]);
 
   useEffect(() => {
-    if (selected && selectedColor) {
-      const { code, price } = findVariationDetails(
-        prodvariations,
-        selectedColor,
-        selected
-      );
-      setActivePrice(price);
-      // setActiveQuantity(quantity);
-      setActiveVarCode(code);
-    } else if (selectedColor && selected === "") {
+
+     if (selectedColor && selected === "") {
       setActivePrice(prodPrice);
       // setActiveQuantity(totalQuantity);
       setActiveVarCode("");
     }
-  }, [selected, selectedColor, prodvariations, prodPrice]);
+  }, [selected, selectedColor, prodPrice]);
 
   // if (isLoading) {
   //   return <Spinner loading={isLoading} />;

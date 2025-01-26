@@ -164,7 +164,7 @@ const Cartmodal = () => {
                 <img
                   src={backendURL + item.previmage}
                   alt={item.prodname}
-                  className="h-20 w-20 object-cover object-center rounded-md"
+                  className="h-32 w-20 object-cover object-center rounded-md"
                 />
                 <div className="flex-1 flex justify-between lg:flex-row">
                   <div className="flex-1 flex flex-col gap-y-2 justify-between">
