@@ -161,7 +161,7 @@ const ShoppingCart = () => {
                     <img
                       src={backendURL + item.previmage}
                       alt={item.prodname}
-                      className="h-20 w-20 md:w-44 md:h-44 object-cover rounded-md"
+                      className="h-32 w-20 md:w-44 md:h-64 object-cover rounded-md"
                     />
                     <div className="flex-1 flex flex-col justify-between lg:flex-row">
                       <div className="flex-1">

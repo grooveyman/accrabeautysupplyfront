@@ -5,7 +5,7 @@ const CartModSkeleton = () => {
     <div className="overflow-y-auto border-b h-[66%] border-gray-300">
     {Array.from({ length: 2 }).map((_, index) => (
       <div key={index} className="flex gap-3 py-3 border-t border-gray-300">
-        <div className="h-20 w-20 bg-gray-300 animate-pulse rounded-md"></div>
+        <div className="h-32 w-20 bg-gray-300 animate-pulse rounded-md"></div>
         <div className="flex-1 flex justify-between lg:flex-row">
           <div className="flex-1 flex flex-col gap-y-2 justify-between">
             <div className="flex justify-between items-center">

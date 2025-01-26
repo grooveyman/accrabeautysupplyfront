@@ -38,7 +38,7 @@ const CustomSlider = ({ data, loading }) => {
         <SwiperSlide key={product.id}>
           <NavLink to={`/productdetail/${product.code}`}>
             <div className="imageContainer">
-              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none hover:opacity-75 w-full h-96 md:h-[450px]">
+              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none hover:opacity-75 w-full h-96 md:h-[470px]">
                 <img
                   src={backendURL + product.preview}
                   alt={product.name}

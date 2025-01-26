@@ -9,7 +9,7 @@ const CartSkeleton = () => {
             key={index}
             className="flex gap-4 py-4 md:py-8 border-y"
           >
-            <div className="h-20 w-20 md:w-44 md:h-44 bg-gray-200 animate-pulse rounded-md"> </div>
+            <div className="h-32 w-20 md:w-44 md:h-64 bg-gray-200 animate-pulse rounded-md"> </div>
             <div className="flex-1 flex flex-col justify-between lg:flex-row">
               <div className="flex-1">
                 <h2 className="text-lg font-semibold bg-gray-200 text-gray-200 animate-pulse mb-2">hesasasassasas</h2>
