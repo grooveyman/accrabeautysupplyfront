@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import CustomSlider from "../../components/Slider";
 import Decrementbtn from "../../components/Decrementbtn";
 import Incrementbtn from "../../components/Incrementbtn";
-import { useFetch } from "../../hooks";
+import { useFetch, usePost } from "../../hooks";
 import { backendURL, Endpoints } from "../../services";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cartSlice";
@@ -47,6 +47,7 @@ const ShoppingCart = () => {
   const totalSum = cartItems?.reduce((accumulator, currentItem) => {
     return accumulator + parseInt(currentItem.totalprice);
   }, 0);
+  const {postReq, isPending: isSubmitting} = usePost(['checkout'], Endpoints.CHECKOUT)
   // console.log(cart);
 
   const removeItem = async (prodcode, prodvarcode, customercode) => {
@@ -125,6 +126,30 @@ const ShoppingCart = () => {
     } catch (err) {
       showErrorToast("Failed to update cart item");
     }
+  };
+
+  const handleCheckout = (customerCode, cartData, totalprice) => {
+    const totalPrice = parseFloat(totalprice) * 100; //in cents
+    const cartValues = cartData.map((item) => {
+      return {
+        name: item.prodname,
+        price: parseFloat(item.price) * 100, //in cents
+        quantity: item.quantity,
+        image: backendURL + item.previmage,
+        color: item.itemvariation.color,
+        size: item.itemvariation.size,
+      };
+    });
+    const values = { custcode: customerCode, totalprice: totalPrice, products: cartValues };
+    // console.log(values);
+      postReq(values, {
+      onSuccess: (data) => {
+        window.location = data.data.pay_link;
+      },
+      onError: (error) => {
+        showErrorToast("Failed to checkout. Please try again.")
+      }
+    })
   };
 
   const { data: recommendedData, isLoading: isFetching } = useFetch(
@@ -274,8 +299,8 @@ const ShoppingCart = () => {
                     )}
                   </span>
                 </div>
-                <button className="w-full bg-slate-950 text-white py-3 rounded-lg hover:bg-slate-900 transition">
-                  Checkout
+                <button type="button" onClick={() => handleCheckout(customercode, cartItems, totalSum)} className="w-full bg-slate-950 text-white py-3 rounded-lg hover:bg-slate-900 transition">
+                {isSubmitting ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Checkout"}
                 </button>
               </div>
             </div>

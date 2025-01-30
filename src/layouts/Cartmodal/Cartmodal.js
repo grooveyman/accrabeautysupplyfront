@@ -4,15 +4,11 @@ import { useContext } from "react";
 import { Authcontext, ModalContext } from "../../context";
 import XIcon from "../Header/components/XIcon";
 import { Link } from "react-router-dom";
-// import image2 from "../../assets/images/cosm.png";
-// import image3 from "../../assets/images/hairagain.jpg";
-// import image4 from "../../assets/images/darkxlovely.jpg";
-// import image1 from "../../assets/images/art3.jpg";
 import Incrementbtn from "../../components/Incrementbtn";
 import Decrementbtn from "../../components/Decrementbtn";
 import Trash from "../../components/Trash";
 import { useDispatch, useSelector } from "react-redux";
-import { backendURL } from "../../services";
+import { backendURL, Endpoints } from "../../services";
 import { cartActions } from "../../store/cartSlice";
 import {
   useGetCartQuery,
@@ -24,6 +20,7 @@ import {
   showSuccessToast,
 } from "../../helpers/Helperfunctions";
 import CartModSkeleton from "../../components/Skeletons/CartModSkeleton";
+import { usePost } from "../../hooks";
 // import Emptycart from "../../pages/Cart/components/Emptycart";
 
 const Cartmodal = () => {
@@ -53,6 +50,11 @@ const Cartmodal = () => {
   const totalSum = cartItems?.reduce((accumulator, currentItem) => {
     return accumulator + parseInt(currentItem.totalprice);
   }, 0);
+
+  const { postReq, isPending: isSubmitting } = usePost(
+    ["checkout"],
+    Endpoints.CHECKOUT
+  );
   // console.log(cart);
 
   const removeItem = async (prodcode, prodvarcode, customercode) => {
@@ -85,7 +87,7 @@ const Cartmodal = () => {
     const newTotalPrice = parseFloat(price) * parseFloat(newQuantity);
 
     try {
-       await updateCartItem({
+      await updateCartItem({
         customercode,
         quantity: newQuantity,
         prodcode,
@@ -131,6 +133,30 @@ const Cartmodal = () => {
     } catch (err) {
       showErrorToast("Failed to update cart item");
     }
+  };
+
+  const handleCheckout = (customerCode, cartData, totalprice) => {
+    const totalPrice = parseFloat(totalprice) * 100;
+    const cartValues = cartData.map((item) => {
+      return {
+        name: item.prodname,
+        price: parseFloat(item.price) * 100,
+        quantity: item.quantity,
+        image: backendURL + item.previmage,
+        color: item.itemvariation.color,
+        size: item.itemvariation.size,
+      };
+    });
+    const values = { custcode: customerCode, totalprice: totalPrice, products: cartValues };
+    // console.log(values);
+      postReq(values, {
+      onSuccess: (data) => {
+        window.location = data.data.pay_link;
+      },
+      onError: (error) => {
+        showErrorToast("Failed to checkout. Please try again.")
+      }
+    })
   };
 
   // if (totalQ === 0) {
@@ -260,9 +286,13 @@ const Cartmodal = () => {
             Shipping and taxes calculated at checkout.
           </p>
           <div className="mt-4">
-            <Link className="flex items-center justify-center rounded-md border border-transparent bg-slate-950 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-slate-900 mb-3">
-              Checkout
-            </Link>
+            <button
+              type="button"
+              onClick={() => handleCheckout(customercode, cartItems, totalSum)}
+              className="flex items-center justify-center rounded-md border border-transparent bg-slate-950 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-slate-900 mb-3 w-full"
+            >
+              {isSubmitting ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Checkout"}
+            </button>
             <div className="text-center">
               <Link
                 className="font-medium text-slate-950 hover:text-slate-900"
