@@ -29,5 +29,6 @@ export const Endpoints = {
   LOGOUT: `/customers/logout`,
   FORGOT_PASSWORD: `/customers/forgotpassword`,
   RESET_PASSWORD: `/customers/resetpassword`,
-  SEARCH_PRODUCTS: `/productsearch`
+  SEARCH_PRODUCTS: `/productsearch`,
+  CHECKOUT: `/checkout`
 };
